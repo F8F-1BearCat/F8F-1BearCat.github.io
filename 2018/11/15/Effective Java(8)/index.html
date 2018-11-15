@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Effective Java,">
 
 
 
@@ -94,16 +94,20 @@
 
 
 
-<meta name="description" content="今天除了皮，又啥也没干">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Magical Cat">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="通用程序设计45 将局部变量作用域最小化目的增强代码的可读性和维护性，并降低 出错的可能性。 方法 在局部变量第一次使用的地方声明。 几乎每个局部变量的声明都应该包含一个初始化表达式。 使方法小而集中举例   try-catch for循环与while循环对比46 for-each循环优先于传统的for循环for循环缺点 迭代器和索引变量在每个循环中出现三次，其中有两次很容易出错，且编译器不能发">
+<meta name="keywords" content="Effective Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Effective Java(8)">
+<meta property="og:url" content="http://yoursite.com/2018/11/15/Effective Java(8)/index.html">
 <meta property="og:site_name" content="Magical Cat">
-<meta property="og:description" content="今天除了皮，又啥也没干">
+<meta property="og:description" content="通用程序设计45 将局部变量作用域最小化目的增强代码的可读性和维护性，并降低 出错的可能性。 方法 在局部变量第一次使用的地方声明。 几乎每个局部变量的声明都应该包含一个初始化表达式。 使方法小而集中举例   try-catch for循环与while循环对比46 for-each循环优先于传统的for循环for循环缺点 迭代器和索引变量在每个循环中出现三次，其中有两次很容易出错，且编译器不能发">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn2.iconfinder.com/data/icons/oxygen/128x128/mimetypes/text-x-java.png">
+<meta property="og:updated_time" content="2018-11-15T09:19:54.852Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Magical Cat">
-<meta name="twitter:description" content="今天除了皮，又啥也没干">
+<meta name="twitter:title" content="Effective Java(8)">
+<meta name="twitter:description" content="通用程序设计45 将局部变量作用域最小化目的增强代码的可读性和维护性，并降低 出错的可能性。 方法 在局部变量第一次使用的地方声明。 几乎每个局部变量的声明都应该包含一个初始化表达式。 使方法小而集中举例   try-catch for循环与while循环对比46 for-each循环优先于传统的for循环for循环缺点 迭代器和索引变量在每个循环中出现三次，其中有两次很容易出错，且编译器不能发">
+<meta name="twitter:image" content="https://cdn2.iconfinder.com/data/icons/oxygen/128x128/mimetypes/text-x-java.png">
 
 
 
@@ -132,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/15/Effective Java(8)/">
 
 
 
 
 
-  <title>Magical Cat</title>
+  <title>Effective Java(8) | Magical Cat</title>
   
 
 
@@ -163,9 +167,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -278,9 +280,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -310,9 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/15/Effective Java(8)/" itemprop="url">Effective Java(8)</a></h1>
+          <h1 class="post-title" itemprop="name headline">Effective Java(8)</h1>
         
 
         <div class="post-meta">
@@ -384,9 +384,7 @@
       
 
       
-        
-          
-            <p><img src="https://cdn2.iconfinder.com/data/icons/oxygen/128x128/mimetypes/text-x-java.png" alt="图片"></p>
+        <p><img src="https://cdn2.iconfinder.com/data/icons/oxygen/128x128/mimetypes/text-x-java.png" alt="图片"></p>
 <h1 id="通用程序设计"><a href="#通用程序设计" class="headerlink" title="通用程序设计"></a>通用程序设计</h1><h2 id="45-将局部变量作用域最小化"><a href="#45-将局部变量作用域最小化" class="headerlink" title="45 将局部变量作用域最小化"></a>45 将局部变量作用域最小化</h2><h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>增强代码的<strong>可读性</strong>和<strong>维护性</strong>，并降低 <strong>出错</strong>的可能性。</p>
 <h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><ul>
 <li>在局部变量第一次使用的地方声明。</li>
@@ -495,8 +493,6 @@ ArrayList&lt;String&gt; lists = new ArrayList&lt;String&gt;();
 <li>性能损失。<h2 id="54-55-56-待续"><a href="#54-55-56-待续" class="headerlink" title="54 55 56 待续"></a>54 55 56 待续</h2></li>
 </ul>
 
-          
-        
       
     </div>
     
@@ -511,142 +507,36 @@ ArrayList&lt;String&gt; lists = new ArrayList&lt;String&gt;();
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/13/hello-world/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="F8F-1BearCat">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/Issac.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Magical Cat">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/13/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-13T19:57:11+08:00">
-                2018-11-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/Effective-Java/" rel="tag"># Effective Java</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/13/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
       
     </footer>
   </div>
@@ -656,10 +546,11 @@ ArrayList&lt;String&gt; lists = new ArrayList&lt;String&gt;();
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -667,6 +558,10 @@ ArrayList&lt;String&gt; lists = new ArrayList&lt;String&gt;();
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -687,8 +582,17 @@ ArrayList&lt;String&gt; lists = new ArrayList&lt;String&gt;();
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/Issac.png" alt="F8F-1BearCat">
           <p class="site-author-name" itemprop="name">F8F-1BearCat</p>
@@ -748,6 +652,22 @@ ArrayList&lt;String&gt; lists = new ArrayList&lt;String&gt;();
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#通用程序设计"><span class="nav-number">1.</span> <span class="nav-text">通用程序设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#45-将局部变量作用域最小化"><span class="nav-number">1.1.</span> <span class="nav-text">45 将局部变量作用域最小化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目的"><span class="nav-number">1.1.1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法"><span class="nav-number">1.1.2.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#举例"><span class="nav-number">1.1.3.</span> <span class="nav-text">举例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#46-for-each循环优先于传统的for循环"><span class="nav-number">1.2.</span> <span class="nav-text">46 for-each循环优先于传统的for循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#for循环缺点"><span class="nav-number">1.2.1.</span> <span class="nav-text">for循环缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for-each循环的优点"><span class="nav-number">1.2.2.</span> <span class="nav-text">for-each循环的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有三种常见的情况无法使用for-each循环"><span class="nav-number">1.2.3.</span> <span class="nav-text">有三种常见的情况无法使用for-each循环</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#47-了解和使用类库"><span class="nav-number">1.3.</span> <span class="nav-text">47 了解和使用类库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类库中值得注意的两个工具"><span class="nav-number">1.3.1.</span> <span class="nav-text">类库中值得注意的两个工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#48-如果需要精确的答案，请避免使用float和double"><span class="nav-number">1.4.</span> <span class="nav-text">48 如果需要精确的答案，请避免使用float和double</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#49-基本类型优于装箱基本类型"><span class="nav-number">1.5.</span> <span class="nav-text">49 基本类型优于装箱基本类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本类型"><span class="nav-number">1.5.1.</span> <span class="nav-text">基本类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装箱基本类型"><span class="nav-number">1.5.2.</span> <span class="nav-text">装箱基本类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区别"><span class="nav-number">1.5.3.</span> <span class="nav-text">区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-number">1.5.4.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#50-如果其他类型更适合，则尽量避免使用字符串"><span class="nav-number">1.6.</span> <span class="nav-text">50 如果其他类型更适合，则尽量避免使用字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#不应该使用字符串的情形"><span class="nav-number">1.6.1.</span> <span class="nav-text">不应该使用字符串的情形</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#51-当心字符串连接的性能"><span class="nav-number">1.7.</span> <span class="nav-text">51 当心字符串连接的性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#52-通过接口引用对象"><span class="nav-number">1.8.</span> <span class="nav-text">52 通过接口引用对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#53-接口优于反射机制"><span class="nav-number">1.9.</span> <span class="nav-text">53 接口优于反射机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#反射机制的弊端"><span class="nav-number">1.9.1.</span> <span class="nav-text">反射机制的弊端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#54-55-56-待续"><span class="nav-number">1.10.</span> <span class="nav-text">54 55 56 待续</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -868,10 +788,10 @@ ArrayList&lt;String&gt; lists = new ArrayList&lt;String&gt;();
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 
