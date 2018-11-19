@@ -118,8 +118,8 @@
 <meta property="og:image" content="https://i.loli.net/2018/11/19/5bf280fb7fd1e.png">
 <meta property="og:image" content="https://i.loli.net/2018/11/19/5bf272fdb0bbf.png">
 <meta property="og:image" content="https://i.loli.net/2018/11/19/5bf280fb09e34.png">
-<meta property="og:image" content="https://i.loli.net/2018/11/19/5bf286c80b22c.jpg">
-<meta property="og:updated_time" content="2018-11-19T10:05:11.446Z">
+<meta property="og:image" content="https://i.loli.net/2018/11/19/5bf28b9a947e9.png">
+<meta property="og:updated_time" content="2018-11-19T10:08:44.490Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Netty直接内存泄露">
 <meta name="twitter:description" content="背景最近在做接口服务内存和CPU优化，使用Netty版本为netty-all-4.1.29.Final，对于行情数据我们采用Netty的直接内存进行存储，Netty的几种ByteBuf介绍见：Netty常见内存结构 ，当前我们使用的是PooledByteBufAllocator，所以每次内存使用完毕后都需要通过release()方法手动回收直接内存。 使用Netty的直接内存有点与C类似，自己m">
@@ -459,7 +459,7 @@
 <p>2.这次问题的出现是只在ByteBuf使用之后进行了回收，没有考虑到在异常情况下ByteBuf没有成功传递到下一个Hanlder（<del>其实考虑到了，只不过疏忽了这个分支</del>），这时也要把分配了没有使用的直接内存进行回收。</p>
 <p>3.至于为什么Netty自身的监测机制没有打印LEAK日志，后面我会再研究一下。</p>
 <p>最后希望大家都能：</p>
-<p><img src="https://i.loli.net/2018/11/19/5bf286c80b22c.jpg" alt="表情.jpg"></p>
+<p><img src="https://i.loli.net/2018/11/19/5bf28b9a947e9.png" alt="表情.png"></p>
 
       
     </div>
