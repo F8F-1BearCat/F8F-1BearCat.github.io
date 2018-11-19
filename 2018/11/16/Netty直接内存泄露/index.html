@@ -106,7 +106,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2018/11/19/5bf21c6726a92.png">
 <meta property="og:image" content="https://i.loli.net/2018/11/19/5bf2700185b45.png">
-<meta property="og:image" content="https://i.loli.net/2018/11/19/5bf27017e9fa0.png">
+<meta property="og:image" content="https://i.loli.net/2018/11/19/5bf28a9a2d455.png">
 <meta property="og:image" content="https://i.loli.net/2018/11/19/5bf2701a7dc76.png">
 <meta property="og:image" content="https://i.loli.net/2018/11/19/5bf21b9878c32.png">
 <meta property="og:image" content="https://i.loli.net/2018/11/19/5bf27013c719b.png">
@@ -119,7 +119,7 @@
 <meta property="og:image" content="https://i.loli.net/2018/11/19/5bf272fdb0bbf.png">
 <meta property="og:image" content="https://i.loli.net/2018/11/19/5bf280fb09e34.png">
 <meta property="og:image" content="https://i.loli.net/2018/11/19/5bf286c80b22c.jpg">
-<meta property="og:updated_time" content="2018-11-19T09:56:02.179Z">
+<meta property="og:updated_time" content="2018-11-19T10:05:11.446Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Netty直接内存泄露">
 <meta name="twitter:description" content="背景最近在做接口服务内存和CPU优化，使用Netty版本为netty-all-4.1.29.Final，对于行情数据我们采用Netty的直接内存进行存储，Netty的几种ByteBuf介绍见：Netty常见内存结构 ，当前我们使用的是PooledByteBufAllocator，所以每次内存使用完毕后都需要通过release()方法手动回收直接内存。 使用Netty的直接内存有点与C类似，自己m">
@@ -410,7 +410,7 @@
 <p><img src="https://i.loli.net/2018/11/19/5bf2700185b45.png" alt="SZVPC内存使用情况.png"></p>
 <p>可以发现在上午9:00~11:00时间段内，接口服务多次挂掉后自动重启，中午版本回退后服务才恢复正常。</p>
 <h2 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h2><h3 id="一、查看系统日志"><a href="#一、查看系统日志" class="headerlink" title="一、查看系统日志"></a>一、查看系统日志</h3><p>首先查看服务异常时间段内服务器上的日志，可以发现在短时间内日志打印了非常多的直接内存分配异常<code>OutOfDirectMemoryError</code>：</p>
-<p><img src="https://i.loli.net/2018/11/19/5bf27017e9fa0.png" alt="直接内存分配异常.png"></p>
+<p><img src="https://i.loli.net/2018/11/19/5bf28a9a2d455.png" alt="直接内存分配异常.png"></p>
 <p>日志显示直接内存Direct Memory不够用了，该服务器上配置了堆内存12G，直接内存18G，与异常中打印的最大可分配直接内存相匹配；</p>
 <p><img src="https://i.loli.net/2018/11/19/5bf2701a7dc76.png" alt="内存配置.png"></p>
 <p>根据之前的内存使用情况可以断定在服务正常状态下，18G直接内存是能满足接口服务使用场景的，那就可以断定单纯地在配置中增大可分配直接内存的大小不能解决问题。</p>
