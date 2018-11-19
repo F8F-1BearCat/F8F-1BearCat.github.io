@@ -379,7 +379,7 @@
 
       
         
-          <p><img src="https://i.loli.net/2018/11/19/5bf25d35d087c.png" alt="arthas.png"></p>
+          <p><img src="https://i.loli.net/2018/11/19/5bf2661ea96ae.png" alt="arthas.png"></p>
 <h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>Arthas（阿尔萨斯）是阿里巴巴开源的 Java 诊断工具，深受开发者喜爱。</p>
 <p>当你遇到以下类似问题而束手无策时，Arthas 可以帮助你解决：</p>
 <pre><code>这个类从哪个 jar 包加载的？为什么会报各种类相关的 Exception？
@@ -1128,7 +1128,7 @@
       
         
           <p><img src="https://i.loli.net/2018/11/19/5bf21c6726a92.png" alt="netty.png"></p>
-<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近在做接口服务内存和CPU优化，使用Netty版本为<code>netty-all-4.1.29.Final</code>，对于行情数据我们采用Netty的直接内存进行存储，Netty的几种<code>ByteBuf</code>介绍见：<a href="https://www.cnblogs.com/549294286/p/5168454.html" target="_blank" rel="noopener">Netty常见内存结构</a> ，当前我们使用的是<code>PooledByteBufAllocator</code>，所以每次内存使用完毕后都需要通过<code>release()</code>方法手动回收直接内存。</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近在做接口服务内存和CPU优化，使用Netty版本为<code>netty-all-4.1.29.Final</code>，对于行情数据我们采用Netty的直接内存进行存储，Netty的几种<code>ByteBuf</code>介绍见：<a href="https://f8f-1bearcat.github.io/2018/11/19/Netty%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E5%AF%B9%E8%B1%A1/" target="_blank" rel="noopener">Netty常见内存结构</a> ，当前我们使用的是<code>PooledByteBufAllocator</code>，所以每次内存使用完毕后都需要通过<code>release()</code>方法手动回收直接内存。</p>
 <p>使用Netty的直接内存有点与C类似，自己malloc的对象需要自己free；但与C不同的是，在内有引用计数器，外有Java的GC的场景下，Netty直接内存的使用更为服务，对内存的使用稍有纰漏就会导致整个服务挂掉。在一次优化版本中，就出现了很严重的Netty直接内存泄露的问题。<br>
           <!--noindex-->
           <div class="post-button text-center">
