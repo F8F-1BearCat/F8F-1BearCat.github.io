@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="性能调优,">
+  <meta name="keywords" content="Netty,">
 
 
 
@@ -96,20 +96,20 @@
 
 
 
-<meta name="description" content="挖坑…">
-<meta name="keywords" content="性能调优">
+<meta name="description" content="文章摘要挖坑…">
+<meta name="keywords" content="Netty">
 <meta property="og:type" content="article">
-<meta property="og:title" content="线上应用故障排查：高内存占用">
-<meta property="og:url" content="http://yoursite.com/2018/11/16/线上应用故障排查：高内存占用/index.html">
+<meta property="og:title" content="Netty引用计数对象">
+<meta property="og:url" content="http://yoursite.com/2018/11/19/Netty引用计数对象/index.html">
 <meta property="og:site_name" content="Magical Cat">
-<meta property="og:description" content="挖坑…">
+<meta property="og:description" content="文章摘要挖坑…">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://cdn2.iconfinder.com/data/icons/oxygen/128x128/mimetypes/text-x-java.png">
-<meta property="og:updated_time" content="2018-11-19T05:43:48.675Z">
+<meta property="og:image" content="https://i.loli.net/2018/11/19/5bf21c6726a92.png">
+<meta property="og:updated_time" content="2018-11-19T05:43:44.331Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="线上应用故障排查：高内存占用">
-<meta name="twitter:description" content="挖坑…">
-<meta name="twitter:image" content="https://cdn2.iconfinder.com/data/icons/oxygen/128x128/mimetypes/text-x-java.png">
+<meta name="twitter:title" content="Netty引用计数对象">
+<meta name="twitter:description" content="文章摘要挖坑…">
+<meta name="twitter:image" content="https://i.loli.net/2018/11/19/5bf21c6726a92.png">
 
 
 
@@ -138,7 +138,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/16/线上应用故障排查：高内存占用/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/19/Netty引用计数对象/">
 
 
 
@@ -146,7 +146,7 @@
 
 <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
 
-  <title>线上应用故障排查：高内存占用 | Magical Cat</title>
+  <title>Netty引用计数对象 | Magical Cat</title>
   
 
 
@@ -289,7 +289,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/线上应用故障排查：高内存占用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/Netty引用计数对象/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="F8F-1BearCat">
@@ -306,7 +306,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">线上应用故障排查：高内存占用</h1>
+          <h1 class="post-title" itemprop="name headline">Netty引用计数对象</h1>
         
 
         <div class="post-meta">
@@ -318,8 +318,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-16T17:04:30+08:00">
-                2018-11-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-19T13:42:35+08:00">
+                2018-11-19
               </time>
             
 
@@ -378,9 +378,9 @@
       
 
       
-        <p><img src="https://cdn2.iconfinder.com/data/icons/oxygen/128x128/mimetypes/text-x-java.png" alt="图片"></p>
-<p>挖坑…<br><a id="more"></a></p>
-
+        <p><img src="https://i.loli.net/2018/11/19/5bf21c6726a92.png" alt="netty.png"></p>
+<h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>挖坑…</p>
+<a id="more"></a>
       
     </div>
     
@@ -397,7 +397,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/性能调优/" rel="tag"><i class="fa fa-tag"></i> 性能调优</a>
+            <a href="/tags/Netty/" rel="tag"><i class="fa fa-tag"></i> Netty</a>
           
         </div>
       
@@ -410,8 +410,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/16/线上应用故障排查：高CPU占用/" rel="next" title="线上应用故障排查：高CPU占用">
-                <i class="fa fa-chevron-left"></i> 线上应用故障排查：高CPU占用
+              <a href="/2018/11/16/线上应用故障排查：高内存占用/" rel="next" title="线上应用故障排查：高内存占用">
+                <i class="fa fa-chevron-left"></i> 线上应用故障排查：高内存占用
               </a>
             
           </div>
@@ -420,8 +420,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/19/Netty引用计数对象/" rel="prev" title="Netty引用计数对象">
-                Netty引用计数对象 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/19/Netty的OutOfDirectMemoryError问题/" rel="prev" title="Netty的OutOfDirectMemoryError问题">
+                Netty的OutOfDirectMemoryError问题 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -474,8 +474,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/Issac.png" alt="F8F-1BearCat">
           <p class="site-author-name" itemprop="name">F8F-1BearCat</p>
@@ -566,6 +575,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文章摘要"><span class="nav-number">1.</span> <span class="nav-text">文章摘要</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

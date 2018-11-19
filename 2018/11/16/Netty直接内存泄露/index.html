@@ -96,20 +96,24 @@
 
 
 
-<meta name="description" content="挖坑…">
+<meta name="description" content="背景最近在做接口服务内存和CPU优化，使用Netty版本为netty-all-4.1.29.Final，对于行情数据我们采用Netty的直接内存进行存储，Netty的几种ByteBuf介绍见：Netty常见内存结构 ，当前我们使用的是PooledByteBufAllocator，所以每次内存使用完毕后都需要通过release()方法手动回收直接内存。 使用Netty的直接内存有点与C类似，自己m">
 <meta name="keywords" content="Netty">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Netty直接内存泄露">
 <meta property="og:url" content="http://yoursite.com/2018/11/16/Netty直接内存泄露/index.html">
 <meta property="og:site_name" content="Magical Cat">
-<meta property="og:description" content="挖坑…">
+<meta property="og:description" content="背景最近在做接口服务内存和CPU优化，使用Netty版本为netty-all-4.1.29.Final，对于行情数据我们采用Netty的直接内存进行存储，Netty的几种ByteBuf介绍见：Netty常见内存结构 ，当前我们使用的是PooledByteBufAllocator，所以每次内存使用完毕后都需要通过release()方法手动回收直接内存。 使用Netty的直接内存有点与C类似，自己m">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://cdn2.iconfinder.com/data/icons/oxygen/128x128/mimetypes/text-x-java.png">
-<meta property="og:updated_time" content="2018-11-16T08:33:47.663Z">
+<meta property="og:image" content="https://i.loli.net/2018/11/19/5bf21c6726a92.png">
+<meta property="og:image" content="https://i.loli.net/2018/11/19/5bf213850c25c.png">
+<meta property="og:image" content="https://i.loli.net/2018/11/19/5bf214d47d1b1.png">
+<meta property="og:image" content="https://i.loli.net/2018/11/19/5bf2206414535.png">
+<meta property="og:image" content="https://i.loli.net/2018/11/19/5bf21b9878c32.png">
+<meta property="og:updated_time" content="2018-11-19T06:45:46.408Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Netty直接内存泄露">
-<meta name="twitter:description" content="挖坑…">
-<meta name="twitter:image" content="https://cdn2.iconfinder.com/data/icons/oxygen/128x128/mimetypes/text-x-java.png">
+<meta name="twitter:description" content="背景最近在做接口服务内存和CPU优化，使用Netty版本为netty-all-4.1.29.Final，对于行情数据我们采用Netty的直接内存进行存储，Netty的几种ByteBuf介绍见：Netty常见内存结构 ，当前我们使用的是PooledByteBufAllocator，所以每次内存使用完毕后都需要通过release()方法手动回收直接内存。 使用Netty的直接内存有点与C类似，自己m">
+<meta name="twitter:image" content="https://i.loli.net/2018/11/19/5bf21c6726a92.png">
 
 
 
@@ -173,8 +177,6 @@
 
   <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
-	
-	<a href="https://github.com/F8F-1BearCat"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
@@ -380,9 +382,28 @@
       
 
       
-        <p><img src="https://cdn2.iconfinder.com/data/icons/oxygen/128x128/mimetypes/text-x-java.png" alt="图片"></p>
-<p>挖坑…</p>
-
+        <p><img src="https://i.loli.net/2018/11/19/5bf21c6726a92.png" alt="netty.png"></p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近在做接口服务内存和CPU优化，使用Netty版本为<code>netty-all-4.1.29.Final</code>，对于行情数据我们采用Netty的直接内存进行存储，Netty的几种<code>ByteBuf</code>介绍见：<a href="https://www.cnblogs.com/549294286/p/5168454.html" target="_blank" rel="noopener">Netty常见内存结构</a> ，当前我们使用的是<code>PooledByteBufAllocator</code>，所以每次内存使用完毕后都需要通过<code>release()</code>方法手动回收直接内存。</p>
+<p>使用Netty的直接内存有点与C类似，自己malloc的对象需要自己free；但与C不同的是，在内有引用计数器，外有Java的GC的场景下，Netty直接内存的使用更为服务，对内存的使用稍有纰漏就会导致整个服务挂掉。在一次优化版本中，就出现了很严重的Netty直接内存泄露的问题。<br><a id="more"></a></p>
+<h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>前一天盘后我们部署了某个优化版本到灰度服务器上，第二天行情数据下发后伴随着用户量增长，接口服务在很短的时间内不可用。</p>
+<p>通过运维平台调取了当天该服务器上的内存使用情况：</p>
+<p><img src="https://i.loli.net/2018/11/19/5bf213850c25c.png" alt="图片"></p>
+<p>可以发现在上午9:00~11:00时间段内，接口服务多次挂掉后自动重启，中午版本回退后服务才恢复正常。</p>
+<h2 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h2><h3 id="一、查看系统日志"><a href="#一、查看系统日志" class="headerlink" title="一、查看系统日志"></a>一、查看系统日志</h3><p>首先查看服务异常时间段内服务器上的日志，可以发现在短时间内日志打印了非常多的直接内存分配异常<code>OutOfDirectMemoryError</code>：</p>
+<p><img src="https://i.loli.net/2018/11/19/5bf214d47d1b1.png" alt="图片"></p>
+<p>日志显示直接内存Direct Memory不够用了，该服务器上配置了堆内存12G，直接内存18G，与异常中打印的最大可分配直接内存相匹配；</p>
+<p><img src="https://i.loli.net/2018/11/19/5bf2206414535.png" alt="内存配置.png"></p>
+<p>根据之前的内存使用情况可以断定在服务正常状态下，18G直接内存是能满足接口服务使用场景的，那就可以断定单纯地在配置中增大可分配直接内存的大小不能解决问题。</p>
+<h3 id="二、确认异常抛出原因"><a href="#二、确认异常抛出原因" class="headerlink" title="二、确认异常抛出原因"></a>二、确认异常抛出原因</h3><p>通过上面OOM异常日志，可以追踪到<code>PlatformDependent.java</code>的<code>incrementMemoryCounter(int capacity)</code>方法。</p>
+<p><img src="https://i.loli.net/2018/11/19/5bf21b9878c32.png" alt=""></p>
+<p>我们可以看到这个方法是Netty自身对已使用直接内存进行计数，当计数器<code>DIRECT_MEMORY_COUNTER</code>已使用内存大于直接内存上限<code>DIRECT_MEMORY_LIMIT</code>时，抛出一个OutOfDirectMemoryError异常，这个直接内存上限即上面我们在配置文件中通过<code>-XX:MaxDirectMemorySize</code>配置的。关于Netty的OutOfDirectMemoryError问题见：<a href="https://lishoubo.github.io/2017/11/03/%E5%85%B3%E4%BA%8ENetty%E7%9A%84OutOfDirectMemoryError/" target="_blank" rel="noopener">关于Netty的OutOfDirectMemoryError问题</a> 。</p>
+<p>无法分配直接内存无非是以下两种情况导致的：</p>
+<ol>
+<li>分配的直接内存最终没有<code>release()</code>掉，使直接内存不断被分配使用而没有回收掉，最终达到可用上限产生内存泄露；</li>
+<li>因用户网络异常或者传输的数据量过大等问题，使得直接内存的释放回收速度小于其分配的速度，最终无内存可分配抛出OOM。</li>
+</ol>
+<p>如果是前者，就需要找出没有正确<code>release()</code>的代码进行修改；如果是后者，则需要在write的时候，添加流控措施，避免到达内存限制。</p>
+<h3 id="三、Netty内存泄漏的监测机制"><a href="#三、Netty内存泄漏的监测机制" class="headerlink" title="三、Netty内存泄漏的监测机制"></a>三、Netty内存泄漏的监测机制</h3><h3 id="四、Arthas查看直接内存使用情况"><a href="#四、Arthas查看直接内存使用情况" class="headerlink" title="四、Arthas查看直接内存使用情况"></a>四、Arthas查看直接内存使用情况</h3><h3 id="五、日志打印直接内存"><a href="#五、日志打印直接内存" class="headerlink" title="五、日志打印直接内存"></a>五、日志打印直接内存</h3><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2>
       
     </div>
     
@@ -476,8 +497,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/Issac.png" alt="F8F-1BearCat">
           <p class="site-author-name" itemprop="name">F8F-1BearCat</p>
@@ -490,7 +520,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -512,7 +542,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -568,6 +598,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现象"><span class="nav-number">2.</span> <span class="nav-text">现象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排查过程"><span class="nav-number">3.</span> <span class="nav-text">排查过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、查看系统日志"><span class="nav-number">3.1.</span> <span class="nav-text">一、查看系统日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、确认异常抛出原因"><span class="nav-number">3.2.</span> <span class="nav-text">二、确认异常抛出原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、Netty内存泄漏的监测机制"><span class="nav-number">3.3.</span> <span class="nav-text">三、Netty内存泄漏的监测机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、Arthas查看直接内存使用情况"><span class="nav-number">3.4.</span> <span class="nav-text">四、Arthas查看直接内存使用情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、日志打印直接内存"><span class="nav-number">3.5.</span> <span class="nav-text">五、日志打印直接内存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number">4.</span> <span class="nav-text">结论</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
