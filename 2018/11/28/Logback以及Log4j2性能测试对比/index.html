@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="性能调优,">
+  <meta name="keywords" content="Logback,Log4j2,">
 
 
 
@@ -96,20 +96,18 @@
 
 
 
-<meta name="description" content="挖坑…">
-<meta name="keywords" content="性能调优">
+<meta name="description" content="文章摘要挖坑…">
+<meta name="keywords" content="Logback,Log4j2">
 <meta property="og:type" content="article">
-<meta property="og:title" content="线上应用故障排查：高CPU占用">
-<meta property="og:url" content="http://yoursite.com/2018/11/16/线上应用故障排查：高CPU占用/index.html">
+<meta property="og:title" content="Logback以及Log4j2性能测试对比">
+<meta property="og:url" content="http://yoursite.com/2018/11/28/Logback以及Log4j2性能测试对比/index.html">
 <meta property="og:site_name" content="Magical Cat">
-<meta property="og:description" content="挖坑…">
+<meta property="og:description" content="文章摘要挖坑…">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://cdn2.iconfinder.com/data/icons/oxygen/128x128/mimetypes/text-x-java.png">
-<meta property="og:updated_time" content="2018-11-19T05:43:52.795Z">
+<meta property="og:updated_time" content="2018-11-28T01:08:41.272Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="线上应用故障排查：高CPU占用">
-<meta name="twitter:description" content="挖坑…">
-<meta name="twitter:image" content="https://cdn2.iconfinder.com/data/icons/oxygen/128x128/mimetypes/text-x-java.png">
+<meta name="twitter:title" content="Logback以及Log4j2性能测试对比">
+<meta name="twitter:description" content="文章摘要挖坑…">
 
 
 
@@ -138,7 +136,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/16/线上应用故障排查：高CPU占用/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/28/Logback以及Log4j2性能测试对比/">
 
 
 
@@ -146,7 +144,7 @@
 
 <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
 
-  <title>线上应用故障排查：高CPU占用 | Magical Cat</title>
+  <title>Logback以及Log4j2性能测试对比 | Magical Cat</title>
   
 
 
@@ -299,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/线上应用故障排查：高CPU占用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/28/Logback以及Log4j2性能测试对比/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="F8F-1BearCat">
@@ -316,7 +314,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">线上应用故障排查：高CPU占用</h1>
+          <h1 class="post-title" itemprop="name headline">Logback以及Log4j2性能测试对比</h1>
         
 
         <div class="post-meta">
@@ -328,8 +326,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-16T11:28:20+08:00">
-                2018-11-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-28T09:06:32+08:00">
+                2018-11-28
               </time>
             
 
@@ -388,9 +386,8 @@
       
 
       
-        <p><img src="https://cdn2.iconfinder.com/data/icons/oxygen/128x128/mimetypes/text-x-java.png" alt="图片"></p>
-<p>挖坑…<br><a id="more"></a></p>
-
+        <h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>挖坑…</p>
+<a id="more"></a>
       
     </div>
     
@@ -407,7 +404,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/性能调优/" rel="tag"><i class="fa fa-tag"></i> 性能调优</a>
+            <a href="/tags/Logback/" rel="tag"><i class="fa fa-tag"></i> Logback</a>
+          
+            <a href="/tags/Log4j2/" rel="tag"><i class="fa fa-tag"></i> Log4j2</a>
           
         </div>
       
@@ -420,8 +419,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/16/Netty直接内存泄露/" rel="next" title="Netty直接内存泄露">
-                <i class="fa fa-chevron-left"></i> Netty直接内存泄露
+              <a href="/2018/11/28/quartz定时任务时间设置/" rel="next" title="quartz定时任务时间设置">
+                <i class="fa fa-chevron-left"></i> quartz定时任务时间设置
               </a>
             
           </div>
@@ -429,10 +428,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/16/线上应用故障排查：高内存占用/" rel="prev" title="线上应用故障排查：高内存占用">
-                线上应用故障排查：高内存占用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -484,8 +479,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/Issac.png" alt="F8F-1BearCat">
           <p class="site-author-name" itemprop="name">F8F-1BearCat</p>
@@ -498,7 +502,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -520,7 +524,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -576,6 +580,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文章摘要"><span class="nav-number">1.</span> <span class="nav-text">文章摘要</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

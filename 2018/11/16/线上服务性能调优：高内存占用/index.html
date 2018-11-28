@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="性能调优,">
 
 
 
@@ -96,16 +96,18 @@
 
 
 
-<meta name="description" content="今天除了皮，又啥也没干">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Magical Cat">
-<meta property="og:url" content="http://yoursite.com/tags/性能调优/index.html">
+<meta name="description" content="背景">
+<meta name="keywords" content="性能调优">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线上服务性能调优：高内存占用">
+<meta property="og:url" content="http://yoursite.com/2018/11/16/线上服务性能调优：高内存占用/index.html">
 <meta property="og:site_name" content="Magical Cat">
-<meta property="og:description" content="今天除了皮，又啥也没干">
+<meta property="og:description" content="背景">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-21T08:02:12.771Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Magical Cat">
-<meta name="twitter:description" content="今天除了皮，又啥也没干">
+<meta name="twitter:title" content="线上服务性能调优：高内存占用">
+<meta name="twitter:description" content="背景">
 
 
 
@@ -134,7 +136,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/性能调优/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/16/线上服务性能调优：高内存占用/">
 
 
 
@@ -142,7 +144,7 @@
 
 <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
 
-  <title>标签: 性能调优 | Magical Cat</title>
+  <title>线上服务性能调优：高内存占用 | Magical Cat</title>
   
 
 
@@ -167,7 +169,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -281,78 +283,173 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>性能调优<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/16/线上服务性能调优：高内存占用/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="F8F-1BearCat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Issac.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Cat">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/11/16/线上服务性能调优：高内存占用/" itemprop="url">
-              
-                <span itemprop="name">线上服务性能调优：高内存占用</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">线上服务性能调优：高内存占用</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-16T17:04:30+08:00" content="2018-11-16">
-          11-16
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-16T17:04:30+08:00">
+                2018-11-16
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/11/16/线上服务性能调优：高CPU占用/" itemprop="url">
-              
-                <span itemprop="name">线上服务性能调优：高CPU占用</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-11-16T11:28:20+08:00" content="2018-11-16">
-          11-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><a id="more"></a>
+<h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><h2 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h2><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2>
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/性能调优/" rel="tag"><i class="fa fa-tag"></i> 性能调优</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/16/线上服务性能调优：高CPU占用/" rel="next" title="线上服务性能调优：高CPU占用">
+                <i class="fa fa-chevron-left"></i> 线上服务性能调优：高CPU占用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/19/Netty引用计数对象/" rel="prev" title="Netty引用计数对象">
+                Netty引用计数对象 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -360,6 +457,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -380,8 +481,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/Issac.png" alt="F8F-1BearCat">
           <p class="site-author-name" itemprop="name">F8F-1BearCat</p>
@@ -472,6 +582,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现象"><span class="nav-number">2.</span> <span class="nav-text">现象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排查过程"><span class="nav-number">3.</span> <span class="nav-text">排查过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number">4.</span> <span class="nav-text">结论</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -599,10 +725,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 

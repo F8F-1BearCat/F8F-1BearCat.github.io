@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-11-19T07:28:42.623Z</updated>
+  <updated>2018-11-28T01:08:41.272Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,74 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Logback以及Log4j2性能测试对比</title>
+    <link href="http://yoursite.com/2018/11/28/Logback%E4%BB%A5%E5%8F%8ALog4j2%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E5%AF%B9%E6%AF%94/"/>
+    <id>http://yoursite.com/2018/11/28/Logback以及Log4j2性能测试对比/</id>
+    <published>2018-11-28T01:06:32.907Z</published>
+    <updated>2018-11-28T01:08:41.272Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>挖坑…</p><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;文章摘要&quot;&gt;&lt;a href=&quot;#文章摘要&quot; class=&quot;headerlink&quot; title=&quot;文章摘要&quot;&gt;&lt;/a&gt;文章摘要&lt;/h2&gt;&lt;p&gt;挖坑…&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="http://yoursite.com/categories/Java/"/>
+    
+    
+      <category term="Logback" scheme="http://yoursite.com/tags/Logback/"/>
+    
+      <category term="Log4j2" scheme="http://yoursite.com/tags/Log4j2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>quartz定时任务时间设置</title>
+    <link href="http://yoursite.com/2018/11/28/quartz%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E6%97%B6%E9%97%B4%E8%AE%BE%E7%BD%AE/"/>
+    <id>http://yoursite.com/2018/11/28/quartz定时任务时间设置/</id>
+    <published>2018-11-28T01:03:26.828Z</published>
+    <updated>2018-11-28T01:04:54.143Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>挖坑…</p><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;文章摘要&quot;&gt;&lt;a href=&quot;#文章摘要&quot; class=&quot;headerlink&quot; title=&quot;文章摘要&quot;&gt;&lt;/a&gt;文章摘要&lt;/h2&gt;&lt;p&gt;挖坑…&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="http://yoursite.com/categories/Java/"/>
+    
+    
+      <category term="Quartz任务调度" scheme="http://yoursite.com/tags/Quartz%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>几种日志框架对比</title>
+    <link href="http://yoursite.com/2018/11/21/%E5%87%A0%E7%A7%8D%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E5%AF%B9%E6%AF%94/"/>
+    <id>http://yoursite.com/2018/11/21/几种日志框架对比/</id>
+    <published>2018-11-21T05:47:25.784Z</published>
+    <updated>2018-11-21T05:49:47.188Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>挖坑…</p><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;文章摘要&quot;&gt;&lt;a href=&quot;#文章摘要&quot; class=&quot;headerlink&quot; title=&quot;文章摘要&quot;&gt;&lt;/a&gt;文章摘要&lt;/h2&gt;&lt;p&gt;挖坑…&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="http://yoursite.com/categories/Java/"/>
+    
+    
+      <category term="Log" scheme="http://yoursite.com/tags/Log/"/>
+    
+  </entry>
   
   <entry>
     <title>介绍一款开源Java诊断工具—Arthas</title>
@@ -103,18 +171,17 @@
   </entry>
   
   <entry>
-    <title>线上应用故障排查：高内存占用</title>
-    <link href="http://yoursite.com/2018/11/16/%E7%BA%BF%E4%B8%8A%E5%BA%94%E7%94%A8%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5%EF%BC%9A%E9%AB%98%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8/"/>
-    <id>http://yoursite.com/2018/11/16/线上应用故障排查：高内存占用/</id>
+    <title>线上服务性能调优：高内存占用</title>
+    <link href="http://yoursite.com/2018/11/16/%E7%BA%BF%E4%B8%8A%E6%9C%8D%E5%8A%A1%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98%EF%BC%9A%E9%AB%98%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8/"/>
+    <id>http://yoursite.com/2018/11/16/线上服务性能调优：高内存占用/</id>
     <published>2018-11-16T09:04:30.994Z</published>
-    <updated>2018-11-19T05:43:48.675Z</updated>
+    <updated>2018-11-21T08:02:12.771Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="https://cdn2.iconfinder.com/data/icons/oxygen/128x128/mimetypes/text-x-java.png" alt="图片"></p><p>挖坑…<br><a id="more"></a></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><a id="more"></a><h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><h2 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h2><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;https://cdn2.iconfinder.com/data/icons/oxygen/128x128/mimetypes/text-x-java.png&quot; alt=&quot;图片&quot;&gt;&lt;/p&gt;
-&lt;p&gt;挖坑…&lt;br&gt;
+      &lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;
     
     </summary>
     
@@ -126,18 +193,17 @@
   </entry>
   
   <entry>
-    <title>线上应用故障排查：高CPU占用</title>
-    <link href="http://yoursite.com/2018/11/16/%E7%BA%BF%E4%B8%8A%E5%BA%94%E7%94%A8%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5%EF%BC%9A%E9%AB%98CPU%E5%8D%A0%E7%94%A8/"/>
-    <id>http://yoursite.com/2018/11/16/线上应用故障排查：高CPU占用/</id>
+    <title>线上服务性能调优：高CPU占用</title>
+    <link href="http://yoursite.com/2018/11/16/%E7%BA%BF%E4%B8%8A%E6%9C%8D%E5%8A%A1%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98%EF%BC%9A%E9%AB%98CPU%E5%8D%A0%E7%94%A8/"/>
+    <id>http://yoursite.com/2018/11/16/线上服务性能调优：高CPU占用/</id>
     <published>2018-11-16T03:28:20.479Z</published>
-    <updated>2018-11-19T05:43:52.795Z</updated>
+    <updated>2018-11-21T08:02:18.253Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="https://cdn2.iconfinder.com/data/icons/oxygen/128x128/mimetypes/text-x-java.png" alt="图片"></p><p>挖坑…<br><a id="more"></a></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><a id="more"></a><h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><h2 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h2><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;https://cdn2.iconfinder.com/data/icons/oxygen/128x128/mimetypes/text-x-java.png&quot; alt=&quot;图片&quot;&gt;&lt;/p&gt;
-&lt;p&gt;挖坑…&lt;br&gt;
+      &lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;
     
     </summary>
     
@@ -153,15 +219,15 @@
     <link href="http://yoursite.com/2018/11/16/Netty%E7%9B%B4%E6%8E%A5%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2/"/>
     <id>http://yoursite.com/2018/11/16/Netty直接内存泄露/</id>
     <published>2018-11-16T02:50:20.893Z</published>
-    <updated>2018-11-19T10:08:44.490Z</updated>
+    <updated>2018-11-20T05:23:54.877Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="https://i.loli.net/2018/11/19/5bf21c6726a92.png" alt="netty.png"></p><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近在做接口服务内存和CPU优化，使用Netty版本为<code>netty-all-4.1.29.Final</code>，对于行情数据我们采用Netty的直接内存进行存储，Netty的几种<code>ByteBuf</code>介绍见：<a href="https://f8f-1bearcat.github.io/2018/11/19/Netty%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E5%AF%B9%E8%B1%A1/" target="_blank" rel="noopener">Netty常见内存结构</a> ，当前我们使用的是<code>PooledByteBufAllocator</code>，所以每次内存使用完毕后都需要通过<code>release()</code>方法手动回收直接内存。</p><p>使用Netty的直接内存有点与C类似，自己malloc的对象需要自己free；但与C不同的是，在内有引用计数器，外有Java的GC的场景下，Netty直接内存的使用更为服务，对内存的使用稍有纰漏就会导致整个服务挂掉。在一次优化版本中，就出现了很严重的Netty直接内存泄露的问题。<br><a id="more"></a></p><h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>前一天盘后我们部署了某个优化版本到灰度服务器上，第二天行情数据下发后伴随着用户量增长，接口服务在很短的时间内不可用。</p><p>通过运维平台调取了当天该服务器上的内存使用情况：</p><p><img src="https://i.loli.net/2018/11/19/5bf2700185b45.png" alt="SZVPC内存使用情况.png"></p><p>可以发现在上午9:00~11:00时间段内，接口服务多次挂掉后自动重启，中午版本回退后服务才恢复正常。</p><h2 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h2><h3 id="一、查看系统日志"><a href="#一、查看系统日志" class="headerlink" title="一、查看系统日志"></a>一、查看系统日志</h3><p>首先查看服务异常时间段内服务器上的日志，可以发现在短时间内日志打印了非常多的直接内存分配异常<code>OutOfDirectMemoryError</code>：</p><p><img src="https://i.loli.net/2018/11/19/5bf28a9a2d455.png" alt="直接内存分配异常.png"></p><p>日志显示直接内存Direct Memory不够用了，该服务器上配置了堆内存12G，直接内存18G，与异常中打印的最大可分配直接内存相匹配；</p><p><img src="https://i.loli.net/2018/11/19/5bf2701a7dc76.png" alt="内存配置.png"></p><p>根据之前的内存使用情况可以断定在服务正常状态下，18G直接内存是能满足接口服务使用场景的，那就可以断定单纯地在配置中增大可分配直接内存的大小不能解决问题。</p><h3 id="二、确认异常抛出原因"><a href="#二、确认异常抛出原因" class="headerlink" title="二、确认异常抛出原因"></a>二、确认异常抛出原因</h3><p>通过上面OOM异常日志，可以追踪到<code>PlatformDependent.java</code>的<code>incrementMemoryCounter(int capacity)</code>方法。</p><p><img src="https://i.loli.net/2018/11/19/5bf21b9878c32.png" alt=""></p><p>我们可以看到这个方法是Netty自身对已使用直接内存进行计数，当计数器<code>DIRECT_MEMORY_COUNTER</code>已使用内存大于直接内存上限<code>DIRECT_MEMORY_LIMIT</code>时，抛出一个OutOfDirectMemoryError异常，这个直接内存上限即上面我们在配置文件中通过<code>-XX:MaxDirectMemorySize</code>配置的。关于Netty的OutOfDirectMemoryError问题见：<a href="https://f8f-1bearcat.github.io/2018/11/19/Netty%E7%9A%84OutOfDirectMemoryError%E9%97%AE%E9%A2%98/" target="_blank" rel="noopener">关于Netty的OutOfDirectMemoryError问题</a> 。</p><p>无法分配直接内存无非是以下两种情况导致的：</p><ol><li>分配的直接内存最终没有<code>release()</code>掉，使直接内存不断被分配使用而没有回收掉，最终达到可用上限产生内存泄露；</li><li>因用户网络异常或者传输的数据量过大等问题，使得直接内存的释放回收速度小于其分配的速度，最终无内存可分配抛出OOM。</li></ol><p>如果是前者，就需要找出没有正确<code>release()</code>的代码进行修改；如果是后者，则需要在write的时候，添加流控措施，避免到达内存限制。</p><h3 id="三、Netty内存泄漏的监测机制"><a href="#三、Netty内存泄漏的监测机制" class="headerlink" title="三、Netty内存泄漏的监测机制"></a>三、Netty内存泄漏的监测机制</h3><p>Netty本身提供了内存泄漏的监测机制（详细介绍见：<a href="https://f8f-1bearcat.github.io/2018/11/19/Netty%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E5%AF%B9%E8%B1%A1/" target="_blank" rel="noopener">Netty引用计数对象</a>），我们可以通过在配置文件中配置<code>-Dio.netty.leakDetectionLevel</code>对分配的ByteBuf进行跟踪。</p><p><img src="https://i.loli.net/2018/11/19/5bf27013c719b.png" alt="leakDetection.png"></p><p>如果服务有内存泄露，则会打印如下日志：</p><blockquote><p>LEAK: ByteBuf.release() was not called before it’s garbage-collected. Enable advanced leak reporting to find out where the leak occurred. To enable advanced leak reporting, specify the JVM option ‘-Dio.netty.leakDetectionLevel=paranoid’ or call ResourceLeakDetector .setLevel()</p></blockquote><p>因为是功能测试，所以在异常服务上，我将监测的级别配置为paranoid，运行一段时间后查看服务日志，发现并未有<strong>LEAK </strong>日志打印，看来通过Netty自身的监测机制定位问题这条路走不通。</p><h3 id="四、Arthas查看直接内存使用情况"><a href="#四、Arthas查看直接内存使用情况" class="headerlink" title="四、Arthas查看直接内存使用情况"></a>四、Arthas查看直接内存使用情况</h3><p>我们知道服务是因为已使用直接内存达到了可分配上限才挂掉的，那通过查看服务器上<code>DIRECT_MEMORY_COUNTER</code>的大小能不能发现问题呢？这时候不得不提到Java诊断神器Arthas了（详细介绍见：<a href="https://f8f-1bearcat.github.io/2018/11/19/Arthas%E2%80%94%E5%BC%80%E6%BA%90Java%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7/" target="_blank" rel="noopener">介绍一款开源Java诊断工具—Arthas</a> ）。</p><p>通过Arthas进入到当前服务进程，执行sc命令来查看<code>PlatformDependent.java</code>类的成员变量：</p><blockquote><p>sc -df io.netty.util.internal.PlatformDependent</p></blockquote><p>可以看到命令执行后当前时间的<strong>已分配直接内存</strong>和<strong>可分配直接内存上限</strong>两个参数的值：</p><p><img src="https://i.loli.net/2018/11/19/5bf26527165f9.png" alt="directmemory.png"></p><p>使用Arthas来查看确实简单便捷，但是因为只能查看一个时间点的变量的值（<del>也可能是我的打开方式不对</del>），对我们解决问题帮助不是很大，所以还是用笨办法吧，即通过起一个线程来定时打印直接内存的值。</p><h3 id="五、日志打印直接内存"><a href="#五、日志打印直接内存" class="headerlink" title="五、日志打印直接内存"></a>五、日志打印直接内存</h3><h4 id="直接内存定时打印"><a href="#直接内存定时打印" class="headerlink" title="直接内存定时打印"></a>直接内存定时打印</h4><p>这里我写了一个线程，每两秒将通过反射获取的<code>DIRECT_MEMORY_COUNTER</code>参数的值在日志中实时打印出来，方便我们调试。</p><p><img src="https://i.loli.net/2018/11/19/5bf26713a10a9.png" alt="直接内存打印.png"></p><h4 id="模拟客户端进行压力测试"><a href="#模拟客户端进行压力测试" class="headerlink" title="模拟客户端进行压力测试"></a>模拟客户端进行压力测试</h4><p>为了能明显地看到内存分配的数值变化，这里我通过编写TestMain模拟客户端用户来请求接口服务数据；</p><p><img src="https://i.loli.net/2018/11/19/5bf269a675904.png" alt="压力测试.png"></p><p>并设置模拟用户量为200，将有问题的服务部署到开发服务器上进行压力测试。</p><p><img src="https://i.loli.net/2018/11/19/5bf2699bdaf27.png" alt="压力测试用户.png"></p><h4 id="日志分析"><a href="#日志分析" class="headerlink" title="日志分析"></a>日志分析</h4><p>首先将开发服务器上接口服务启动，这是当前服务的端口连接数为0，即没有用户访问，这时服务已使用的直接内存维持在一个稳定的值256MB（如下图前几条日志所示）；当把压力测试程序启动，随着用户连接数涨到200，服务已使用的直接内存迅速飙升（如下图选中日志所示），一直达到可用内存上限18G，最终导致服务不可用，整个用时不到5分钟！</p><p><img src="https://i.loli.net/2018/11/19/5bf2746f146fc.png" alt="内存日志2.png"></p><p>到这里我们可以得出结论，本次内存泄露与接口服务处理上游数据的过程无关，而是在处理用户请求并返回数据的过程中抛出的。</p><p>到这里问题的定位范围进一步缩小，我还是采用了虽然繁琐但是直接有效的方法：范围从大到小地对请求返回数据过程中分配及使用直接内存的代码块进行注释，并部署到开发服务器上进行测试。</p><p>其中的具体操作过程略去不表，其实结果证明这个方法确实是很有效的，我只重新部署哦了两次服务就找到了问题代码：</p><p><img src="https://i.loli.net/2018/11/19/5bf280fb7fd1e.png" alt="callback.png"></p><p>当我把上图选中代码注释掉后，再进行压力测试接口服务已使用直接内存的值维持在256MB不再增长，如下图所示：</p><p><img src="https://i.loli.net/2018/11/19/5bf272fdb0bbf.png" alt="内存日志1.png"></p><p>进入到<code>callback()</code>方法最终修改了下图所示代码，对已分配但位使用的直接内存进行<code>release()</code>回收释放，重新部署，测试通过。</p><p><img src="https://i.loli.net/2018/11/19/5bf280fb09e34.png" alt="代码修改.png"></p><h3 id="六、后续"><a href="#六、后续" class="headerlink" title="六、后续"></a>六、后续</h3><p>我提交了代码盘后通过CI重新发布到之前出现异常的服务器上，几个交易日过去了，问题没有再出现。</p><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>1.对于Netty直接内存问题，我们可以通过三种手段来定位问题：Netty自身的内存泄露监测机制；Arthas等第三方工具；发射获取并打印直接内存数值。</p><p>2.这次问题的出现是只在ByteBuf使用之后进行了回收，没有考虑到在异常情况下ByteBuf没有成功传递到下一个Hanlder（<del>其实考虑到了，只不过疏忽了这个分支</del>），这时也要把分配了没有使用的直接内存进行回收。</p><p>3.至于为什么Netty自身的监测机制没有打印LEAK日志，后面我会再研究一下。</p><p>最后希望大家都能：</p><p><img src="https://i.loli.net/2018/11/19/5bf28b9a947e9.png" alt="表情.png"></p>]]></content>
+    <content type="html"><![CDATA[<p><img src="https://i.loli.net/2018/11/19/5bf21c6726a92.png" alt="netty.png"></p><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近在做接口服务内存和CPU优化，使用Netty版本为<code>netty-all-4.1.29.Final</code>，对于行情数据我们采用Netty的直接内存进行存储，Netty的几种<code>ByteBuf</code>介绍见：<a href="https://f8f-1bearcat.github.io/2018/11/19/Netty%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E5%AF%B9%E8%B1%A1/" target="_blank" rel="noopener">Netty常见内存结构</a> ，当前我们使用的是<code>PooledByteBufAllocator</code>，所以每次内存使用完毕后都需要通过<code>release()</code>方法手动回收直接内存。</p><p>使用Netty的直接内存有点与C类似，自己malloc的对象需要自己free；但与C不同的是，在内有引用计数器，外有Java的GC的场景下，Netty直接内存的使用更为复杂，对内存的使用稍有纰漏就会导致整个服务挂掉。在一次优化版本中，就出现了很严重的Netty直接内存泄露的问题。<br><a id="more"></a></p><h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>前一天盘后我们部署了某个优化版本到灰度服务器上，第二天行情数据下发后伴随着用户量增长，接口服务在很短的时间内不可用。</p><p>通过运维平台调取了当天该服务器上的内存使用情况：</p><p><img src="https://i.loli.net/2018/11/19/5bf2700185b45.png" alt="SZVPC内存使用情况.png"></p><p>可以发现在上午9:00~11:00时间段内，接口服务多次挂掉后自动重启，中午版本回退后服务才恢复正常。</p><h2 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h2><h3 id="一、查看系统日志"><a href="#一、查看系统日志" class="headerlink" title="一、查看系统日志"></a>一、查看系统日志</h3><p>首先查看服务异常时间段内服务器上的日志，可以发现在短时间内日志打印了非常多的直接内存分配异常<code>OutOfDirectMemoryError</code>：</p><p><img src="https://i.loli.net/2018/11/19/5bf28a9a2d455.png" alt="直接内存分配异常.png"></p><p>日志显示直接内存Direct Memory不够用了，该服务器上配置了堆内存12G，直接内存18G，与异常中打印的最大可分配直接内存相匹配；</p><p><img src="https://i.loli.net/2018/11/19/5bf2701a7dc76.png" alt="内存配置.png"></p><p>根据之前的内存使用情况可以断定在服务正常状态下，18G直接内存是能满足接口服务使用场景的，那就可以断定单纯地在配置中增大可分配直接内存的大小不能解决问题。</p><h3 id="二、确认异常抛出原因"><a href="#二、确认异常抛出原因" class="headerlink" title="二、确认异常抛出原因"></a>二、确认异常抛出原因</h3><p>通过上面OOM异常日志，可以追踪到<code>PlatformDependent.java</code>的<code>incrementMemoryCounter(int capacity)</code>方法。</p><p><img src="https://i.loli.net/2018/11/19/5bf21b9878c32.png" alt=""></p><p>我们可以看到这个方法是Netty自身对已使用直接内存进行计数，当计数器<code>DIRECT_MEMORY_COUNTER</code>已使用内存大于直接内存上限<code>DIRECT_MEMORY_LIMIT</code>时，抛出一个OutOfDirectMemoryError异常，这个直接内存上限即上面我们在配置文件中通过<code>-XX:MaxDirectMemorySize</code>配置的。关于Netty的OutOfDirectMemoryError问题见：<a href="https://f8f-1bearcat.github.io/2018/11/19/Netty%E7%9A%84OutOfDirectMemoryError%E9%97%AE%E9%A2%98/" target="_blank" rel="noopener">关于Netty的OutOfDirectMemoryError问题</a> 。</p><p>无法分配直接内存无非是以下两种情况导致的：</p><ol><li>分配的直接内存最终没有<code>release()</code>掉，使直接内存不断被分配使用而没有回收掉，最终达到可用上限产生内存泄露；</li><li>因用户网络异常或者传输的数据量过大等问题，使得直接内存的释放回收速度小于其分配的速度，最终无内存可分配抛出OOM。</li></ol><p>如果是前者，就需要找出没有正确<code>release()</code>的代码进行修改；如果是后者，则需要在write的时候，添加流控措施，避免到达内存限制。</p><h3 id="三、Netty内存泄漏的监测机制"><a href="#三、Netty内存泄漏的监测机制" class="headerlink" title="三、Netty内存泄漏的监测机制"></a>三、Netty内存泄漏的监测机制</h3><p>Netty本身提供了内存泄漏的监测机制（详细介绍见：<a href="https://f8f-1bearcat.github.io/2018/11/19/Netty%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E5%AF%B9%E8%B1%A1/" target="_blank" rel="noopener">Netty引用计数对象</a>），我们可以通过在配置文件中配置<code>-Dio.netty.leakDetectionLevel</code>对分配的ByteBuf进行跟踪。</p><p><img src="https://i.loli.net/2018/11/19/5bf27013c719b.png" alt="leakDetection.png"></p><p>如果服务有内存泄露，则会打印如下日志：</p><blockquote><p>LEAK: ByteBuf.release() was not called before it’s garbage-collected. Enable advanced leak reporting to find out where the leak occurred. To enable advanced leak reporting, specify the JVM option ‘-Dio.netty.leakDetectionLevel=paranoid’ or call ResourceLeakDetector .setLevel()</p></blockquote><p>因为是功能测试，所以在异常服务上，我将监测的级别配置为paranoid，运行一段时间后查看服务日志，发现并未有<strong>LEAK </strong>日志打印，看来通过Netty自身的监测机制定位问题这条路走不通。</p><h3 id="四、Arthas查看直接内存使用情况"><a href="#四、Arthas查看直接内存使用情况" class="headerlink" title="四、Arthas查看直接内存使用情况"></a>四、Arthas查看直接内存使用情况</h3><p>我们知道服务是因为已使用直接内存达到了可分配上限才挂掉的，那通过查看服务器上<code>DIRECT_MEMORY_COUNTER</code>的大小能不能发现问题呢？这时候不得不提到Java诊断神器Arthas了（详细介绍见：<a href="https://f8f-1bearcat.github.io/2018/11/19/Arthas%E2%80%94%E5%BC%80%E6%BA%90Java%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7/" target="_blank" rel="noopener">介绍一款开源Java诊断工具—Arthas</a> ）。</p><p>通过Arthas进入到当前服务进程，执行sc命令来查看<code>PlatformDependent.java</code>类的成员变量：</p><blockquote><p>sc -df io.netty.util.internal.PlatformDependent</p></blockquote><p>可以看到命令执行后当前时间的<strong>已分配直接内存</strong>和<strong>可分配直接内存上限</strong>两个参数的值：</p><p><img src="https://i.loli.net/2018/11/19/5bf26527165f9.png" alt="directmemory.png"></p><p>使用Arthas来查看确实简单便捷，但是因为只能查看一个时间点的变量的值（<del>也可能是我的打开方式不对</del>），对我们解决问题帮助不是很大，所以还是用笨办法吧，即通过起一个线程来定时打印直接内存的值。</p><h3 id="五、日志打印直接内存"><a href="#五、日志打印直接内存" class="headerlink" title="五、日志打印直接内存"></a>五、日志打印直接内存</h3><h4 id="直接内存定时打印"><a href="#直接内存定时打印" class="headerlink" title="直接内存定时打印"></a>直接内存定时打印</h4><p>这里我写了一个线程，每两秒将通过反射获取的<code>DIRECT_MEMORY_COUNTER</code>参数的值在日志中实时打印出来，方便我们调试。</p><p><img src="https://i.loli.net/2018/11/19/5bf26713a10a9.png" alt="直接内存打印.png"></p><h4 id="模拟客户端进行压力测试"><a href="#模拟客户端进行压力测试" class="headerlink" title="模拟客户端进行压力测试"></a>模拟客户端进行压力测试</h4><p>为了能明显地看到内存分配的数值变化，这里我通过编写TestMain模拟客户端用户来请求接口服务数据；</p><p><img src="https://i.loli.net/2018/11/19/5bf269a675904.png" alt="压力测试.png"></p><p>并设置模拟用户量为200，将有问题的服务部署到开发服务器上进行压力测试。</p><p><img src="https://i.loli.net/2018/11/19/5bf2699bdaf27.png" alt="压力测试用户.png"></p><h4 id="日志分析"><a href="#日志分析" class="headerlink" title="日志分析"></a>日志分析</h4><p>首先将开发服务器上接口服务启动，这是当前服务的端口连接数为0，即没有用户访问，这时服务已使用的直接内存维持在一个稳定的值256MB（如下图前几条日志所示）；当把压力测试程序启动，随着用户连接数涨到200，服务已使用的直接内存迅速飙升（如下图选中日志所示），一直达到可用内存上限18G，最终导致服务不可用，整个用时不到5分钟！</p><p><img src="https://i.loli.net/2018/11/19/5bf2746f146fc.png" alt="内存日志2.png"></p><p>到这里我们可以得出结论，本次内存泄露与接口服务处理上游数据的过程无关，而是在处理用户请求并返回数据的过程中抛出的。</p><p>到这里问题的定位范围进一步缩小，我还是采用了虽然繁琐但是直接有效的方法：范围从大到小地对请求返回数据过程中分配及使用直接内存的代码块进行注释，并部署到开发服务器上进行测试。</p><p>其中的具体操作过程略去不表，其实结果证明这个方法确实是很有效的，我只重新部署哦了两次服务就找到了问题代码：</p><p><img src="https://i.loli.net/2018/11/19/5bf280fb7fd1e.png" alt="callback.png"></p><p>当我把上图选中代码注释掉后，再进行压力测试接口服务已使用直接内存的值维持在256MB不再增长，如下图所示：</p><p><img src="https://i.loli.net/2018/11/19/5bf272fdb0bbf.png" alt="内存日志1.png"></p><p>进入到<code>callback()</code>方法最终修改了下图所示代码，对已分配但位使用的直接内存进行<code>release()</code>回收释放，重新部署，测试通过。</p><p><img src="https://i.loli.net/2018/11/19/5bf280fb09e34.png" alt="代码修改.png"></p><h3 id="六、后续"><a href="#六、后续" class="headerlink" title="六、后续"></a>六、后续</h3><p>我提交了代码盘后通过CI重新发布到之前出现异常的服务器上，几个交易日过去了，问题没有再出现。</p><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>1.对于Netty直接内存问题，我们可以通过三种手段来定位问题：Netty自身的内存泄露监测机制；Arthas等第三方工具；发射获取并打印直接内存数值。</p><p>2.这次问题的出现是只在ByteBuf使用之后进行了回收，没有考虑到在异常情况下ByteBuf没有成功传递到下一个Hanlder（<del>其实考虑到了，只不过疏忽了这个分支</del>），这时也要把分配了没有使用的直接内存进行回收。</p><p>3.至于为什么Netty自身的监测机制没有打印LEAK日志，后面我会再研究一下。</p><p>最后希望大家都能：</p><p><img src="https://i.loli.net/2018/11/19/5bf28b9a947e9.png" alt="表情.png"></p>]]></content>
     
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;https://i.loli.net/2018/11/19/5bf21c6726a92.png&quot; alt=&quot;netty.png&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;最近在做接口服务内存和CPU优化，使用Netty版本为&lt;code&gt;netty-all-4.1.29.Final&lt;/code&gt;，对于行情数据我们采用Netty的直接内存进行存储，Netty的几种&lt;code&gt;ByteBuf&lt;/code&gt;介绍见：&lt;a href=&quot;https://f8f-1bearcat.github.io/2018/11/19/Netty%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E5%AF%B9%E8%B1%A1/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Netty常见内存结构&lt;/a&gt; ，当前我们使用的是&lt;code&gt;PooledByteBufAllocator&lt;/code&gt;，所以每次内存使用完毕后都需要通过&lt;code&gt;release()&lt;/code&gt;方法手动回收直接内存。&lt;/p&gt;
-&lt;p&gt;使用Netty的直接内存有点与C类似，自己malloc的对象需要自己free；但与C不同的是，在内有引用计数器，外有Java的GC的场景下，Netty直接内存的使用更为服务，对内存的使用稍有纰漏就会导致整个服务挂掉。在一次优化版本中，就出现了很严重的Netty直接内存泄露的问题。&lt;br&gt;
+&lt;p&gt;使用Netty的直接内存有点与C类似，自己malloc的对象需要自己free；但与C不同的是，在内有引用计数器，外有Java的GC的场景下，Netty直接内存的使用更为复杂，对内存的使用稍有纰漏就会导致整个服务挂掉。在一次优化版本中，就出现了很严重的Netty直接内存泄露的问题。&lt;br&gt;
     
     </summary>
     
