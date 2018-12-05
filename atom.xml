@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-11-30T02:32:06.420Z</updated>
+  <updated>2018-12-05T01:33:22.582Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,17 +17,40 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Linux之sed用法</title>
+    <link href="http://yoursite.com/2018/12/05/Linux%E4%B9%8Bsed%E7%94%A8%E6%B3%95/"/>
+    <id>http://yoursite.com/2018/12/05/Linux之sed用法/</id>
+    <published>2018-12-05T01:33:22.380Z</published>
+    <updated>2018-12-05T01:33:22.582Z</updated>
+    
+    <content type="html"><![CDATA[<p>挖坑…</p><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;挖坑…&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://yoursite.com/categories/Linux/"/>
+    
+    
+      <category term="Linux命令" scheme="http://yoursite.com/tags/Linux%E5%91%BD%E4%BB%A4/"/>
+    
+  </entry>
+  
+  <entry>
     <title>浅谈OGNL表达式</title>
     <link href="http://yoursite.com/2018/11/30/%E6%B5%85%E8%B0%88OGNL%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
     <id>http://yoursite.com/2018/11/30/浅谈OGNL表达式/</id>
     <published>2018-11-30T02:29:36.063Z</published>
-    <updated>2018-11-30T02:32:06.420Z</updated>
+    <updated>2018-11-30T02:33:36.421Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>挖坑…</p><a id="more"></a>]]></content>
+    <content type="html"><![CDATA[<h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>挖坑…</p><p>OGNL特殊用法请参考：<a href="https://github.com/alibaba/arthas/issues/71" target="_blank" rel="noopener">https://github.com/alibaba/arthas/issues/71</a><br>OGNL表达式官方指南：<a href="https://commons.apache.org/proper/commons-ognl/language-guide.html" target="_blank" rel="noopener">https://commons.apache.org/proper/commons-ognl/language-guide.html</a></p><a id="more"></a>]]></content>
     
     <summary type="html">
     
       &lt;h2 id=&quot;文章摘要&quot;&gt;&lt;a href=&quot;#文章摘要&quot; class=&quot;headerlink&quot; title=&quot;文章摘要&quot;&gt;&lt;/a&gt;文章摘要&lt;/h2&gt;&lt;p&gt;挖坑…&lt;/p&gt;
+&lt;p&gt;OGNL特殊用法请参考：&lt;a href=&quot;https://github.com/alibaba/arthas/issues/71&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/alibaba/arthas/issues/71&lt;/a&gt;&lt;br&gt;OGNL表达式官方指南：&lt;a href=&quot;https://commons.apache.org/proper/commons-ognl/language-guide.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://commons.apache.org/proper/commons-ognl/language-guide.html&lt;/a&gt;&lt;/p&gt;
     
     </summary>
     
