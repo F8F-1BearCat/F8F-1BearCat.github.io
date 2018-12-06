@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-12-05T01:33:22.582Z</updated>
+  <updated>2018-12-06T01:14:11.530Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,17 +17,41 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Netty源码之writeAndFlush()流程与异步</title>
+    <link href="http://yoursite.com/2018/12/06/Netty%E6%BA%90%E7%A0%81%E4%B9%8BwriteAndFlush()%E6%B5%81%E7%A8%8B%E4%B8%8E%E5%BC%82%E6%AD%A5/"/>
+    <id>http://yoursite.com/2018/12/06/Netty源码之writeAndFlush()流程与异步/</id>
+    <published>2018-12-06T01:14:11.376Z</published>
+    <updated>2018-12-06T01:14:11.530Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>挖坑…</p><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;文章摘要&quot;&gt;&lt;a href=&quot;#文章摘要&quot; class=&quot;headerlink&quot; title=&quot;文章摘要&quot;&gt;&lt;/a&gt;文章摘要&lt;/h2&gt;&lt;p&gt;挖坑…&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="http://yoursite.com/categories/Java/"/>
+    
+    
+      <category term="Netty" scheme="http://yoursite.com/tags/Netty/"/>
+    
+      <category term="源码" scheme="http://yoursite.com/tags/%E6%BA%90%E7%A0%81/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Linux之sed用法</title>
     <link href="http://yoursite.com/2018/12/05/Linux%E4%B9%8Bsed%E7%94%A8%E6%B3%95/"/>
     <id>http://yoursite.com/2018/12/05/Linux之sed用法/</id>
     <published>2018-12-05T01:33:22.380Z</published>
-    <updated>2018-12-05T01:33:22.582Z</updated>
+    <updated>2018-12-06T01:13:04.075Z</updated>
     
-    <content type="html"><![CDATA[<p>挖坑…</p><a id="more"></a>]]></content>
+    <content type="html"><![CDATA[<h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>挖坑…</p><a id="more"></a>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;挖坑…&lt;/p&gt;
+      &lt;h2 id=&quot;文章摘要&quot;&gt;&lt;a href=&quot;#文章摘要&quot; class=&quot;headerlink&quot; title=&quot;文章摘要&quot;&gt;&lt;/a&gt;文章摘要&lt;/h2&gt;&lt;p&gt;挖坑…&lt;/p&gt;
     
     </summary>
     
