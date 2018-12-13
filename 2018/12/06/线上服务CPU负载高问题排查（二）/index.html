@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="性能调优,">
+  <meta name="keywords" content="性能调优,JVM,Linux命令,">
 
 
 
@@ -96,20 +96,29 @@
 
 
 
-<meta name="description" content="背景挖坑…线上服务CPU负载高问题排查（一）">
-<meta name="keywords" content="性能调优">
+<meta name="description" content="背景最近在进行接口服务优化，前面对处理大量数据的线程进行了优化，具体见：线上服务CPU负载高问题排查（一） 。当优化后的版本部署到灰度服务器上时，原以为CPU占用率会明显地降低，然而事实却狠狠地打了脸，非但该服务的CPU占用及负载没有降低，反而远远差于上次优化之前版本及线上的服务。是优化方向错了，还是引入了新的问题？">
+<meta name="keywords" content="性能调优,JVM,Linux命令">
 <meta property="og:type" content="article">
 <meta property="og:title" content="线上服务CPU负载高问题排查（二）">
 <meta property="og:url" content="http://yoursite.com/2018/12/06/线上服务CPU负载高问题排查（二）/index.html">
 <meta property="og:site_name" content="Magical Cat">
-<meta property="og:description" content="背景挖坑…线上服务CPU负载高问题排查（一）">
+<meta property="og:description" content="背景最近在进行接口服务优化，前面对处理大量数据的线程进行了优化，具体见：线上服务CPU负载高问题排查（一） 。当优化后的版本部署到灰度服务器上时，原以为CPU占用率会明显地降低，然而事实却狠狠地打了脸，非但该服务的CPU占用及负载没有降低，反而远远差于上次优化之前版本及线上的服务。是优化方向错了，还是引入了新的问题？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://i.loli.net/2018/12/06/5c08b974a8af3.png">
-<meta property="og:updated_time" content="2018-12-06T06:11:37.871Z">
+<meta property="og:image" content="https://i.loli.net/2018/12/06/5c08d1299cb5d.png">
+<meta property="og:image" content="https://i.loli.net/2018/12/13/5c11f7ed83ec2.png">
+<meta property="og:image" content="https://i.loli.net/2018/12/07/5c09d1aa96940.png">
+<meta property="og:image" content="https://i.loli.net/2018/12/07/5c09de2a7f8c5.png">
+<meta property="og:image" content="https://i.loli.net/2018/12/07/5c09de2511265.png">
+<meta property="og:image" content="https://i.loli.net/2018/12/07/5c09de1cb3c4b.png">
+<meta property="og:image" content="https://i.loli.net/2018/12/07/5c09de3041b0a.png">
+<meta property="og:image" content="https://i.loli.net/2018/12/13/5c11f7d2e9c4d.png">
+<meta property="og:image" content="https://i.loli.net/2018/12/13/5c11f7f40440c.png">
+<meta property="og:image" content="https://i.loli.net/2018/12/06/5c08d1312b7aa.png">
+<meta property="og:updated_time" content="2018-12-13T07:25:27.009Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="线上服务CPU负载高问题排查（二）">
-<meta name="twitter:description" content="背景挖坑…线上服务CPU负载高问题排查（一）">
-<meta name="twitter:image" content="https://i.loli.net/2018/12/06/5c08b974a8af3.png">
+<meta name="twitter:description" content="背景最近在进行接口服务优化，前面对处理大量数据的线程进行了优化，具体见：线上服务CPU负载高问题排查（一） 。当优化后的版本部署到灰度服务器上时，原以为CPU占用率会明显地降低，然而事实却狠狠地打了脸，非但该服务的CPU占用及负载没有降低，反而远远差于上次优化之前版本及线上的服务。是优化方向错了，还是引入了新的问题？">
+<meta name="twitter:image" content="https://i.loli.net/2018/12/06/5c08d1299cb5d.png">
 
 
 
@@ -388,8 +397,44 @@
       
 
       
-        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>挖坑…<a href="https://f8f-1bearcat.github.io/2018/11/19/Netty%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E5%AF%B9%E8%B1%A1/" target="_blank" rel="noopener">线上服务CPU负载高问题排查（一）</a><br><a id="more"></a></p>
-<h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p><img src="https://i.loli.net/2018/12/06/5c08b974a8af3.png" alt="load.png"></p>
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近在进行接口服务优化，前面对处理大量数据的线程进行了优化，具体见：<a href="https://f8f-1bearcat.github.io/2018/12/06/%E7%BA%BF%E4%B8%8A%E6%9C%8D%E5%8A%A1CPU%E8%B4%9F%E8%BD%BD%E9%AB%98%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%EF%BC%88%E4%B8%80%EF%BC%89/" target="_blank" rel="noopener">线上服务CPU负载高问题排查（一）</a> 。当优化后的版本部署到灰度服务器上时，原以为CPU占用率会明显地降低，然而事实却狠狠地打了脸，非但该服务的CPU占用及负载没有降低，反而远远差于上次优化之前版本及线上的服务。是优化方向错了，还是引入了新的问题？<br><a id="more"></a></p>
+<h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>通过运维中心<code>zabbix</code>面板查看该机房上所有的报价服务负载情况，新部署接口服务的负载情况如下图红线所示：<br><img src="https://i.loli.net/2018/12/06/5c08d1299cb5d.png" alt="load_before.png"><br>可以发现在上午11:00~14:00时间段内，该接口服务的负载明显高于其他几台服务。CPU利用率的情况与负载类似。</p>
+<h2 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h2><h3 id="一、比较用户数量"><a href="#一、比较用户数量" class="headerlink" title="一、比较用户数量"></a>一、比较用户数量</h3><p>5个服务都部署在SZVPC机房，并且可以确定服务运行环境是相同的，那么首先需要确认是否是该服务用户量过大导致的。</p>
+<p>登录CRT，通过<code>netstat -antp|grep &#39;port&#39;|wc -l</code>命令查看服务器上的实时用户连接数。对比该机房的5个报价服务发现，所有服务的实时用户连接数大体相等，不存在优化版本服务用户连接远大于其他几台服务的情况。到这里可以得出结论是新部署的服务本身有问题。</p>
+<h3 id="二、定位高CPU占用线程"><a href="#二、定位高CPU占用线程" class="headerlink" title="二、定位高CPU占用线程"></a>二、定位高CPU占用线程</h3><p>1、在上一篇的CPU高负载排查过程中，我们定位到是组合和账户的数据处理线程CPU占用率高。那首先，可以确定下上次优化有没有解决这两个线程的CPU占用问题。</p>
+<p>通过Arthas进入到当前服务进程，执行<code>thread -n 5 -i 1000</code>命令来查看当前CPU占用最高的几个线程。分析堆栈信息，可以看到改完之后的服务组合账户线程的CPU占用率已经降低了，至少前5个线程里面不见他们的踪影。</p>
+<p><img src="https://i.loli.net/2018/12/13/5c11f7ed83ec2.png" alt="thread5.png"></p>
+<p>2、排除了组合账户线程的影响，下一步就要定位到底是什么线程占用CPU最高。通过<code>$ top</code>命令，查看CPU实时使用情况（注：图为后面补加的，数据可能有出入）：<br><img src="https://i.loli.net/2018/12/07/5c09d1aa96940.png" alt="top_load.png"><br>可以看出pid为26810的进程CPU占用率竟然达到了1000%，而这个进程就是接口服务的进程。</p>
+<p>3、经典的命令行工具，如<em>ps</em>或<em>top</em>，都可以用来显示线程级别的信息，下面列举了这两种方法的使用。</p>
+<p>方法一：通过<code>$ ps -mp &lt;pid&gt; -o tid,THREAD,time</code>命令，查看线程列表。到这里确认tid为8592…的这三个线程CPU占用率最高，且占用CPU的时间也很长。</p>
+<p><img src="https://i.loli.net/2018/12/07/5c09de2a7f8c5.png" alt="thread.png"></p>
+<p>方法二：通过<code>$ top -H -p &lt;pid&gt;</code>命令，查看线程列表，得出的结论与方法一一致。</p>
+<p>​            <img src="https://i.loli.net/2018/12/07/5c09de2511265.png" alt="top_thread.png"></p>
+<p>4、定位到线程tid之后，就可以用<code>jstack</code>命令查看线程具体的堆栈信息了，不过<code>jstack</code>命令中线程id使用16进制，因而首先需要通过 <code>$ echo &quot;obase=16;&lt;tid&gt;&quot;|bc</code>或 <code>$ printf &quot;%x\n&quot; &lt;tid&gt;</code>命令将tid转为16进制。</p>
+<p><img src="https://i.loli.net/2018/12/07/5c09de1cb3c4b.png" alt="16.png"></p>
+<p>以tid8592为例，转为16进制后为2190，再通过<code>$ jstack &lt;pid&gt; |grep &lt;tid&gt; -C 20</code>命令查看该线程的堆栈信息。</p>
+<p><img src="https://i.loli.net/2018/12/07/5c09de3041b0a.png" alt="thread_stack.png"></p>
+<h3 id="三、分析"><a href="#三、分析" class="headerlink" title="三、分析"></a>三、分析</h3><p>Gang worker是JVM 用于做新生代垃圾回收（monir gc）的一个线程，#号后面是线程编号。从线程的堆栈信息可以看出是JVM的GC线程一直在占用大量CPU.定位到垃圾收集器的问题，可以通过<code>jstat -gcutil &lt;pid&gt; 1000 100</code>命令统计GC回收的情况（没发现有什么异常）。</p>
+<p><img src="https://i.loli.net/2018/12/13/5c11f7d2e9c4d.png" alt="gcutil.png"></p>
+<p>对应的参数如下：</p>
+<ul>
+<li><strong>S0：</strong>幸存1区当前使用比例</li>
+<li><strong>S1：</strong>幸存2区当前使用比例</li>
+<li><strong>E：</strong>伊甸园区使用比例</li>
+<li><strong>O：</strong>老年代使用比例</li>
+<li><strong>M：</strong>元数据区使用比例</li>
+<li><strong>CCS：</strong>压缩使用比例</li>
+<li><strong>YGC：</strong>年轻代垃圾回收次数</li>
+<li><strong>FGC：</strong>老年代垃圾回收次数</li>
+<li><strong>FGCT：</strong>老年代垃圾回收消耗时间</li>
+<li><strong>GCT：</strong>垃圾回收消耗总时间</li>
+</ul>
+<p>通过<code>jinfo -flags &lt;pid&gt;</code>命令，查看该服务器上的JVM内存参数设置，看到了这一条配置：<code>-Xmx12g -XX:MaxDirectMemorySize=18g</code>，原来之前的服务版本中已经不使用直接内存，而是全都使用堆内存，而这里JVM配置却没有改过来，由此推测是服务的内存分配不够用导致频繁GC，进而引起CPU负载过高。</p>
+<p><img src="https://i.loli.net/2018/12/13/5c11f7f40440c.png" alt="jinfo.png"></p>
+<h3 id="四、后续"><a href="#四、后续" class="headerlink" title="四、后续"></a>四、后续</h3><p>修改JVM的配置，将最大堆内存设置为<code>-Xmx=24g</code>，重启服务运行一段时候后发现CPU负载迅速降了下来，并一直低于线上服务的负载。</p>
+<p><img src="https://i.loli.net/2018/12/06/5c08d1312b7aa.png" alt="load_after.png"></p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>1 有关JVM调优相关的可以参考这一系列博客，写的很详尽：<a href="https://www.cnblogs.com/wyb628/p/8566337.html" target="_blank" rel="noopener">Java内存泄露分析系列</a>。</p>
+<p>2 这次问题解决也是凑巧去看了一眼JVM参数，本身GC回收具体什么地方占用了CPU，迫于时间关系实际上没有准确定位到，后面再研究吧。</p>
 
       
     </div>
@@ -408,6 +453,10 @@
         <div class="post-tags">
           
             <a href="/tags/性能调优/" rel="tag"><i class="fa fa-tag"></i> 性能调优</a>
+          
+            <a href="/tags/JVM/" rel="tag"><i class="fa fa-tag"></i> JVM</a>
+          
+            <a href="/tags/Linux命令/" rel="tag"><i class="fa fa-tag"></i> Linux命令</a>
           
         </div>
       
@@ -507,7 +556,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -529,7 +578,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -595,7 +644,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现象"><span class="nav-number">2.</span> <span class="nav-text">现象</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现象"><span class="nav-number">2.</span> <span class="nav-text">现象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排查过程"><span class="nav-number">3.</span> <span class="nav-text">排查过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、比较用户数量"><span class="nav-number">3.1.</span> <span class="nav-text">一、比较用户数量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、定位高CPU占用线程"><span class="nav-number">3.2.</span> <span class="nav-text">二、定位高CPU占用线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、分析"><span class="nav-number">3.3.</span> <span class="nav-text">三、分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、后续"><span class="nav-number">3.4.</span> <span class="nav-text">四、后续</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number">4.</span> <span class="nav-text">结论</span></a></li></ol></div>
             
 
           </div>
