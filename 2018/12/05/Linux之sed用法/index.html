@@ -96,18 +96,18 @@
 
 
 
-<meta name="description" content="文章摘要挖坑…">
+<meta name="description" content="简介Linux sed命令是利用script来处理、编辑文本文件。">
 <meta name="keywords" content="Linux命令">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux之sed用法">
 <meta property="og:url" content="http://yoursite.com/2018/12/05/Linux之sed用法/index.html">
 <meta property="og:site_name" content="Magical Cat">
-<meta property="og:description" content="文章摘要挖坑…">
+<meta property="og:description" content="简介Linux sed命令是利用script来处理、编辑文本文件。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-06T01:13:04.075Z">
+<meta property="og:updated_time" content="2019-01-28T07:50:04.771Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux之sed用法">
-<meta name="twitter:description" content="文章摘要挖坑…">
+<meta name="twitter:description" content="简介Linux sed命令是利用script来处理、编辑文本文件。">
 
 
 
@@ -386,8 +386,22 @@
       
 
       
-        <h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>挖坑…</p>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Linux sed命令是利用script来处理、编辑文本文件。</p>
 <a id="more"></a>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p><code>sed [OPTION]... {script-only-if-no-other-script} [input-file]...</code></p>
+<h4 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h4><ul>
+<li>-n, –quiet, –silent<br>​                 suppress automatic printing of pattern space</li>
+<li>-e script, –expression=script<br>​                 add the script to the commands to be executed</li>
+<li>-f script-file, –file=script-file<br>​                 add the contents of script-file to the commands to be executed<br> –follow-symlinks<br>​                 follow symlinks when processing in place; hard links<br>​                 will still be broken.</li>
+<li>-i[SUFFIX], –in-place[=SUFFIX]<br>​                 edit files in place (makes backup if extension supplied).<br>​                 The default operation mode is to break symbolic and hard links.<br>​                 This can be changed with –follow-symlinks and –copy.</li>
+<li>-c, –copy<br>​                 use copy instead of rename when shuffling files in -i mode.<br>​                 While this will avoid breaking links (symbolic or hard), the<br>​                 resulting editing operation is not atomic.  This is rarely<br>​                 the desired mode; –follow-symlinks is usually enough, and<br>​                 it is both faster and more secure.</li>
+<li>-l N, –line-length=N<br>​                 specify the desired line-wrap length for the `l’ command<br>  –posix<br>​                 disable all GNU extensions.</li>
+<li>-r, –regexp-extended<br>​                 use extended regular expressions in the script.</li>
+<li>-s, –separate<br>​                 consider files as separate rather than as a single continuous<br>​                 long stream.</li>
+<li>-u, –unbuffered<br>​                 load minimal amounts of data from the input files and flush<br>​                 the output buffers more often</li>
+</ul>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>查看某段时间的服务日志：<code>sed -n &#39;/1970-01-01 01:01/,$p&#39; 1.log |more</code></p>
+
       
     </div>
     
@@ -504,7 +518,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -515,7 +529,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -526,7 +540,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -592,7 +606,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文章摘要"><span class="nav-number">1.</span> <span class="nav-text">文章摘要</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法"><span class="nav-number">2.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参数说明"><span class="nav-number">2.0.1.</span> <span class="nav-text">参数说明</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#实例"><span class="nav-number">3.</span> <span class="nav-text">实例</span></a></li></div>
             
 
           </div>
@@ -616,7 +630,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

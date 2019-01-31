@@ -96,19 +96,19 @@
 
 
 
-<meta name="description" content="文章摘要Arthas（阿尔萨斯）是阿里巴巴开源的 Java 诊断工具，深受开发者喜爱。 当你遇到以下类似问题而束手无策时，Arthas 可以帮助你解决： 这个类从哪个 jar 包加载的？为什么会报各种类相关的 Exception？  我改的代码为什么没有执行到？难道是我没 commit？分支搞错了？  遇到问题无法在线上 debug，难道只能通过加日志再重新发布吗？  线上遇到某个用户的数据处理">
+<meta name="description" content="简介Arthas（阿尔萨斯）是阿里巴巴开源的 Java 诊断工具，深受开发者喜爱。 当你遇到以下类似问题而束手无策时，Arthas 可以帮助你解决： 这个类从哪个 jar 包加载的？为什么会报各种类相关的 Exception？  我改的代码为什么没有执行到？难道是我没 commit？分支搞错了？  遇到问题无法在线上 debug，难道只能通过加日志再重新发布吗？  线上遇到某个用户的数据处理有问">
 <meta name="keywords" content="开发工具,alibaba">
 <meta property="og:type" content="article">
 <meta property="og:title" content="介绍一款开源Java诊断工具—Arthas">
 <meta property="og:url" content="http://yoursite.com/2018/11/19/Arthas—开源Java诊断工具/index.html">
 <meta property="og:site_name" content="Magical Cat">
-<meta property="og:description" content="文章摘要Arthas（阿尔萨斯）是阿里巴巴开源的 Java 诊断工具，深受开发者喜爱。 当你遇到以下类似问题而束手无策时，Arthas 可以帮助你解决： 这个类从哪个 jar 包加载的？为什么会报各种类相关的 Exception？  我改的代码为什么没有执行到？难道是我没 commit？分支搞错了？  遇到问题无法在线上 debug，难道只能通过加日志再重新发布吗？  线上遇到某个用户的数据处理">
+<meta property="og:description" content="简介Arthas（阿尔萨斯）是阿里巴巴开源的 Java 诊断工具，深受开发者喜爱。 当你遇到以下类似问题而束手无策时，Arthas 可以帮助你解决： 这个类从哪个 jar 包加载的？为什么会报各种类相关的 Exception？  我改的代码为什么没有执行到？难道是我没 commit？分支搞错了？  遇到问题无法在线上 debug，难道只能通过加日志再重新发布吗？  线上遇到某个用户的数据处理有问">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2018/11/19/5bf2661ea96ae.png">
-<meta property="og:updated_time" content="2018-11-19T07:28:42.623Z">
+<meta property="og:updated_time" content="2019-01-28T08:43:18.477Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="介绍一款开源Java诊断工具—Arthas">
-<meta name="twitter:description" content="文章摘要Arthas（阿尔萨斯）是阿里巴巴开源的 Java 诊断工具，深受开发者喜爱。 当你遇到以下类似问题而束手无策时，Arthas 可以帮助你解决： 这个类从哪个 jar 包加载的？为什么会报各种类相关的 Exception？  我改的代码为什么没有执行到？难道是我没 commit？分支搞错了？  遇到问题无法在线上 debug，难道只能通过加日志再重新发布吗？  线上遇到某个用户的数据处理">
+<meta name="twitter:description" content="简介Arthas（阿尔萨斯）是阿里巴巴开源的 Java 诊断工具，深受开发者喜爱。 当你遇到以下类似问题而束手无策时，Arthas 可以帮助你解决： 这个类从哪个 jar 包加载的？为什么会报各种类相关的 Exception？  我改的代码为什么没有执行到？难道是我没 commit？分支搞错了？  遇到问题无法在线上 debug，难道只能通过加日志再重新发布吗？  线上遇到某个用户的数据处理有问">
 <meta name="twitter:image" content="https://i.loli.net/2018/11/19/5bf2661ea96ae.png">
 
 
@@ -389,7 +389,7 @@
 
       
         <p><img src="https://i.loli.net/2018/11/19/5bf2661ea96ae.png" alt="arthas.png"></p>
-<h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>Arthas（阿尔萨斯）是阿里巴巴开源的 Java 诊断工具，深受开发者喜爱。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Arthas（阿尔萨斯）是阿里巴巴开源的 Java 诊断工具，深受开发者喜爱。</p>
 <p>当你遇到以下类似问题而束手无策时，Arthas 可以帮助你解决：</p>
 <pre><code>这个类从哪个 jar 包加载的？为什么会报各种类相关的 Exception？
 
@@ -404,7 +404,31 @@
 有什么办法可以监控到JVM的实时运行状态？
 </code></pre><p>Arthas 采用命令行交互模式，同时提供丰富的 Tab 自动补全功能，进一步方便进行问题的定位和诊断。</p>
 <a id="more"></a>
-<p>未完待续…</p>
+<h2 id="常用命令示例"><a href="#常用命令示例" class="headerlink" title="常用命令示例"></a>常用命令示例</h2><ul>
+<li>实时显示当前服务的线程、JVM等信息：</li>
+</ul>
+<p><code>dashboard</code></p>
+<ul>
+<li>在指定采样时间间隔<code>i</code>内展示当前最忙的前<code>n</code>个线程并打印堆栈：</li>
+</ul>
+<p><code>thread -n 10 -i 1000</code></p>
+<ul>
+<li>展示方法内部调用路径，并输出方法路径上的每个节点上耗时，跟据调用耗时过滤：</li>
+</ul>
+<p><code>trace [class-pattern] [method-pattern] #cost&gt;100</code></p>
+<ul>
+<li>方法执行数据观测：</li>
+</ul>
+<p><code>watch [class-pattern] [method-pattern] returnObj</code><br><code>watch [class-pattern] getInstance &quot;returnObj.getReqList().size()&quot;</code></p>
+<ul>
+<li>反编译指定已加载类的源码：</li>
+</ul>
+<p><code>jad [class-pattern]</code></p>
+<ul>
+<li>打印出类的Field信息：</li>
+</ul>
+<p><code>sc -df io.netty.util.internal.PlatformDependent</code></p>
+<p>安装和更多命令列表参见官方文档：<a href="https://alibaba.github.io/arthas/index.html" target="_blank" rel="noopener">Arthas 用户文档 — Arthas 3.0.5-SNAPSHOT 文档</a></p>
 
       
     </div>
@@ -524,7 +548,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -535,7 +559,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -546,7 +570,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -612,7 +636,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文章摘要"><span class="nav-number">1.</span> <span class="nav-text">文章摘要</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用命令示例"><span class="nav-number">2.</span> <span class="nav-text">常用命令示例</span></a></li></ol></div>
             
 
           </div>
@@ -636,7 +660,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

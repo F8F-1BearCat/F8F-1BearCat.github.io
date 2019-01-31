@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-12-19T01:41:01.974Z</updated>
+  <updated>2019-01-31T06:43:45.956Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>同步、异步、阻塞、非阻塞IO</title>
+    <link href="http://yoursite.com/2019/01/29/%E5%90%8C%E6%AD%A5%E3%80%81%E5%BC%82%E6%AD%A5%E3%80%81%E9%98%BB%E5%A1%9E%E3%80%81%E9%9D%9E%E9%98%BB%E5%A1%9EIO/"/>
+    <id>http://yoursite.com/2019/01/29/同步、异步、阻塞、非阻塞IO/</id>
+    <published>2019-01-29T06:58:00.260Z</published>
+    <updated>2019-01-31T06:43:45.956Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>最近在整理过去一段时间内Netty性能调优的工作，涉及到了Netty的NIO/Epoll等异步非阻塞通信，索性复习一下常见的几种IO模型。看到CSDN上这篇文章写得很清晰易懂，<a href="https://blog.csdn.net/historyasamirror/article/details/5778378" target="_blank" rel="noopener">IO - 同步，异步，阻塞，非阻塞 （亡羊补牢篇）</a>，在此基础上整理了一下，方便记忆及以后查看。</p><a id="more"></a><h2 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h2><p>IO发生时会经历两个阶段：</p><ul><li><p>等待数据</p></li><li><p>将数据从内核复制到用户空间</p></li></ul><p>不同的IO模型就是根据在这两个阶段所做的处理不同进行区分的。</p><h3 id="Blocking-IO"><a href="#Blocking-IO" class="headerlink" title="Blocking IO"></a>Blocking IO</h3><p><img src="https://i.loli.net/2019/01/30/5c5151d73a80d.jpg" alt="blocking IO.jpg"></p><p><strong>阻塞IO模型（BIO）</strong>：应用进程调用recvfrom，kernel开始了IO的第一阶段：等待数据，等到数据准备好了，kernel开始第二阶段：将数据从内核复制到用户空间。在IO的这两个阶段执行期间，应用进程一直处于block状态，直到kernel返回结果，应用进程阻塞才解除。</p><p>举例：你在美团上点了一份外卖，下单后外卖小哥开始取餐（阶段一），取到餐后再进行配送（阶段二），期间你一直站在门口等（block状态），直到收到外卖才继续自己的事情。</p><h3 id="Nonblocking-IO"><a href="#Nonblocking-IO" class="headerlink" title="Nonblocking IO"></a>Nonblocking IO</h3><p><img src="https://i.loli.net/2019/01/30/5c5151d7b62f1.jpg" alt="non-blocking IO.jpg"></p><p><strong>非阻塞IO模型（NIO）</strong>：应用进程调用recvfrom，kernel开始了IO的第一阶段：等待数据，如果kernel中的数据还没有准备好，就返回应用进程EWOULDBLOCK，应用进程收到返回后会一直调用recvfrom询问kernel，直到数据准备好，在此期间应用进程处于非block状态；然后kernel将数据从内核复制到用户空间，并block应用进程，直到成功返回后阻塞状态解除。所以非阻塞IO和阻塞IO不是完全对立的，在IO第二阶段二者均处于block状态。</p><p>举例：你在美团上点了一份外卖，下单后外卖小哥开始取餐（阶段一），在取餐期间你坐在屋里一遍看剧一边不断打电话给外卖小哥询问取到了没，直到小哥说他拿到了；这时小哥取到餐后进行配送（阶段二），你也起身站在门口等（block状态），直到收到外卖。</p><h3 id="IO-multiplexing"><a href="#IO-multiplexing" class="headerlink" title="IO multiplexing"></a>IO multiplexing</h3><p><img src="https://i.loli.net/2019/01/30/5c5151d7af63b.jpg" alt="IO multiplexing.jpg"></p><p><strong>IO复用模型</strong>：应用进程调用select，通过select可以不断的轮询所负责的所有socket，当某个socket的数据准备好了，select就会返回信息，然后用户态进程调用recvfrom，将数据从内核复制到用户空间。对于每一个socket，一般都设置成为non-blocking，但是整个应用进程受阻于select调用；同样，在IO的第二阶段，应用进程也是出于block状态。</p><p>如果处理的连接数不是很高的话，使用select/epoll的web server不一定比使用multi-threading + blocking IO的web server性能更好，可能延迟还更大。select/epoll的优势并不是对于单个连接能处理得更快，而是在于单个process就可以同时处理多个网络连接的IO。</p><p>Linux关于IO复用的使用，有三种不同的API，select、poll和epoll，关于这三种API的实现分析，可以参考下这篇文章：<a href="https://www.cnblogs.com/Anker/p/3265058.html" target="_blank" rel="noopener">select、poll、epoll之间的区别总结[整理]</a>。</p><p>举例：这次你在美团上一次点了好几份外卖，美团的消息系统（select等API调用）推给你说等有外卖取到了就发消息给你，让你留意消息（block状态），然后几个外卖小哥就到不同的店去取餐（阶段一）。等取到餐了，如果你用的是select或poll版本的美团，消息推给你说你有订单已经取到了，但是不告诉你是哪家；如果你用的是epoll版本的美团，消息推给你说你有订单已经取到了，而且还告诉你是碳烤羊排。收到消息之后你就到门口去等（block状态），外卖小哥进行配送（阶段二），直到收到外卖才继续自己的事情。</p><h3 id="Asynchronous-IO"><a href="#Asynchronous-IO" class="headerlink" title="Asynchronous IO"></a>Asynchronous IO</h3><p><img src="https://i.loli.net/2019/01/30/5c5151d704ff1.jpg" alt="Asynchronous IO.jpg"></p><p><strong>异步IO模型（AIO）</strong>：应用进程调用aio_read，kernel收到请求后会立刻返回，等数据准备好，并且复制到用户空间后执行事先指定好的函数，整个过程应用进程都处于非block状态。</p><p>举例：你发现自己出去等太大笨蛋了，在美团上点了一份外卖，看到下单成功后就去看剧了。外卖小哥开始取餐（阶段一），取到餐后再进行配送（阶段二），最后送到你门口，整个过程你都在干自己的事情，没有一直等着（非block状态）。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="IO模型对比"><a href="#IO模型对比" class="headerlink" title="IO模型对比"></a>IO模型对比</h3><p><img src="https://i.loli.net/2019/01/30/5c5151d774bba.jpg" alt="IO Models.jpg"></p><p>因为信号驱动式IO（signal-driven I/O）使用较少，正文中没提及。</p><p><strong>阻塞IO和非阻塞IO</strong>：调用blocking IO会一直block住对应的进程直到操作完成，而non-blocking IO在kernel还准备数据的情况下会立刻返回。</p><p><strong>同步IO和异步IO</strong>：synchronous IO做”IO operation”的时候会将process阻塞，blocking IO，non-blocking IO，IO multiplexing因为都阻塞于recvfrom调用，都属于synchronous IO。</p><p><strong>非阻塞IO和异步IO</strong>：在数据准备阶段，non-blocking IO中进程不会被block，但是它仍然要求进程去主动的check，而asynchronous IO中应用进程进程将整个IO操作交给kernel来完成。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;最近在整理过去一段时间内Netty性能调优的工作，涉及到了Netty的NIO/Epoll等异步非阻塞通信，索性复习一下常见的几种IO模型。看到CSDN上这篇文章写得很清晰易懂，&lt;a href=&quot;https://blog.csdn.net/historyasamirror/article/details/5778378&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;IO - 同步，异步，阻塞，非阻塞 （亡羊补牢篇）&lt;/a&gt;，在此基础上整理了一下，方便记忆及以后查看。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="网络" scheme="http://yoursite.com/categories/%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="IO" scheme="http://yoursite.com/tags/IO/"/>
+    
+  </entry>
   
   <entry>
     <title>读懂Young GC日志</title>
@@ -145,13 +167,13 @@
     <link href="http://yoursite.com/2018/12/05/Linux%E4%B9%8Bsed%E7%94%A8%E6%B3%95/"/>
     <id>http://yoursite.com/2018/12/05/Linux之sed用法/</id>
     <published>2018-12-05T01:33:22.380Z</published>
-    <updated>2018-12-06T01:13:04.075Z</updated>
+    <updated>2019-01-28T07:50:04.771Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>挖坑…</p><a id="more"></a>]]></content>
+    <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Linux sed命令是利用script来处理、编辑文本文件。</p><a id="more"></a><h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p><code>sed [OPTION]... {script-only-if-no-other-script} [input-file]...</code></p><h4 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h4><ul><li>-n, –quiet, –silent<br>​                 suppress automatic printing of pattern space</li><li>-e script, –expression=script<br>​                 add the script to the commands to be executed</li><li>-f script-file, –file=script-file<br>​                 add the contents of script-file to the commands to be executed<br> –follow-symlinks<br>​                 follow symlinks when processing in place; hard links<br>​                 will still be broken.</li><li>-i[SUFFIX], –in-place[=SUFFIX]<br>​                 edit files in place (makes backup if extension supplied).<br>​                 The default operation mode is to break symbolic and hard links.<br>​                 This can be changed with –follow-symlinks and –copy.</li><li>-c, –copy<br>​                 use copy instead of rename when shuffling files in -i mode.<br>​                 While this will avoid breaking links (symbolic or hard), the<br>​                 resulting editing operation is not atomic.  This is rarely<br>​                 the desired mode; –follow-symlinks is usually enough, and<br>​                 it is both faster and more secure.</li><li>-l N, –line-length=N<br>​                 specify the desired line-wrap length for the `l’ command<br>  –posix<br>​                 disable all GNU extensions.</li><li>-r, –regexp-extended<br>​                 use extended regular expressions in the script.</li><li>-s, –separate<br>​                 consider files as separate rather than as a single continuous<br>​                 long stream.</li><li>-u, –unbuffered<br>​                 load minimal amounts of data from the input files and flush<br>​                 the output buffers more often</li></ul><h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>查看某段时间的服务日志：<code>sed -n &#39;/1970-01-01 01:01/,$p&#39; 1.log |more</code></p>]]></content>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;文章摘要&quot;&gt;&lt;a href=&quot;#文章摘要&quot; class=&quot;headerlink&quot; title=&quot;文章摘要&quot;&gt;&lt;/a&gt;文章摘要&lt;/h2&gt;&lt;p&gt;挖坑…&lt;/p&gt;
+      &lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;Linux sed命令是利用script来处理、编辑文本文件。&lt;/p&gt;
     
     </summary>
     
@@ -258,14 +280,14 @@
     <link href="http://yoursite.com/2018/11/19/Arthas%E2%80%94%E5%BC%80%E6%BA%90Java%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7/"/>
     <id>http://yoursite.com/2018/11/19/Arthas—开源Java诊断工具/</id>
     <published>2018-11-19T06:48:50.651Z</published>
-    <updated>2018-11-19T07:28:42.623Z</updated>
+    <updated>2019-01-28T08:43:18.477Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="https://i.loli.net/2018/11/19/5bf2661ea96ae.png" alt="arthas.png"></p><h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>Arthas（阿尔萨斯）是阿里巴巴开源的 Java 诊断工具，深受开发者喜爱。</p><p>当你遇到以下类似问题而束手无策时，Arthas 可以帮助你解决：</p><pre><code>这个类从哪个 jar 包加载的？为什么会报各种类相关的 Exception？我改的代码为什么没有执行到？难道是我没 commit？分支搞错了？遇到问题无法在线上 debug，难道只能通过加日志再重新发布吗？线上遇到某个用户的数据处理有问题，但线上同样无法 debug，线下无法重现！是否有一个全局视角来查看系统的运行状况？有什么办法可以监控到JVM的实时运行状态？</code></pre><p>Arthas 采用命令行交互模式，同时提供丰富的 Tab 自动补全功能，进一步方便进行问题的定位和诊断。</p><a id="more"></a><p>未完待续…</p>]]></content>
+    <content type="html"><![CDATA[<p><img src="https://i.loli.net/2018/11/19/5bf2661ea96ae.png" alt="arthas.png"></p><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Arthas（阿尔萨斯）是阿里巴巴开源的 Java 诊断工具，深受开发者喜爱。</p><p>当你遇到以下类似问题而束手无策时，Arthas 可以帮助你解决：</p><pre><code>这个类从哪个 jar 包加载的？为什么会报各种类相关的 Exception？我改的代码为什么没有执行到？难道是我没 commit？分支搞错了？遇到问题无法在线上 debug，难道只能通过加日志再重新发布吗？线上遇到某个用户的数据处理有问题，但线上同样无法 debug，线下无法重现！是否有一个全局视角来查看系统的运行状况？有什么办法可以监控到JVM的实时运行状态？</code></pre><p>Arthas 采用命令行交互模式，同时提供丰富的 Tab 自动补全功能，进一步方便进行问题的定位和诊断。</p><a id="more"></a><h2 id="常用命令示例"><a href="#常用命令示例" class="headerlink" title="常用命令示例"></a>常用命令示例</h2><ul><li>实时显示当前服务的线程、JVM等信息：</li></ul><p><code>dashboard</code></p><ul><li>在指定采样时间间隔<code>i</code>内展示当前最忙的前<code>n</code>个线程并打印堆栈：</li></ul><p><code>thread -n 10 -i 1000</code></p><ul><li>展示方法内部调用路径，并输出方法路径上的每个节点上耗时，跟据调用耗时过滤：</li></ul><p><code>trace [class-pattern] [method-pattern] #cost&gt;100</code></p><ul><li>方法执行数据观测：</li></ul><p><code>watch [class-pattern] [method-pattern] returnObj</code><br><code>watch [class-pattern] getInstance &quot;returnObj.getReqList().size()&quot;</code></p><ul><li>反编译指定已加载类的源码：</li></ul><p><code>jad [class-pattern]</code></p><ul><li>打印出类的Field信息：</li></ul><p><code>sc -df io.netty.util.internal.PlatformDependent</code></p><p>安装和更多命令列表参见官方文档：<a href="https://alibaba.github.io/arthas/index.html" target="_blank" rel="noopener">Arthas 用户文档 — Arthas 3.0.5-SNAPSHOT 文档</a></p>]]></content>
     
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;https://i.loli.net/2018/11/19/5bf2661ea96ae.png&quot; alt=&quot;arthas.png&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;文章摘要&quot;&gt;&lt;a href=&quot;#文章摘要&quot; class=&quot;headerlink&quot; title=&quot;文章摘要&quot;&gt;&lt;/a&gt;文章摘要&lt;/h2&gt;&lt;p&gt;Arthas（阿尔萨斯）是阿里巴巴开源的 Java 诊断工具，深受开发者喜爱。&lt;/p&gt;
+&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;Arthas（阿尔萨斯）是阿里巴巴开源的 Java 诊断工具，深受开发者喜爱。&lt;/p&gt;
 &lt;p&gt;当你遇到以下类似问题而束手无策时，Arthas 可以帮助你解决：&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;这个类从哪个 jar 包加载的？为什么会报各种类相关的 Exception？
 
@@ -321,14 +343,14 @@
     <link href="http://yoursite.com/2018/11/19/Netty%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E5%AF%B9%E8%B1%A1/"/>
     <id>http://yoursite.com/2018/11/19/Netty引用计数对象/</id>
     <published>2018-11-19T05:42:35.208Z</published>
-    <updated>2018-11-19T05:43:44.331Z</updated>
+    <updated>2019-01-28T09:16:53.831Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="https://i.loli.net/2018/11/19/5bf21c6726a92.png" alt="netty.png"></p><h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>挖坑…</p><a id="more"></a>]]></content>
+    <content type="html"><![CDATA[<p><img src="https://i.loli.net/2018/11/19/5bf21c6726a92.png" alt="netty.png"></p><h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>Netty学习笔记</p><a id="more"></a><p>官方文档：<a href="https://netty.io/wiki/reference-counted-objects.html" target="_blank" rel="noopener">https://netty.io/wiki/reference-counted-objects.html</a></p><p>文档翻译：<a href="https://damacheng009.iteye.com/blog/2013657" target="_blank" rel="noopener">https://damacheng009.iteye.com/blog/2013657</a></p>]]></content>
     
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;https://i.loli.net/2018/11/19/5bf21c6726a92.png&quot; alt=&quot;netty.png&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;文章摘要&quot;&gt;&lt;a href=&quot;#文章摘要&quot; class=&quot;headerlink&quot; title=&quot;文章摘要&quot;&gt;&lt;/a&gt;文章摘要&lt;/h2&gt;&lt;p&gt;挖坑…&lt;/p&gt;
+&lt;h2 id=&quot;文章摘要&quot;&gt;&lt;a href=&quot;#文章摘要&quot; class=&quot;headerlink&quot; title=&quot;文章摘要&quot;&gt;&lt;/a&gt;文章摘要&lt;/h2&gt;&lt;p&gt;Netty学习笔记&lt;/p&gt;
     
     </summary>
     
