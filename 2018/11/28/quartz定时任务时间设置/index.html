@@ -96,18 +96,20 @@
 
 
 
-<meta name="description" content="文章摘要挖坑…">
+<meta name="description" content="文章摘要Quartz 是一个完全由 Java 编写的开源作业调度框架，为在 Java 应用程序中进行作业调度提供了简单却强大的机制。项目中的定时任务有使用到Quartz，这里就简单记录下其有关概念以及时间设置，方便记忆及以后查看。">
 <meta name="keywords" content="Quartz任务调度">
 <meta property="og:type" content="article">
 <meta property="og:title" content="quartz定时任务时间设置">
 <meta property="og:url" content="http://yoursite.com/2018/11/28/quartz定时任务时间设置/index.html">
 <meta property="og:site_name" content="Magical Cat">
-<meta property="og:description" content="文章摘要挖坑…">
+<meta property="og:description" content="文章摘要Quartz 是一个完全由 Java 编写的开源作业调度框架，为在 Java 应用程序中进行作业调度提供了简单却强大的机制。项目中的定时任务有使用到Quartz，这里就简单记录下其有关概念以及时间设置，方便记忆及以后查看。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-28T01:04:54.143Z">
+<meta property="og:image" content="https://i.loli.net/2019/02/01/5c53b7b438ba0.png">
+<meta property="og:updated_time" content="2019-02-01T06:06:56.366Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="quartz定时任务时间设置">
-<meta name="twitter:description" content="文章摘要挖坑…">
+<meta name="twitter:description" content="文章摘要Quartz 是一个完全由 Java 编写的开源作业调度框架，为在 Java 应用程序中进行作业调度提供了简单却强大的机制。项目中的定时任务有使用到Quartz，这里就简单记录下其有关概念以及时间设置，方便记忆及以后查看。">
+<meta name="twitter:image" content="https://i.loli.net/2019/02/01/5c53b7b438ba0.png">
 
 
 
@@ -386,8 +388,76 @@
       
 
       
-        <h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>挖坑…</p>
+        <p><img src="https://i.loli.net/2019/02/01/5c53b7b438ba0.png" alt="quartz.png"></p>
+<h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>Quartz 是一个完全由 Java 编写的开源作业调度框架，为在 Java 应用程序中进行作业调度提供了简单却强大的机制。项目中的定时任务有使用到Quartz，这里就简单记录下其有关概念以及时间设置，方便记忆及以后查看。</p>
 <a id="more"></a>
+<h2 id="Quartz-的核心概念"><a href="#Quartz-的核心概念" class="headerlink" title="Quartz 的核心概念"></a>Quartz 的核心概念</h2><p><strong>Job</strong> 表示一个工作，要执行的具体内容。此接口中只有一个方法，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">execute</span><span class="params">(JobExecutionContext context)</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>JobDetail</strong> 表示一个具体的可执行的调度程序，Job 是这个可执行程调度程序所要执行的内容，另外 JobDetail 还包含了这个任务调度的方案和策略。 </p>
+<p><strong>Trigger</strong> 代表一个调度参数的配置，什么时候去调。</p>
+<p><strong>Scheduler</strong> 代表一个调度容器，一个调度容器中可以注册多个 JobDetail 和 Trigger。当 Trigger 与 JobDetail 组合，就可以被 Scheduler 容器调度了。</p>
+<h2 id="定时任务时间设置"><a href="#定时任务时间设置" class="headerlink" title="定时任务时间设置"></a>定时任务时间设置</h2><p><strong>时间格式:</strong> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">星号： * * * * * * * </span><br><span class="line">格式： 秒 分 时 日 月 周 年</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>时间域名</th>
+<th style="text-align:center">允许填写的值</th>
+<th style="text-align:center">允许的通配符</th>
+<th>是否必填</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>秒</td>
+<td style="text-align:center">0-59</td>
+<td style="text-align:center">, - * /</td>
+<td>是</td>
+</tr>
+<tr>
+<td>分</td>
+<td style="text-align:center">0-59</td>
+<td style="text-align:center">, - * /</td>
+<td>是</td>
+</tr>
+<tr>
+<td>时</td>
+<td style="text-align:center">0-23</td>
+<td style="text-align:center">, - * /</td>
+<td>是</td>
+</tr>
+<tr>
+<td>周</td>
+<td style="text-align:center">1-31</td>
+<td style="text-align:center">, - * ? / L W</td>
+<td>是</td>
+</tr>
+<tr>
+<td>月</td>
+<td style="text-align:center">1-12 or JAN-DEC</td>
+<td style="text-align:center">, - * /</td>
+<td></td>
+</tr>
+<tr>
+<td>周</td>
+<td style="text-align:center">1-7 or SUN-SAT</td>
+<td style="text-align:center">, - * ? / L  #</td>
+<td>是</td>
+</tr>
+<tr>
+<td>年</td>
+<td style="text-align:center">1970-2099</td>
+<td style="text-align:center">, - * /</td>
+<td>否</td>
+</tr>
+</tbody>
+</table>
+<p><strong>通配符说明</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'*'</span> 表示所有值。例如:在分的字段上设置<span class="string">'*'</span>,表示每一分钟都会触发。</span><br><span class="line"></span><br><span class="line"><span class="string">'?'</span> 表示不指定值。使用的场景为不需要关心当前设置这个字段的值。例如:要在每月的<span class="number">10</span>号触发一个操作，但不关心是周几，所以需要周位置的那个字段设置为<span class="string">'?'</span>具体设置为<span class="string">'00010*?'</span>。</span><br><span class="line"></span><br><span class="line"><span class="string">'-'</span> 表示区间。例如 在小时上设置<span class="string">'10-12'</span>,表示<span class="number">10</span>,<span class="number">11</span>,<span class="number">12</span>点都会触发。<span class="string">','</span>表示指定多个值，例如在周字段上设置<span class="string">'MON,WED,FRI'</span>表示周一，周三和周五触发。</span><br><span class="line"></span><br><span class="line"><span class="string">'/'</span> 用于递增触发。如在秒上面设置<span class="string">'5/15'</span>表示从<span class="number">5</span>秒开始，每增<span class="number">15</span>秒触发(<span class="number">5</span>,<span class="number">20</span>,<span class="number">35</span>,<span class="number">50</span>)。在月字段上设置<span class="string">'1/3'</span>所示每月<span class="number">1</span>号开始，每隔三天触发一次。</span><br><span class="line"></span><br><span class="line"><span class="string">'L'</span> 表示最后的意思。在日字段设置上，表示当月的最后一天(依据当前月份，如果是二月还会依据是否是润年[leap]), 在周字段上表示星期六，相当于<span class="string">'7'</span>或<span class="string">'SAT'</span>。如果在<span class="string">'L'</span>前加上数字，则表示该数据的最后一个。例如在周字段上设置<span class="string">'6L'</span>这样的格式,则表示<span class="string">"本月最后一个星期五"</span>。</span><br><span class="line"></span><br><span class="line"><span class="string">'W'</span> 表示离指定日期的最近那个工作日(周一至周五)。例如在日字段上设置<span class="string">'15W'</span>，表示离每月<span class="number">15</span>号最近的那个工作日触发。如果<span class="number">15</span>号正好是周六，则找最近的周五(<span class="number">14</span>号)触发, 如果<span class="number">15</span>号是周未，则找最近的下周一(<span class="number">16</span>号)触发.如果<span class="number">15</span>号正好在工作日(周一至周五)，则就在该天触发。如果指定格式为 <span class="string">'1W'</span>,它则表示每月<span class="number">1</span>号往后最近的工作日触发。如果<span class="number">1</span>号正是周六，则将在<span class="number">3</span>号下周一触发。(注，<span class="string">'W'</span>前只能设置具体的数字,不允许区间<span class="string">"-"</span>)。</span><br><span class="line"></span><br><span class="line"><span class="string">'L'</span>和<span class="string">'W'</span>可以一组合使用。如果在日字段上设置<span class="string">'LW'</span>,则表示在本月的最后一个工作日触发(一般指发工资 )序号(表示每月的第几个周几)，例如在周字段上设置<span class="string">'6#3'</span>表示在每月的第三个周六.注意如果指定<span class="string">'#5'</span>,正好第五周没有周六，则不会触发该配置(用在母亲节和父亲节再合适不过了)。</span><br><span class="line"></span><br><span class="line">周字段的设置，若使用英文字母是不区分大小写的，<span class="string">'MON'</span>与<span class="string">'mon'</span>相同。</span><br></pre></td></tr></table></figure>
+<p><strong>常用示例</strong>：</p>
+<p><code>0 0 12 * * ?</code> 每天12点触发<br><code>0 15 10 ? * *</code> 每天10点15分触发<br><code>0 15 10 * * ?</code> 每天10点15分触发<br><code>0 15 10 * * ? *</code> 每天10点15分触发<br><code>0 15 10 * * ? 2005</code> 2005年每天10点15分触发<br><code>0 * 14 * * ?</code> 每天下午的 2点到2点59分每分触发<br><code>0 0/5 14 * * ?</code> 每天下午的 2点到2点59分(整点开始，每隔5分触发)<br><code>0 0/5 14,18 * * ?</code> 每天下午的 18点到18点59分(整点开始，每隔5分触发)<br><code>0 0-5 14 * * ?</code> 每天下午的 2点到2点05分每分触发<br><code>0 10,44 14 ? 3 WED</code>     3月分每周三下午的 2点10分和2点44分触发 （特殊情况，在一个时间设置里，执行两次或两次以上的情况）<br><code>0 59 2 ? * FRI</code>    每周5凌晨2点59分触发；<br><code>0 15 10 ? * MON-FRI</code> 从周一到周五每天上午的10点15分触发<br><code>0 15 10 15 * ?</code> 每月15号上午10点15分触发<br><code>0 15 10 L * ?</code> 每月最后一天的10点15分触发<br><code>0 15 10 ? * 6L</code> 每月最后一周的星期五的10点15分触发<br><code>0 15 10 ? * 6L 2002-2005</code> 从2002年到2005年每月最后一周的星期五的10点15分触发<br><code>0 15 10 ? * 6#3</code> 每月的第三周的星期五开始触发<br><code>0 0 12 1/5 * ?</code> 每月的第一个中午开始每隔5天触发一次<br><code>0 11 11 11 11 ?</code> 每年的11月11号 11点11分触发(光棍节)</p>
+<p>官方文档：<a href="http://www.quartz-scheduler.org/documentation/quartz-2.2.x/quick-start.html" target="_blank" rel="noopener">http://www.quartz-scheduler.org/documentation/quartz-2.2.x/quick-start.html</a></p>
+
       
     </div>
     
@@ -592,7 +662,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文章摘要"><span class="nav-number">1.</span> <span class="nav-text">文章摘要</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文章摘要"><span class="nav-number">1.</span> <span class="nav-text">文章摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quartz-的核心概念"><span class="nav-number">2.</span> <span class="nav-text">Quartz 的核心概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定时任务时间设置"><span class="nav-number">3.</span> <span class="nav-text">定时任务时间设置</span></a></li></ol></div>
             
 
           </div>
