@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="Magical Cat">
 <meta property="og:description" content="文章摘要OpenJDK 12是由JSR 386在Java Community Process中指定的Java SE平台的版本12的开源参考实现，于2019年3月19日达到General Availability版本。GPL(General Public License)协议下的生产就绪二进制文件可从Oracle获得；其他供应商的二进制文件很快就会出现。 该版本的功能和时间表是通过JEP流程提出和跟">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-26T12:46:03.327Z">
+<meta property="og:updated_time" content="2019-03-26T12:49:38.363Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenJDK12的新特性（上）">
 <meta name="twitter:description" content="文章摘要OpenJDK 12是由JSR 386在Java Community Process中指定的Java SE平台的版本12的开源参考实现，于2019年3月19日达到General Availability版本。GPL(General Public License)协议下的生产就绪二进制文件可从Oracle获得；其他供应商的二进制文件很快就会出现。 该版本的功能和时间表是通过JEP流程提出和跟">
@@ -432,7 +432,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>注意</strong>：因篇幅限制，下文将对OpenJDK 12的新特性：189、230、325、334进行整理，剩余特性的整理请见下篇：OpenJDK12的新特性（下）。</p>
+<p><strong>注意</strong>：因篇幅限制，下文将对OpenJDK 12的新特性：189、230、325、334进行整理，剩余特性的整理请见下篇：<a href="https://f8f-1bearcat.github.io/2019/03/26/OpenJDK12%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%8B%EF%BC%89/#more" target="_blank" rel="noopener">OpenJDK12的新特性（下）</a>。</p>
 <h4 id="JEP189-Shenandoah-A-Low-Pause-Time-Garbage-Collector-Experimental"><a href="#JEP189-Shenandoah-A-Low-Pause-Time-Garbage-Collector-Experimental" class="headerlink" title="JEP189: Shenandoah: A Low-Pause-Time Garbage Collector (Experimental)"></a><span id="jump189">JEP189: Shenandoah: A Low-Pause-Time Garbage Collector (Experimental)</span></h4><p>低GC停顿的垃圾收集器(Experimental版本)</p>
 <p><strong>摘要</strong>：</p>
 <p>添加一个名为Shenandoah的新垃圾收集（GC）算法，在执行GC动作时可以通过并发的方式让Java程序继续执行，从而缩短Stop_The_World的时间。使用Shenandoah的停顿时间与堆大小无关，这意味着无论堆是200 MB还是200 GB，都将具有相同的稳定停顿时间。</p>
