@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Logback,Log4j2,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -96,18 +96,16 @@
 
 
 
-<meta name="description" content="文章摘要挖坑待填… 在进行RPC服务调优时，我们往往下意识地会从框架、JVM、业务代码等方向思考，但却往往会忽略线上服务日志打印对服务性能的影响。实际上，在某些情况下，选取合适的日志框架、有效的日志打印策略，将会给服务带来很大的性能提升。本文将尝试对常用的日志框架进行对比分析，从而服务于我们的服务性能调优工作。">
-<meta name="keywords" content="Logback,Log4j2">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Logback以及Log4j2性能测试对比">
-<meta property="og:url" content="http://yoursite.com/2018/11/28/Logback以及Log4j2性能测试对比/index.html">
+<meta name="description" content="今天除了皮，又啥也没干">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Magical Cat">
+<meta property="og:url" content="http://yoursite.com/page/3/index.html">
 <meta property="og:site_name" content="Magical Cat">
-<meta property="og:description" content="文章摘要挖坑待填… 在进行RPC服务调优时，我们往往下意识地会从框架、JVM、业务代码等方向思考，但却往往会忽略线上服务日志打印对服务性能的影响。实际上，在某些情况下，选取合适的日志框架、有效的日志打印策略，将会给服务带来很大的性能提升。本文将尝试对常用的日志框架进行对比分析，从而服务于我们的服务性能调优工作。">
+<meta property="og:description" content="今天除了皮，又啥也没干">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-25T08:24:06.663Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Logback以及Log4j2性能测试对比">
-<meta name="twitter:description" content="文章摘要挖坑待填… 在进行RPC服务调优时，我们往往下意识地会从框架、JVM、业务代码等方向思考，但却往往会忽略线上服务日志打印对服务性能的影响。实际上，在某些情况下，选取合适的日志框架、有效的日志打印策略，将会给服务带来很大的性能提升。本文将尝试对常用的日志框架进行对比分析，从而服务于我们的服务性能调优工作。">
+<meta name="twitter:title" content="Magical Cat">
+<meta name="twitter:description" content="今天除了皮，又啥也没干">
 
 
 
@@ -136,7 +134,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/28/Logback以及Log4j2性能测试对比/">
+  <link rel="canonical" href="http://yoursite.com/page/3/">
 
 
 
@@ -144,7 +142,7 @@
 
 <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
 
-  <title>Logback以及Log4j2性能测试对比 | Magical Cat</title>
+  <title>Magical Cat</title>
   
 
 
@@ -169,7 +167,9 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -282,9 +282,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -297,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/28/Logback以及Log4j2性能测试对比/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/15/Effective Java(8)/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="F8F-1BearCat">
@@ -314,7 +314,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Logback以及Log4j2性能测试对比</h1>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/15/Effective Java(8)/" itemprop="url">Effective Java(8)</a></h1>
         
 
         <div class="post-meta">
@@ -326,8 +328,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-28T09:06:32+08:00">
-                2018-11-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-15T17:20:20+08:00">
+                2018-11-15
               </time>
             
 
@@ -386,10 +388,17 @@
       
 
       
-        <h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>挖坑待填…</p>
-<p>在进行RPC服务调优时，我们往往下意识地会从框架、JVM、业务代码等方向思考，但却往往会忽略线上服务日志打印对服务性能的影响。实际上，在某些情况下，选取合适的日志框架、有效的日志打印策略，将会给服务带来很大的性能提升。本文将尝试对常用的日志框架进行对比分析，从而服务于我们的服务性能调优工作。</p>
-<a id="more"></a>
-<h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h2>
+        
+          <p><img src="https://i.loli.net/2018/11/19/5bf24a39023ab.jpg" alt="effective-java.jpg"></p>
+<h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>Effective Java第8章 通用程序设计 学习笔记</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/15/Effective Java(8)/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
       
     </div>
     
@@ -404,42 +413,14 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Logback/" rel="tag"><i class="fa fa-tag"></i> Logback</a>
-          
-            <a href="/tags/Log4j2/" rel="tag"><i class="fa fa-tag"></i> Log4j2</a>
-          
-        </div>
+
+      
+
       
 
       
       
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/11/28/quartz定时任务时间设置/" rel="next" title="quartz定时任务时间设置">
-                <i class="fa fa-chevron-left"></i> quartz定时任务时间设置
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/30/浅谈OGNL表达式/" rel="prev" title="浅谈OGNL表达式">
-                浅谈OGNL表达式 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -449,11 +430,14 @@
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
+
 
 
           </div>
@@ -461,10 +445,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -485,17 +465,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/Issac.png" alt="F8F-1BearCat">
           <p class="site-author-name" itemprop="name">F8F-1BearCat</p>
@@ -586,22 +557,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文章摘要"><span class="nav-number">1.</span> <span class="nav-text">文章摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内容"><span class="nav-number">2.</span> <span class="nav-text">内容</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -729,10 +684,10 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-
+  
 
   
 
