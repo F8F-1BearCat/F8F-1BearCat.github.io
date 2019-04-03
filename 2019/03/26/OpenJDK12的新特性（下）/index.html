@@ -96,18 +96,20 @@
 
 
 
-<meta name="description" content="文章摘要OpenJDK 12是由JSR 386在Java Community Process中指定的Java SE平台的版本12的开源参考实现，于2019年3月19日达到General Availability版本。GPL(General Public License)协议下的生产就绪二进制文件可从Oracle获得；其他供应商的二进制文件很快就会出现。 该版本的功能和时间表是通过JEP流程提出和跟">
+<meta name="description" content="文章摘要OpenJDK 12是由JSR 386在Java Community Process中指定的Java SE平台的版本12的开源参考实现，于2019年3月19日达到General Availability版本。GPL(General Public License)协议下的生产就绪二进制文件可从Oracle获得；其他供应商的二进制文件很快就会出现。 该版本的功能和时间表是通过JEP流程提出和">
 <meta name="keywords" content="JVM,OpenJDK">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenJDK12的新特性（下）">
 <meta property="og:url" content="http://yoursite.com/2019/03/26/OpenJDK12的新特性（下）/index.html">
 <meta property="og:site_name" content="Magical Cat">
-<meta property="og:description" content="文章摘要OpenJDK 12是由JSR 386在Java Community Process中指定的Java SE平台的版本12的开源参考实现，于2019年3月19日达到General Availability版本。GPL(General Public License)协议下的生产就绪二进制文件可从Oracle获得；其他供应商的二进制文件很快就会出现。 该版本的功能和时间表是通过JEP流程提出和跟">
+<meta property="og:description" content="文章摘要OpenJDK 12是由JSR 386在Java Community Process中指定的Java SE平台的版本12的开源参考实现，于2019年3月19日达到General Availability版本。GPL(General Public License)协议下的生产就绪二进制文件可从Oracle获得；其他供应商的二进制文件很快就会出现。 该版本的功能和时间表是通过JEP流程提出和">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-26T12:50:06.488Z">
+<meta property="og:image" content="https://i.loli.net/2019/03/28/5c9c829850beb.jpg">
+<meta property="og:updated_time" content="2019-04-03T06:09:24.942Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenJDK12的新特性（下）">
-<meta name="twitter:description" content="文章摘要OpenJDK 12是由JSR 386在Java Community Process中指定的Java SE平台的版本12的开源参考实现，于2019年3月19日达到General Availability版本。GPL(General Public License)协议下的生产就绪二进制文件可从Oracle获得；其他供应商的二进制文件很快就会出现。 该版本的功能和时间表是通过JEP流程提出和跟">
+<meta name="twitter:description" content="文章摘要OpenJDK 12是由JSR 386在Java Community Process中指定的Java SE平台的版本12的开源参考实现，于2019年3月19日达到General Availability版本。GPL(General Public License)协议下的生产就绪二进制文件可从Oracle获得；其他供应商的二进制文件很快就会出现。 该版本的功能和时间表是通过JEP流程提出和">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/28/5c9c829850beb.jpg">
 
 
 
@@ -386,7 +388,8 @@
       
 
       
-        <h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>OpenJDK 12是由JSR 386在Java Community Process中指定的Java SE平台的版本12的开源参考实现，于2019年3月19日达到General Availability版本。GPL(General Public License)协议下的生产就绪二进制文件可从Oracle获得；其他供应商的二进制文件很快就会出现。</p>
+        <p><img src="https://i.loli.net/2019/03/28/5c9c829850beb.jpg" alt="OpenJDK.jpg"></p>
+<h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>OpenJDK 12是由JSR 386在Java Community Process中指定的Java SE平台的版本12的开源参考实现，于2019年3月19日达到General Availability版本。GPL(General Public License)协议下的生产就绪二进制文件可从Oracle获得；其他供应商的二进制文件很快就会出现。</p>
 <p>该版本的功能和时间表是通过JEP流程提出和跟踪的，并由JEP 2.0提案进行了修订。该版本使用JDK Release Process（JEP 3）生成发布。</p>
 <p>本文根据OpenJDK 12的官方文档：<a href="http://openjdk.java.net/projects/jdk/12/" target="_blank" rel="noopener">OpenJDK 12</a>，对其新特性进行整理，受本人翻译水平所限，难免有翻译或理解错误，望不吝指正。上篇看这里：<a href="https://f8f-1bearcat.github.io/2019/03/26/OpenJDK12%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%88%E4%B8%8A%EF%BC%89/#jump334" target="_blank" rel="noopener">OpenJDK12的新特性（上）</a>。</p>
 <a id="more"></a>
@@ -458,7 +461,7 @@
 <li>我们将仅为64位版本生成默认存档，稍后可能会添加对32位版本的支持。</li>
 </ul>
 <p><strong>动机</strong>：</p>
-<p>自JDK 8u40以来，许多增强功能被添加到基本CDS特性中。启用CDS提供的启动时间和内存共享优势显着增加。 使用JDK 11早期访问版本14在Linux / x64上完成的测量显示运行HelloWorld的启动时间缩短了32％。 在其他64位平台上，已观察到类似或更高的启动性能增益。</p>
+<p>自JDK 8u40以来，许多增强功能被添加到基本CDS特性中。启用CDS提供的启动时间和内存共享优势显着增加。 使用JDK 11早期访问版本14在Linux/x64上完成的测量显示运行HelloWorld的启动时间缩短了32％。 在其他64位平台上，已观察到类似或更高的启动性能增益。</p>
 <p>目前，JDK映像包括在lib目录中构建时生成的默认类列表。想要利用CDS的用户，即使只使用JDK中提供的默认类列表，也必须运行<code>java -Xshare:dump</code>作为额外步骤。此选项已记录在案，但许多用户并未意识到这一点。</p>
 <p><strong>描述</strong>：</p>
 <p>修改JDK构建以在链接图像后运行<code>java -Xshare:dump</code>，（可以包括附加的命令行选项以微调GC堆大小等，以便为常见情况获得更好的内存布局）将生成的CDS存档保留在<code>lib/server</code>目录中。</p>
@@ -468,38 +471,38 @@
 <p><strong>测试</strong>：</p>
 <p>启用CDS的现有自动化测试已足够。</p>
 <h4 id="JEP344-Abortable-Mixed-Collections-for-G1"><a href="#JEP344-Abortable-Mixed-Collections-for-G1" class="headerlink" title="JEP344: Abortable Mixed Collections for G1"></a><span id="jump344">JEP344: Abortable Mixed Collections for G1</span></h4><p><strong>摘要</strong>：</p>
-<p>如果G1混合集合可能超过暂停目标，则使其可以中止。</p>
+<p>如果G1 mixed 收集可能超过停顿目标，则使其可以中止。</p>
 <p><strong>非目标</strong>：</p>
-<p>使G1中的所有暂停都可以中止。</p>
+<p>使G1中的所有停顿都可以中止。</p>
 <p><strong>动机</strong>：</p>
-<p>G1的目标之一是满足用户提供的暂停时间目标以暂停其收集暂停。 G1使用高级分析引擎来选择在集合期间要完成的工作量（这部分基于应用程序行为）。此选择的结果是一组称为集合集的区域。一旦确定了集合集并且已经开始集合，则G1必须在不停止的情况下收集集合集的所有区域中的所有活动对象。如果启发式选择过大的收集集，则此行为可能导致G1超过暂停时间目标，例如，如果应用程序的行为发生变化，使得启发式工作在“陈旧”数据上，则可能发生这种情况。特别是在混合集合期间可以观察到这种情况，其中集合集通常可以包含太多旧区域。需要一种机制来检测启发式方法何时反复为集合选择错误的工作量，如果是，则让G1逐步递增地执行收集工作，其中可以在每个步骤之后中止收集。这种机制将允许G1更频繁地满足暂停时间目标。</p>
+<p>G1的目标之一是满足用户提供的暂停时间目标的条件的时候暂停其收集。G1使用高级分析引擎来选择在收集期间要完成的工作（这部分基于应用程序行为），此选择的结果是一组称为<em>collection set</em>的区域。一旦确定了collection set并且已经开始收集工作，则G1必须不停地收集collection set的所有region中的所有存活的对象。如果heuristics选择过大的collection set，则此行为可能导致G1超过停顿时间目标，例如，如果应用程序的行为发生变化，使得heuristics选择在”陈旧“数据进行处理，则可能发生这种情况。特别是在mixed收集期间可以观察到这种情况，期间collection set通常会包含很多old region。需要一种机制来检测heuristics何时反复为收集选择错误的工作量，如果此现象存在的话，则让G1逐步递增地执行收集工作，并且可以在每个步骤之后中止收集。这种机制将允许G1更易于满足停顿时间目标。</p>
 <p><strong>描述</strong>：</p>
-<p>如果G1发现集合集选择启发式重复选择错误的区域数，则切换到更复杂的方式来执行混合集合：将集合集拆分为两个部分，强制部分和可选部分。强制性部分包括G1不能递增地处理的收集组的部分（例如，年轻区域），但也可以包含旧区域以提高效率。例如，这可以是预测的集合集的80％。剩余的20％的预测收集集（仅由旧区域组成）构成可选部分。</p>
-<p>G1完成收集强制部分后，如果还有剩余时间，G1会以更细粒度的级别开始收集可选部分。此可选部分的集合粒度取决于剩余的时间量，一次最多只能到一个区域。完成对可选集合集的任何部分的收集后，G1可以根据剩余时间决定停止集合。</p>
-<p>随着预测再次变得更准确，集合的可选部分变得越来越小，直到强制部分再次包括所有集合集（即，G1完全依赖于其启发式）。如果预测再次变得不准确，则下一个集合将再次包含强制和可选部分。</p>
+<p>如果G1发现collection set选择heuristics重复选择错误的区域数，则切换到更复杂的方式来执行mixed收集：将collection set拆分为两个部分：强制部分和可选部分。强制性部分包括G1不能递增地处理的collection set的部分（例如young regions），但也可以包含old region以提高效率。例如，预计的collection set的80％构成强制性部分，剩余的20％（仅由old region组成）构成可选部分。</p>
+<p>G1完成强制部分的收集后，如果还有剩余时间，G1会以更细粒度的级别开始收集可选部分。此可选部分的集合粒度取决于剩余的时间量，一次最多只能到一个region。完成对可选collection set所有部分的收集后，G1可以根据剩余时间决定停止收集。</p>
+<p>随着预测再次变得更准确，一次收集的可选部分变得越来越小，直到强制部分再次包括所有collection set（即，G1完全依赖于其heuristics）。如果预测再次变得不准确，则下一次收集将再次包含强制和可选部分。</p>
 <p><strong>选择</strong>：</p>
 <ul>
-<li><p>改进分析引擎和启发式，以便他们不会做出错误的预测。虽然启发式方法本身就是一个有趣的目标，但由于启发式方法依赖于之前的应用程序行为，因此无法获得100％准确的启发式方法。但是，改进的启发式方法将自动减少对此机制的需求。</p>
+<li><p>改进分析引擎和heuristics，以便他们不会做出错误的预测。由于heuristics方法依赖于之前应用程序的行为，因此无法获得100％准确的heuristics方法。但是，改进的heuristics方法将自动减少对此机制的需求。</p>
 </li>
-<li><p>始终使用与预测有关的“安全边际”。例如，如果预测返回x，则始终使用0.8 * x（20％的安全范围）。这可能在大多数情况下都有效，但是当预测工作时会导致次优性能，因为这意味着G1只会使用80％的暂停目标。</p>
+<li><p>始终使用与预测有关的“安全边际”。例如，如果预测返回x，则始终使用0.8 * x（20％的安全范围）。这可能在大多数情况下都有效，但是当预测有效时会导致sub-optimal 性能，因为这意味着G1只会使用80％的停顿目标。</p>
 </li>
-<li><p>重用现有的疏散失败机制来中止混合集合。这已被拒绝作为替代方案，因为在这样的中止时，不能保证该集合释放任何区域。我们提出的机制通过回收区域基础上的集合空间来保证空间回收的进展，这是G1的空间回收粒度。</p>
+<li><p>重用现有的疏散失败机制来中止mixed收集。这已被拒绝作为替代方案，因为在这样的中止时，不能保证该次收集释放任何region。我们提出的机制通过回收region基础（G1的空间回收粒度）上的collection set的空间来保证空间回收的进展。</p>
 </li>
 </ul>
 <p><strong>测试</strong>：</p>
-<p>构成实现的各个C ++部分应该使用C ++单元测试进行测试。 由于可中止的混合集合代码将是G1 GC的组成部分，因此只需运行现有测试即可执行代码。</p>
+<p>构成实现的各个C++部分应该使用C++单元测试进行测试。由于可中止的mixed收集代码将是G1 GC的组成部分，因此只需运行现有测试即可执行代码。</p>
 <p><strong>风险和假设</strong>：</p>
 <ul>
-<li><p>将集合集拆分为必需和可选部分时，需要为可选集合集部分维护一些其他数据。 这会产生轻微的CPU开销，小于1％，仅适用于使用可选集合集部分的混合集合。</p>
+<li><p>将collection set拆分为必需和可选部分时，需要为可选collection set部分维护一些其他数据。 这会产生轻微的CPU开销，小于1％，并且仅适用于使用可选collection set部分的mixed收集。</p>
 </li>
-<li><p>使用可选集合集部分的混合集合期间的本机内存使用量也可能增加。 这是因为在混合集合期间必须跟踪到可选部分中的区域的一些附加传入指针。</p>
+<li><p>使用可选collection set部分的mixed收集期间的本机内存使用量也可能增加。这是因为在mixed收集期间必须跟踪到可选部分中的区域的一些附加传入指针。</p>
 </li>
 </ul>
 <h4 id="JEP346-Promptly-Return-Unused-Committed-Memory-from-G1"><a href="#JEP346-Promptly-Return-Unused-Committed-Memory-from-G1" class="headerlink" title="JEP346: Promptly Return Unused Committed Memory from G1"></a><span id="jump346">JEP346: Promptly Return Unused Committed Memory from G1</span></h4><p><strong>摘要</strong>：</p>
 <p>增强G1垃圾收集器，以便在空闲时自动将Java堆内存返回给操作系统。</p>
 <p><strong>非目标</strong>：</p>
 <ul>
-<li><p>在Java进程之间共享已提交但空的页面，应将内存返回（未提交）到操作系统。</p>
+<li><p>在Java进程之间共享已提交但空的页面。应将内存返回（未提交）到操作系统。</p>
 </li>
 <li><p>回馈内存的过程不需要节省CPU资源，也不需要是瞬时的。</p>
 </li>
@@ -511,35 +514,35 @@
 <p><strong>成功标准</strong>：</p>
 <p>如果应用程序活动非常低，G1应该在合理的时间段内释放未使用的Java堆内存。</p>
 <p><strong>动机</strong>：</p>
-<p>目前G1垃圾收集器可能无法及时将已提交的Java堆内存返回给操作系统。 G1仅在完整GC或并发周期内从Java堆返回内存。由于G1很难完全避免完整的GC，并且只触发基于Java堆占用和分配活动的并发周期，因此除非在外部强制执行，否则它不会在许多情况下返回Java堆内存。</p>
+<p>目前G1垃圾收集器可能无法及时将已提交的Java堆内存返回给操作系统。G1仅在full GC或并发周期内从Java堆返回内存。由于G1很难完全避免full GC，并且只触发基于Java堆占用和分配活动的并发周期，因此除非在外部强制执行，否则在许多情况下它不会返回Java堆内存。</p>
 <p>在使用资源支付的容器环境中，这种行为特别不利。即使在VM由于不活动而仅使用其分配的内存资源的一小部分的阶段，G1也将保留所有Java堆。这导致客户始终为所有资源付费，云提供商无法充分利用其硬件。</p>
 <p>如果VM能够检测到Java堆的利用率不足（“空闲”阶段），并在此期间自动减少其堆使用量，则两者都将受益。</p>
 <p>Shenandoah和OpenJ9的GenCon收集器已经提供了类似的功能。</p>
-<p>在Bruno等人的5.5节中使用原型进行的测试表明，基于在白天为HTTP请求提供服务的Tomcat服务器的实际利用率，并且在夜间大部分空闲，此解决方案可以减少内存量由Java VM承诺的85％。</p>
+<p>在<a href="http://www.gsd.inesc-id.pt/~rbruno/publications/rbruno-ismm18.pdf" target="_blank" rel="noopener">Bruno et al., section 5.5</a>中使用原型进行的测试表明，基于在白天为HTTP请求提供服务的Tomcat服务器的实际利用情况（夜间大部分空闲），此解决方案可以将Java VM提交的内存量减少85％。</p>
 <p><strong>描述</strong>：</p>
-<p>为了实现向操作系统返回最大内存量的目标，G1将在应用程序不活动期间定期尝试继续或触发并发周期以确定整体Java堆使用情况。这将导致它自动将Java堆的未使用部分返回给操作系统。（可选）在用户控制下，可以执行完整的GC以最大化返回的内存量。</p>
-<p>该应用程序被视为非活动状态，如果两者都发生，G1会触发定期垃圾收集：</p>
+<p>为了实现向操作系统返回最大内存量的目标，G1将在应用程序不活动期间定期尝试继续或触发并发周期以确定整体Java堆使用情况。这将导致它自动将Java堆的未使用部分返回给操作系统。（可选）在用户控制下，可以执行full GC以最大化返回的内存量。</p>
+<p>如果以下两者都发生，应用程序将被视为非活动状态，并且G1会触发定期垃圾收集：</p>
 <ul>
-<li><p>自任何先前的垃圾收集暂停以来已超过G1PeriodicGCInterval毫秒，此时没有正在进行的并发周期。值为零表示禁用快速回收内存的定期垃圾收集。</p>
+<li><p>自任何先前的垃圾收集停顿以来已超过<code>G1PeriodicGCInterval</code>毫秒，此时没有正在进行的并发周期。值为零表示禁用快速回收内存的定期垃圾收集。</p>
 </li>
-<li><p>JVM主机系统（例如容器）上的getloadavg()调用返回的平均一分钟系统负载值低于G1PeriodicGCSystemLoadThreshold。如果G1PeriodicGCSystemLoadThreshold为零，则忽略此条件。</p>
+<li><p>JVM主机系统（例如容器）上的<code>getloadavg()</code>调用返回的平均一分钟系统负载值低于<code>G1PeriodicGCSystemLoadThreshold</code>。如果<code>G1PeriodicGCSystemLoadThreshold</code>为零，则忽略此条件。</p>
 </li>
 </ul>
-<p>如果不满足这些条件中的任何一个，则取消当前的预期定期垃圾收集。下次G1PeriodicGCInterval时间过去时，将重新考虑定期垃圾收集。</p>
-<p>周期性垃圾收集的类型由G1PeriodicGCInvokesConcurrent选项的值确定：如果设置，G1继续或启动并发周期，否则G1执行完整GC。在任一集合的末尾，G1调整当前的Java堆大小，可能会将内存返回给操作系统。新的Java堆大小由用于调整Java堆大小的现有配置确定，包括但不限于MinHeapFreeRatio，MaxHeapFreeRatio以及最小和最大堆大小配置。</p>
-<p>默认情况下，G1在此定期垃圾回收期间启动或继续并发循环。这最大限度地减少了应用程序的中断，但与完整集合相比，最终可能无法返回尽可能多的内存。</p>
-<p>由此机制触发的任何垃圾收集都使用G1 Periodic Collection原因进行标记。此类日志的外观示例如下：</p>
+<p>如果不满足这些条件中的任何一个，则取消当前的预期定期垃圾收集。下次<code>G1PeriodicGCInterval</code>时间过去时，将重新考虑定期垃圾收集。</p>
+<p>周期性垃圾收集的类型由<code>G1PeriodicGCInvokesConcurrent</code>选项的值确定：如果设置，G1继续或启动并发周期，否则G1执行full GC。在任一收集过程的末尾，G1调整当前的Java堆大小，可能会将内存返回给操作系统。新的Java堆大小由用于调整Java堆大小的现有配置确定，包括但不限于<code>MinHeapFreeRatio</code>，<code>MaxHeapFreeRatio</code>以及最小和最大堆大小配置。</p>
+<p>默认情况下，G1在此定期垃圾回收期间启动或继续并发循环。这最大限度地减少了应用程序的中断，但与完整收集相比，最终可能无法返回尽可能多的内存。</p>
+<p>由此机制触发的任何垃圾收集都使用<code>G1 Periodic Collection</code>进行标记。此类日志示例如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">(1) [6.084s][debug][gc,periodic ] Checking for periodic GC.</span><br><span class="line">    [6.086s][info ][gc          ] GC(13) Pause Young (Concurrent Start) (G1 Periodic Collection) 37M-&gt;36M(78M) 1.786ms</span><br><span class="line">(2) [9.087s][debug][gc,periodic ] Checking for periodic GC.</span><br><span class="line">    [9.088s][info ][gc          ] GC(15) Pause Young (Prepare Mixed) (G1 Periodic Collection) 9M-&gt;9M(32M) 0.722ms</span><br><span class="line">(3) [12.089s][debug][gc,periodic ] Checking for periodic GC.</span><br><span class="line">    [12.091s][info ][gc          ] GC(16) Pause Young (Mixed) (G1 Periodic Collection) 9M-&gt;5M(32M) 1.776ms</span><br><span class="line">(4) [15.092s][debug][gc,periodic ] Checking for periodic GC.</span><br><span class="line">    [15.097s][info ][gc          ] GC(17) Pause Young (Mixed) (G1 Periodic Collection) 5M-&gt;1M(32M) 4.142ms</span><br><span class="line">(5) [18.098s][debug][gc,periodic ] Checking for periodic GC.</span><br><span class="line">    [18.100s][info ][gc          ] GC(18) Pause Young (Concurrent Start) (G1 Periodic Collection) 1M-&gt;1M(32M) 1.685ms</span><br><span class="line">(6) [21.101s][debug][gc,periodic ] Checking for periodic GC.</span><br><span class="line">    [21.102s][info ][gc          ] GC(20) Pause Young (Concurrent Start) (G1 Periodic Collection) 1M-&gt;1M(32M) 0.868ms</span><br><span class="line">(7) [24.104s][debug][gc,periodic ] Checking for periodic GC.</span><br><span class="line">    [24.104s][info ][gc          ] GC(22) Pause Young (Concurrent Start) (G1 Periodic Collection) 1M-&gt;1M(32M) 0.778ms</span><br></pre></td></tr></table></figure>
-<p>在上面的示例中，使用G1PeriodicGCInterval为3000ms运行，在步骤（1）G1中，在应用程序的一些不活动之后，启动并发周期，如（并发启动）和（G1周期收集）所示。 该并发周期最初返回一些存储器，通过从（1）到（2）的容量数（78M）和（32M）的减少来表示。 在（2）到（4）之间的间隔中，触发更多的周期性集合，这次触发混合集合以压缩堆。 以下定期垃圾收集（5）到（7）启动并发周期，因为G1策略确定当时在旧一代中没有足够的垃圾来启动混合GC阶段。 在这种情况下，定期垃圾收集（5）到（7）不会进一步缩小堆，因为已经达到最小堆大小。</p>
-<p>在应用程序不活动期间对对象活跃性的改变（例如，由于软引用到期）可以在该空闲时间期间触发进一步减少已提交的Java堆。</p>
+<p>在上面的示例中，使用<code>G1PeriodicGCInterval</code>为3000ms运行，在步骤（1）G1中，在应用程序不活动之后，启动并发周期，如（<code>Concurrent Start</code>）和（<code>G1 Periodic Collection</code>）所示。 该并发周期最初返回一些内存，通过从（1）到（2）的容量数（78M）和（32M）的减少来表示。 在（2）到（4）之间的间隔中，触发更多的周期性收集，这次触发mixed collection以对堆进行整理。（5）到（7）启动并发周期，因为G1策略确定当时在老年代中没有足够的垃圾来启动mixed GC阶段。在这种情况下，定期垃圾收集（5）到（7）不会进一步缩小堆，因为已经达到最小堆大小。</p>
+<p>在应用程序不活动期间对对象活跃性的改变（例如，由于软引用到期）可以在空闲期间触发进一步缩小已提交的Java堆。</p>
 <p><strong>选择</strong>：</p>
-<p>可以从VM外部实现类似的功能，例如，通过jcmd工具或注入VM的一些代码。 这有隐藏的成本：假设使用基于cron的任务执行检查，如果节点上有数百或数千个容器，这可能意味着堆压缩操作由许多这些容器同时执行， 导致主机上出现非常大的CPU峰值。</p>
-<p>另一种替代方法是Java代理，它自动附加到每个Java进程。 然后，当容器在不同的时间开始时，检查的时间会自然分配，而且由于您没有启动任何新进程，因此它在CPU上的成本更低。 然而，这种方法为用户增加了显着的复杂性，这可能会阻碍采用。</p>
+<p>可以从VM外部实现类似的功能，例如，通过jcmd工具或注入VM的一些代码。这有隐藏的成本：假设使用cron-based任务执行检查，如果节点上有数百或数千个容器，这可能意味着堆压缩操作由许多这些容器同时执行， 导致主机上出现非常大的CPU峰值。</p>
+<p>另一种替代方法是Java代理，它自动附加到每个Java进程。然后，当容器在不同的时间开始时，检查的时间会自然分配，而且由于没有启动任何新进程，因此在CPU上的成本更低。然而，这种方法为用户增加了显著的复杂性，这可能会阻碍采用。</p>
 <p>给定的用例，及时缩小Java堆，被认为是一个相当常见的用例，需要在VM中提供特殊支持。</p>
 <p><strong>风险和假设</strong>：</p>
-<p>在配置的默认值中，我们禁用此功能。 这导致延迟或吞吐量敏感应用程序的VM行为没有意外更改。 启用后，我们假设通常需要将Java堆内存返回给操作系统，并且所产生的并发周期或其继续对应用程序吞吐量的影响可以忽略不计。</p>
-<p>启用此功能后，VM将在上述条件下运行这些定期集合，而不管其他选项如何。 例如。 VM可以假设如果用户将-Xms设置为-Xmx和其他（组合）选项以获得最小且一致的垃圾收集暂停。 出于一致性原因，情况并非如此。</p>
-<p>如果定期垃圾收集仍然干扰程序执行太多，我们提供控制以让决策考虑整个系统CPU负载，或让用户完全禁用定期垃圾收集。</p>
+<p>在配置的默认值中，我们禁用此功能。 这导致延迟或吞吐量敏感应用程序的VM行为没有意外更改。启用后，我们假设通常需要将Java堆内存返回给操作系统，并且所产生的并发周期或其继续对应用程序吞吐量的影响可以忽略不计。</p>
+<p>启用此功能后，VM将在上述条件下运行这些定期收集，而不管其他option如何。 例如，VM可以假设如果用户将<code>-Xms</code>设置为-<code>Xmx</code>和其他（组合）选项以获得最小且一致的垃圾收集暂停。出于一致性原因，情况并非如此。</p>
+<p>如果定期垃圾收集仍然会太干扰程序执行，我们提供控制以让决策考虑整个系统CPU负载，或让用户完全禁用定期垃圾收集。</p>
 
       
     </div>
