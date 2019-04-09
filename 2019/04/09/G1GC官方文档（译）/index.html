@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="JVM,GC,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Magical Cat" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/if_Cat.png?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="文章摘要本文对G1GC官方文档进行了翻译，原文地址：Getting Started with the G1 Garbage Collector">
+<meta name="keywords" content="JVM,GC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="G1GC官方文档（译）">
+<meta property="og:url" content="http://yoursite.com/2019/04/09/G1GC官方文档（译）/index.html">
+<meta property="og:site_name" content="Magical Cat">
+<meta property="og:description" content="文章摘要本文对G1GC官方文档进行了翻译，原文地址：Getting Started with the G1 Garbage Collector">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/gcslides/Slide1.png">
+<meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/gcslides/Slide2.png">
+<meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/HeapStructure.png">
+<meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide9.png">
+<meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide1.png">
+<meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide2.png">
+<meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide3.png">
+<meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide4.png">
+<meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide5.png">
+<meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide6.png">
+<meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide7.png">
+<meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide8.png">
+<meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide9.png">
+<meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide10.png">
+<meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide11.png">
+<meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide12.png">
+<meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide13.png">
+<meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide14.png">
+<meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide15.png">
+<meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide16.png">
+<meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide17.png">
+<meta property="og:updated_time" content="2019-04-09T08:30:33.847Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="G1GC官方文档（译）">
+<meta name="twitter:description" content="文章摘要本文对G1GC官方文档进行了翻译，原文地址：Getting Started with the G1 Garbage Collector">
+<meta name="twitter:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/gcslides/Slide1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/09/G1GC官方文档（译）/">
+
+
+
+
+
+<link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
+
+  <title>G1GC官方文档（译） | Magical Cat</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+<div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Magical Cat</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/09/G1GC官方文档（译）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="F8F-1BearCat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Issac.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Cat">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">G1GC官方文档（译）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-09T09:07:01+08:00">
+                2019-04-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>本文对G1GC官方文档进行了翻译，原文地址：<a href="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/index.html" target="_blank" rel="noopener">Getting Started with the G1 Garbage Collector</a><br><a id="more"></a></p>
+<h2 id="Java技术和JVM"><a href="#Java技术和JVM" class="headerlink" title="Java技术和JVM"></a>Java技术和JVM</h2><h3 id="Java概述"><a href="#Java概述" class="headerlink" title="Java概述"></a>Java概述</h3><h4 id="JRE-JDK"><a href="#JRE-JDK" class="headerlink" title="JRE JDK"></a>JRE JDK</h4><p>略</p>
+<h4 id="Java虚拟机（JVM）"><a href="#Java虚拟机（JVM）" class="headerlink" title="Java虚拟机（JVM）"></a>Java虚拟机（JVM）</h4><p>Java虚拟机（JVM）是​一种抽象计算机器。 JVM是一个程序，看起来像是编写在其中执行的程序的机器。这样，Java程序就被写入同一组接口和类库中。针对特定操作系统的每个JVM实现都将Java编程指令转换为在本地操作系统上运行的指令和命令。Java程序正是籍于此实现了平台独立性。</p>
+<p>在Sun Microsystems，Inc完成的Java虚拟机的第一个原型实现模拟了由类似于当代个人数字助理（PDA）的手持设备托管的软件中的Java虚拟机指令集。Oracle当前的实现模拟移动，桌面和服务器设备上的Java虚拟机，但Java虚拟机不承担任何特定的实现技术，主机硬件或主机操作系统。它本身并不是解释，但也可以通过将其指令集编译为硅CPU来实现。它也可以用微代码实现或直接用硅实现。</p>
+<p>Java虚拟机不知道Java编程语言，只知道特定的二进制格式，即类文件格式。类文件包含Java虚拟机指令（或字节码）和符号表，以及其他辅助信息。</p>
+<p>出于安全考虑，Java虚拟机对类文件中的代码施加了强大的语法和结构约束。但是，任何具有可以用有效类文件表示的功能的语言都可以由Java虚拟机托管。由通用的，与机器无关的平台吸引，其他语言的实现者可以转向Java虚拟机作为其语言的交付工具。</p>
+<h3 id="探索JVM体系结构"><a href="#探索JVM体系结构" class="headerlink" title="探索JVM体系结构"></a>探索JVM体系结构</h3><h4 id="Hotspot-架构"><a href="#Hotspot-架构" class="headerlink" title="Hotspot 架构"></a>Hotspot 架构</h4><p>HotSpot JVM拥有一个支持强大功能和基础的架构，并支持实现高性能和大规模可扩展性的能力。例如，HotSpot JVM JIT编译器生成动态优化。换句话说，他们在Java应用程序运行时做出优化决策，并生成针对底层系统架构的高性能本机机器指令。此外，通过其运行时环境和多线程垃圾收集器的成熟演进和持续工程，HotSpot JVM即使在最大的可用计算机系统上也能实现高可扩展性。</p>
+<p><img src="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/gcslides/Slide1.png" alt="HotSpot JVM:Architecture"></p>
+<p>JVM的主要组件包括类加载器，运行时数据区和执行引擎。</p>
+<h4 id="Hotspot-关键组件"><a href="#Hotspot-关键组件" class="headerlink" title="Hotspot 关键组件"></a>Hotspot 关键组件</h4><p>以下图像突出显示了与性能相关的JVM的关键组件。</p>
+<p><img src="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/gcslides/Slide2.png" alt="Key Hotaspot JVM Components"></p>
+<p>在调整性能时，JVM有三个组件。堆是存储对象数据的位置。然后，此区域由启动时选择的垃圾收集器进行管理。 大多数调优选项都与调整堆大小和为您的情况选择最合适的垃圾收集器有关。JIT编译器对性能也有很大影响，但很少需要使用较新版本的JVM进行调优。</p>
+<h3 id="性能基本知识"><a href="#性能基本知识" class="headerlink" title="性能基本知识"></a>性能基本知识</h3><p>通常在Java应用程序调优时，关注两个主要目标：响应性或吞吐量。下文将回顾这些概念。</p>
+<h4 id="响应性"><a href="#响应性" class="headerlink" title="响应性"></a>响应性</h4><p>响应性是指应用程序或系统对请求数据响应的速度。例如：</p>
+<pre><code>桌面UI响应事件的速度有多快
+网站返回页面的速度有多快
+返回数据库查询的速度有多快
+</code></pre><p>对于专注于响应性的应用程序，高停顿时间是不可接受的，侧重在短时间内做出回应。</p>
+<h4 id="吞吐量"><a href="#吞吐量" class="headerlink" title="吞吐量"></a>吞吐量</h4><p>吞吐量关注在特定时间段内应用程序工作量的最大化。衡量吞吐量的示例：</p>
+<pre><code>在给定时间内完成的交易数量。
+批处理程序可在一小时内完成的作业数。
+可在一小时内完成的数据库查询数。
+</code></pre><p>对于专注于吞吐量的应用程序，高停顿时间是可接受的。由于高吞吐量应用程序在较长时间内专注于基准测试，因此不需要考虑快速响应时间。</p>
+<h2 id="G1垃圾收集器"><a href="#G1垃圾收集器" class="headerlink" title="G1垃圾收集器"></a>G1垃圾收集器</h2><h3 id="G1垃圾收集器-1"><a href="#G1垃圾收集器-1" class="headerlink" title="G1垃圾收集器"></a>G1垃圾收集器</h3><p>Garbage-First（G1）收集器是一种服务器风格的垃圾收集器，主要针对多处理器大内存的机器。它能高概率满足垃圾收集（GC）的停顿时间目标，同时实现高吞吐量。Oracle JDK 7 Update 4及更高版本完全支持G1垃圾收集器。G1收集器专为以下应用而设计：</p>
+<ul>
+<li>可以与CMS收集器等应用程序线程同时运行。</li>
+<li>整理空闲内存时不会伴随长时间GC引起的高停顿。</li>
+<li>需要GC停顿持续时间变得更加可预测。</li>
+<li>不想牺牲很多吞吐量性能。</li>
+<li>不需要更大的Java堆。</li>
+</ul>
+<p>G1被设计作为Concurrent Mark-Sweep Collector（CMS）的长期替代品。将G1与CMS进行比较，会发现存在以下差异使得G1成为更好的垃圾收集解决方案。一个区别是G1是“标记-整理”收集器，G1足够紧凑以完全避免使用细粒度的自由列表进行分配，而是依赖于区域。这大大简化了收集器的各个部分，并且主要消除了潜在的碎片问题。此外，G1提供比CMS收集器更可预测的垃圾收集暂停，并允许用户指定所需的暂停目标。</p>
+<h4 id="G1操作概述"><a href="#G1操作概述" class="headerlink" title="G1操作概述"></a>G1操作概述</h4><p>旧的垃圾收集器（serial, parallel, CMS）都将堆分为三个部分：新生代、老年代和固定内存大小的永久代。</p>
+<p><img src="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/HeapStructure.png" alt="Hotspot Heap Structure"></p>
+<p>所有内存对象都在这三个部分之一结束生命周期。</p>
+<p>G1收集器采用了不同的方法。</p>
+<p><img src="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide9.png" alt="G1 Heap Allocation"></p>
+<p><em>堆被分区为一组大小相等的堆region，每个region都是一个连续的虚拟内存区域。 某些region集具有与旧收集器中相同的角色（eden,survivor,old），但它们没有固定的大小。 这为内存使用提供了更大的灵活性。</em></p>
+<p>执行垃圾收集时，G1以类似于CMS收集器的方式运行。G1执行并发全局标记阶段以确定整个堆中对象的活跃度。在标记阶段完成之后，G1知道哪些region基本上是空的。它首先在这些region上进行收集，这通常会产生大量的空闲内存。这就是为什么这种垃圾收集方法称为Garbage-First。顾名思义，G1将其收集和整理活动集中在堆的可能充满可回收对象（即垃圾）的区域。 G1使用暂停预测模型来满足用户定义的停顿时间目标，并根据指定的停顿时间目标选择要收集的区域数。</p>
+<p>由G1确定适合回收的region，并使用疏散（evacuation）方式进行垃圾收集收集。G1将对象从堆的一个或多个region复制到堆上的单个region，并且在此过程中整理并释放内存。这种疏散在多处理器上并行执行，以减少停顿时间并提高吞吐量。因此，对于每次垃圾收集，G1会在用户定义的停顿时间内持续工作以减少碎片。这超出了以前两种方法的能力：CMS（Concurrent Mark Sweep）垃圾收集器不进行整理；ParallelOld垃圾收集仅执行整堆整理，这会导致相当长的停顿时间。</p>
+<p>值得注意的是G1不是实时收集器。它以高概率但不是绝对确定性满足设定的停顿时间目标。基于先前收集过程中的数据，G1可以预估在用户指定的目标时间内收集多少region。因此，G1收集器对收集region的成本有一套相当准确的模型，它使用该模型来确定在停顿时间目标内时要收集哪些region和多少region。</p>
+<p>注意：G1具有并发（与应用程序线程一起运行，例如，细化，标记，清理）和并行（多线程，例如，stop the world）阶段。Full GC仍然是单线程的，但如果正确调整，应用程序应该避免使用full GC。</p>
+<h4 id="G1数据占位"><a href="#G1数据占位" class="headerlink" title="G1数据占位"></a>G1数据占位</h4><p>如果从ParallelOldGC或CMS收集器迁移到G1，你可能会看到更大的JVM进程大小。这主要与“accounting”数据结构有关，例如Remembered Sets和Collection Sets。</p>
+<p><strong>Remembered Sets</strong>或RSet：跟踪对象引用到给定的region。堆中每个region都有一个RSet。RSet支持并行和独立收集region。RSets的总体占位影响小于5％。</p>
+<p><strong>Collection Sets</strong>或CSets：将要在GC中收集的region集。在GC期间，CSet中的所有实时数据都被疏散（复制/移动）。区域集可以是Eden、survivor、和/或老年代。CSets对JVM的大小影响不到1％。</p>
+<h4 id="推荐的G1使用场景"><a href="#推荐的G1使用场景" class="headerlink" title="推荐的G1使用场景"></a>推荐的G1使用场景</h4><p>第一个关注点是G1为运行需要低GC延迟大堆的应用程序的用户提供解决方案。这意味着堆大小约为6GB或更大，稳定且可预测的停顿时间低于0.5秒。</p>
+<p>如果应用程序具有以下一个或多个特征，那么当前使用CMS或ParallelOldGC垃圾收集器运行的应用程序切换到G1后将得到提升。</p>
+<ul>
+<li>Full GC持续时间太长或太频繁。</li>
+<li>对象分配率或提升率差异很大。</li>
+<li>不期望的长GC或整理停顿（超过0.5到1秒）</li>
+</ul>
+<p><strong>注意：</strong>如果使用的是CMS或ParallelOldGC，并且应用程序没有经历长时间的GC停顿，那么使用当前的收集器就可以了。更改为G1收集器不是使用最新JDK的必要条件。</p>
+<h2 id="回顾CMS垃圾收集"><a href="#回顾CMS垃圾收集" class="headerlink" title="回顾CMS垃圾收集"></a>回顾CMS垃圾收集</h2><h3 id="回顾传统GC及CMS"><a href="#回顾传统GC及CMS" class="headerlink" title="回顾传统GC及CMS"></a>回顾传统GC及CMS</h3><p>Concurrent Mark Sweep（CMS）收集器（也称为并发低停顿收集器）对老年代进行收集。它尝试通过与应用程序线程同时执行大部分垃圾收集工作，来最小化由于垃圾收集而导致的停顿。 通常，并发低停顿收集器不会复制或整理活动对象。无需移动活动对象即可完成垃圾收集。如果碎片成为问题，请分配更大的堆。</p>
+<p><strong>注意：</strong>新生代的CMS收集器使用与并行收集器相同的算法。</p>
+<h4 id="CMS收集阶段"><a href="#CMS收集阶段" class="headerlink" title="CMS收集阶段"></a>CMS收集阶段</h4><p>CMS收集器在堆的老年代上执行以下阶段：</p>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(1) 初始标记     <em>(Stop the World Event)</em></td>
+<td>老年代中的对象被“标记”为可达的，其中包括那些可以从新生代到达的对象。相较Minor GC的停顿时间，该阶段停顿时间通常较短。</td>
+</tr>
+<tr>
+<td>(2) 并发标记</td>
+<td>遍历可达对象的老年代对象图，与Java应用线程并发执行。从标记的对象开始扫描，并标记从GC roots可达的所有对象。更改器在并发阶段2,3和5阶段执行，并且CMS在这些阶段中分配的任何对象（包括晋升的对象）立即被标记为存活对象。</td>
+</tr>
+<tr>
+<td>(3) 重新标记      <em>(Stop the World Event)</em></td>
+<td>查找并发标记阶段遗漏的对象，遗漏发生在并发收集器完成对该对象的跟踪之后，Java应用程序线程又进行了更新。</td>
+</tr>
+<tr>
+<td>(4) 并发清理</td>
+<td>收集在标记阶段标识为不可达的对象。死对象的收集将对象的空间添加到空闲列表以供稍后分配。此时可能会发生死对象的合并。请注意，不会移动存活对象。</td>
+</tr>
+<tr>
+<td>(5) 重置</td>
+<td>通过清除数据结构准备下一轮并发收集。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="回顾垃圾收集步骤"><a href="#回顾垃圾收集步骤" class="headerlink" title="回顾垃圾收集步骤"></a>回顾垃圾收集步骤</h4><p>接下来，让我们一步一步查看CMS收集器操作。</p>
+<ol>
+<li><p><strong>CMS收集器堆结构</strong></p>
+<p>堆被分成三个部分。</p>
+<p><img src="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide1.png" alt="CMS Heap Structure">新生代分为Eden区和两个survivor区，老年代是一个连续的空间。对象在原地址上进行收集，除非有full GC，否则不会进行整理。</p>
+</li>
+<li><p><strong>CMS中Young GC工作原理</strong></p>
+<p>新生代是浅绿色，老年代是蓝色。如果应用程序已运行一段时间，这就是CMS的样子，对象散落在老年代区域。</p>
+<p><img src="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide2.png" alt="How Young GC works"></p>
+<p>使用CMS，老年代对象在原地址上进行回收，没有移动操作。除非有full GC，否则不会进行整理。</p>
+</li>
+<li><p><strong>一次Young GC</strong></p>
+<p>存活对象从Eden区和一个survivor区复制到另一个survivor区。任何已达到年龄阈值的老对象都将晋升到老年代。</p>
+<p><img src="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide3.png" alt="Young Generation Collection"></p>
+</li>
+<li><p><strong>Young GC之后</strong></p>
+<p>在Young GC之后，Eden区及其中一个survivor区被清空。</p>
+<p><img src="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide4.png" alt="After Young GC"></p>
+<p>新晋升的对象在图中以深蓝色显示，绿色对象是尚未晋升到老年代的幸存的新生代对象。</p>
+</li>
+<li><p><strong>CMS的老年代GC</strong></p>
+<p>两次STW事件发生：初始标记和重新标记。当老年代达到一定的占用率时，CMS就会被启动。</p>
+<p><img src="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide5.png" alt="Old Generation Collection with CMS"></p>
+<p>（1）初始标记，短暂停顿阶段，对存活（可达的）对象进行标记。</p>
+<p>（2）并发标记，在应用程序继续执行时并发地查找存活对象。</p>
+<p>（3）重新标记，发现在前一阶段（2）并发标记期间遗漏的对象。</p>
+</li>
+<li><p><strong>老年代GC-并发清理</strong></p>
+<p>在前一阶段未标记的对象将被回收，不进行整理。</p>
+<p><img src="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide6.png" alt="Old Generation Collection - Concurrent Sweep"></p>
+<p><strong>注意：</strong> Unmarked 对象 == Dead 对象</p>
+</li>
+<li><p><strong>老年代GC-清理之后</strong></p>
+<p>在（4）清理阶段之后，可以看到已经释放了大量内存，并且没有进行任何整理。</p>
+<p><img src="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide7.png" alt="Old Generation Collection - After Sweeping"></p>
+<p>最后，CMS收集器将执行（5）重置阶段，并等待下一次达到GC阈值。</p>
+</li>
+</ol>
+<h2 id="G1垃圾回收过程详解"><a href="#G1垃圾回收过程详解" class="headerlink" title="G1垃圾回收过程详解"></a>G1垃圾回收过程详解</h2><h3 id="The-G1-Garbage-Collector-Step-by-Step"><a href="#The-G1-Garbage-Collector-Step-by-Step" class="headerlink" title="The G1 Garbage Collector Step by Step"></a>The G1 Garbage Collector Step by Step</h3><p>G1收集器采用不同的方法来分配堆，下面的图片将逐步回顾G1系统。</p>
+<ol>
+<li><p><strong>G1 堆结构</strong></p>
+<p>堆是一个分成许多固定大小region的内存区域。</p>
+<p><img src="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide8.png" alt="G1 Heap Structure"></p>
+<p>region大小由JVM在启动时选择，JVM通常将堆分为大约2000个region，大小从1到32Mb不等。</p>
+</li>
+<li><p><strong>G1 堆分配</strong></p>
+<p>实际上，这些region被映射Eden、Survivor和老年代的逻辑表示。</p>
+<p><img src="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide9.png" alt="G1 Heap Allocation"></p>
+<p>图中的颜色显示哪个region与哪个角色相关联。存活对象从一个region疏散（即，复制或移动）到另一个region。region被设计为在停止或不停止所有其他应用程序线程的情况下并行收集。</p>
+<p>如图所示，region可以分为Eden、Survivor和老年代region。此外，还有第四种被称为Humongous region的对象。这些region设计用于容纳大小为标准region大小的50％或更大的对象，它们存储为一组连续的region。 最后，最后一种类型的region将是堆的未使用region。</p>
+<p><strong>注意：</strong>在撰写本文时，尚未优化收集humongous对象，因此应该避免创建此大小的对象。</p>
+</li>
+<li><p><strong>G1的Young GC原理</strong></p>
+<p>堆被分成大约2000个region，最小大小为1Mb，最大大小为32Mb。蓝色region包含老年代对象，绿色region包含新生代对象。</p>
+<p><img src="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide10.png" alt="Young Generation in G1"></p>
+<p>请注意，region不需要像以前的垃圾收集器那样连续。</p>
+</li>
+<li><p><strong>G1的一次Young GC</strong></p>
+<p>将存活对象疏散（即，复制或移动）到一个或多个survivor region。 如果满足年龄阈值，则将一些对象晋升为老年代region。</p>
+<p><img src="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide11.png" alt="A Young GC in G1"></p>
+<p>这是一次stop the world（STW）停顿，计算下一次Young GC的Eden大小和survivor大小。保留accounting信息以帮助计算大小，同时像停顿时间目标这样的事情被考虑在内。</p>
+<p>这种方法可以很容易地调整region大小，使它们根据需要变大或变小。</p>
+</li>
+<li><p><strong>G1 Young GC结果</strong></p>
+<p>存活对象已被疏散到survivor region或老年代region。</p>
+<p><img src="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide12.png" alt="End of a Young GC with G1"></p>
+<p>最近晋升的对象以深蓝色显示。深绿色为新生代幸存的survivor region。</p>
+<p>对G1的新生代总结如下：</p>
+<ul>
+<li>堆是被分成region的单个内存空间。</li>
+<li>新生代内存由一组非连续的region组成，这样可以在需要时轻松调整大小。</li>
+<li>Young GC为STW事件，执行期间将停止所有应用程序线程。</li>
+<li>Young GC使用多个线程并行完成。</li>
+<li>存活对象被复制到新的survivor region或老年代region。</li>
+</ul>
+</li>
+</ol>
+<h3 id="G1的老年代收集"><a href="#G1的老年代收集" class="headerlink" title="G1的老年代收集"></a>G1的老年代收集</h3><h4 id="G1收集阶段-并发标记循环周期"><a href="#G1收集阶段-并发标记循环周期" class="headerlink" title="G1收集阶段 - 并发标记循环周期"></a>G1收集阶段 - 并发标记循环周期</h4><p>G1收集器在堆的老年代上执行以下阶段。请注意，某些阶段是新生代收集的一部分。</p>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(1) 初始标记<em>(Stop the World Event)</em></td>
+<td>这是一个STW事件。对G1来说初始标记可由一次普通的young GC完成。标记可能引用老年代对象的survivor region（root region）。</td>
+</tr>
+<tr>
+<td>(2) Root Region 扫描</td>
+<td>扫描引用老年代对象的survivor region，应用程序继续运行时会发生这种情况。 必须在young GC发生之前完成该阶段。</td>
+</tr>
+<tr>
+<td>(3) 并发标记</td>
+<td>在整个堆上查找存活对象，与应用程序并发执行。此阶段可被young GC中断。</td>
+</tr>
+<tr>
+<td>(4) 重新标记<em>(Stop the World Event)</em></td>
+<td>完成堆中存活对象的标记，使用名为snapshot-at-the-beginning（SATB）的算法，该算法比CMS收集器中使用的算法快得多。</td>
+</tr>
+<tr>
+<td>(5) 清除<em>(Stop the World Event and Concurrent)</em></td>
+<td>- 对存活对象和完全空闲region执行accounting。 （STW）</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>清除Remembered Sets。 （STW）</li>
+<li>重置空region并将其返回到空闲列表。 （并发） |<br>| (<em>) 复制 </em>(Stop the World Event)*               | STW停顿以疏散或复制存活对象到新的未使用region。新生代操作日志记录为<code>[GC pause (young)]</code>。新生代和老年代的混合收集日志记录为<code>[GC Pause (mixed)]</code>。 |</li>
+</ul>
+<h4 id="G1-Old-Generation-Collection-Step-by-Step"><a href="#G1-Old-Generation-Collection-Step-by-Step" class="headerlink" title="G1 Old Generation Collection Step by Step"></a>G1 Old Generation Collection Step by Step</h4><p>接下来看一下这些阶段是如何与G1收集器中的老年代进行交互的。</p>
+<ol start="6">
+<li><p><strong>初始标记阶段</strong></p>
+<p>存活对象的初始标记搭载在young GC上，在日志中，这被称为<code>GC pause (young)(inital-mark)</code>。</p>
+<p><img src="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide13.png" alt="Initial Marking Phase"></p>
+</li>
+<li><p><strong>并发标记阶段</strong></p>
+<p>如果找到空region（由“X”表示），则在重新标记阶段立即将它们移除。此外，计算确定活跃度的“accounting”信息。</p>
+<p><img src="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide14.png" alt="Concurrent Marking Phase"></p>
+</li>
+<li><p><strong>重新标记阶段</strong></p>
+<p>空region被移除并回收。 现在计算所有region的区域活跃度。</p>
+<p><img src="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide15.png" alt="Remark Phase"></p>
+</li>
+<li><p><strong>复制/清除阶段</strong></p>
+<p>G1选择具有最低“活跃度”的region，这些region可以被最快收集。 然后，这些region与young GC同时收集。 这在日志中表示为<code>[GC pause (mixed)]</code>，即新生代与老年代同时被收集。</p>
+<p><img src="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide16.png" alt="Copying/Cleanup Phase"></p>
+</li>
+<li><p><strong>After Copying/Cleanup Phase</strong></p>
+<p>选择的region已经被收集并整理，如图中所示的深蓝色区域和深绿色区域。</p>
+<p><img src="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide17.png" alt="After Copying/Cleanup Phase"></p>
+</li>
+</ol>
+<h4 id="Summary-of-Old-Generation-GC"><a href="#Summary-of-Old-Generation-GC" class="headerlink" title="Summary of Old Generation GC"></a>Summary of Old Generation GC</h4><p>对G1老年代收集的总结如下：</p>
+<ul>
+<li><p>并发标记阶段</p>
+<pre><code>- 在应用程序运行时并发计算活跃度信息。
+- 活跃度信息确定在疏散停顿期间那些egion最适合回收。
+
+- 没有类似于CMS的清理阶段。
+</code></pre></li>
+<li>重新标记阶段<pre><code>- 使用 Snapshot-at-the-Beginning（SATB）算法，该算法比CMS使用的算法快得多。
+- 完全空的region被回收。
+</code></pre></li>
+<li>复制/清除阶段<pre><code>- 新生代和老年代同时被收回。
+- 基于活跃度选择老年代区域。
+</code></pre></li>
+</ul>
+<h2 id="命令行参数及最佳实践"><a href="#命令行参数及最佳实践" class="headerlink" title="命令行参数及最佳实践"></a>命令行参数及最佳实践</h2><h3 id="Command-Line-Options-and-Best-Practices"><a href="#Command-Line-Options-and-Best-Practices" class="headerlink" title="Command Line Options and Best Practices"></a>Command Line Options and Best Practices</h3><p>在本节中，我们来看看G1的各种命令行选项。</p>
+<h4 id="基本命令行"><a href="#基本命令行" class="headerlink" title="基本命令行"></a>基本命令行</h4><p>要启用G1收集器，请使用:<code>-XX:+UseG1GC</code></p>
+<p>下面是一个示例命令行，用于启动JDK演示和示例下载中包含的Java2Demo：<br> <strong>java -Xmx50m -Xms50m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -jar c:\javademos\demo\jfc\Java2D\Java2demo.jar</strong> </p>
+<h4 id="关键命令行开关"><a href="#关键命令行开关" class="headerlink" title="关键命令行开关"></a>关键命令行开关</h4><p><strong>-XX:+UseG1GC</strong> - 告诉JVM使用G1垃圾收集器。</p>
+<p><strong>-XX:MaxGCPauseMillis=200</strong> - 设置最大GC停顿时间的目标。这是一个soft goal，JVM将尽最大努力实现它。因此，停顿时间的目标有时会无法实现。默认值是200毫秒。</p>
+<p><strong>-XX:InitiatingHeapOccupancyPercent=45</strong> - 用于启动并发GC循环的(整个)堆占用的百分比。G1使用它根据整个堆的占用情况(而不仅仅是其中一个代)触发并发GC循环。值0表示“执行固定的GC循环”。默认值为45(即， 45%已满或已占用)。</p>
+<h4 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h4><p>在使用G1时，您应该遵循一些最佳实践：</p>
+<ol>
+<li><p><strong>不要设置新生代的大小</strong></p>
+<p>通过<code>-Xmn</code>显式地设置年轻代的大小会影响G1收集器的默认行为。</p>
+<ul>
+<li>G1将不再考虑收集的停顿时间目标。因此在本质上，设置新生代的大小会禁用停顿时间目标。</li>
+<li>G1不再能够根据需要扩展和收缩新生代的空间。由于大小是固定的，所以不能对大小进行更改。</li>
+</ul>
+</li>
+<li><p><strong>响应时间指标</strong></p>
+<p>不使用平均响应时间(ART)作为设置<code>XX:MaxGCPauseMillis=&lt;N&gt;</code>的指标，而是考虑设置将在90%或更多的时间内满足目标的值。这意味着90%发出请求的用户的响应时间不会超过目标。记住，停顿时间是一个目标，并不能保证总是能实现。</p>
+</li>
+<li><p><strong>什么是疏散失败？</strong></p>
+<p>在GC期间，对于幸存者和提升的对象，当JVM用尽堆区域时发生的升级失败。 堆无法扩展，因为它已经处于最大值。 当使用 <code>-XX:+PrintGCDetails</code>时，GC日志中会显示此信息： <strong>tospace overflow</strong>。 这很贵！</p>
+<ul>
+<li>GC仍然需要继续，因此必须释放空间。</li>
+<li>未成功复制的对象必须在适当的位置使用。</li>
+<li>必须重新生成对CSet中的区域的RSets的任何更新。</li>
+<li>所有这些步骤都很昂贵。</li>
+</ul>
+</li>
+<li><p><strong>怎样避免疏散失败</strong></p>
+<p>为避免疏散失败，请考虑以下选项。</p>
+<ul>
+<li>增加堆大小<br>​     增加<strong>-XX:G1ReservePercent=n</strong>，默认值为10。<br>​     G1通过尝试释放保留存储器来创建假天花板，以防需要更多“空间”。</li>
+<li>提前开始标记周期</li>
+<li>使用<strong>-XX:ConcGCThreads=n</strong>选项增加标记线程的数量。</li>
+</ul>
+</li>
+</ol>
+<h4 id="G1-GC开关完整列表"><a href="#G1-GC开关完整列表" class="headerlink" title="G1 GC开关完整列表"></a>G1 GC开关完整列表</h4><p>这是G1 GC开关的完整列表，请记住使用上面列出的最佳实践。</p>
+<table>
+<thead>
+<tr>
+<th>Option and Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-XX:+UseG1GC</td>
+<td>Use the Garbage First (G1) Collector</td>
+</tr>
+<tr>
+<td>-XX:MaxGCPauseMillis=n</td>
+<td>Sets a target for the maximum GC pause time. This is a soft goal, and the JVM will make its best effort to achieve it.</td>
+</tr>
+<tr>
+<td>-XX:InitiatingHeapOccupancyPercent=n</td>
+<td>Percentage of the (entire) heap occupancy to start a  concurrent GC cycle. It is used by GCs that trigger a concurrent GC  cycle based on the occupancy of the entire heap, not just one of the  generations (e.g., G1). A value of 0 denotes ‘do constant GC cycles’.  The default value is 45.</td>
+</tr>
+<tr>
+<td>-XX:NewRatio=n</td>
+<td>Ratio of new/old generation sizes. The default value is 2.</td>
+</tr>
+<tr>
+<td>-XX:SurvivorRatio=n</td>
+<td>Ratio of eden/survivor space size. The default value is 8.</td>
+</tr>
+<tr>
+<td>-XX:MaxTenuringThreshold=n</td>
+<td>Maximum value for tenuring threshold. The default value is 15.</td>
+</tr>
+<tr>
+<td>-XX:ParallelGCThreads=n</td>
+<td>Sets the number of threads used during parallel  phases of the garbage collectors. The default value varies with the  platform on which the JVM is running.</td>
+</tr>
+<tr>
+<td>-XX:ConcGCThreads=n</td>
+<td>Number of threads concurrent garbage collectors  will use. The default value varies with the platform on which the JVM is  running.</td>
+</tr>
+<tr>
+<td>-XX:G1ReservePercent=n</td>
+<td>Sets the amount of heap that is reserved as a false  ceiling to reduce the possibility of promotion failure. The default  value is 10.</td>
+</tr>
+<tr>
+<td>-XX:G1HeapRegionSize=n</td>
+<td>With G1 the Java heap is subdivided into uniformly  sized regions. This sets the size of the individual sub-divisions. The  default value of this parameter is determined ergonomically based upon  heap size. The minimum value is 1Mb and the maximum value is 32Mb.</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JVM/" rel="tag"><i class="fa fa-tag"></i> JVM</a>
+          
+            <a href="/tags/GC/" rel="tag"><i class="fa fa-tag"></i> GC</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/28/Spring Boot集成RocketMQ的设计与实现/" rel="next" title="Spring Boot集成RocketMQ的设计与实现">
+                <i class="fa fa-chevron-left"></i> Spring Boot集成RocketMQ的设计与实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/Issac.png" alt="F8F-1BearCat">
+          <p class="site-author-name" itemprop="name">F8F-1BearCat</p>
+           
+              <p class="site-description motion-element" itemprop="description">今天除了皮，又啥也没干</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/F8F-1BearCat" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="fczlm88@outlook.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文章摘要"><span class="nav-number">1.</span> <span class="nav-text">文章摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java技术和JVM"><span class="nav-number">2.</span> <span class="nav-text">Java技术和JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java概述"><span class="nav-number">2.1.</span> <span class="nav-text">Java概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JRE-JDK"><span class="nav-number">2.1.1.</span> <span class="nav-text">JRE JDK</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java虚拟机（JVM）"><span class="nav-number">2.1.2.</span> <span class="nav-text">Java虚拟机（JVM）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#探索JVM体系结构"><span class="nav-number">2.2.</span> <span class="nav-text">探索JVM体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Hotspot-架构"><span class="nav-number">2.2.1.</span> <span class="nav-text">Hotspot 架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hotspot-关键组件"><span class="nav-number">2.2.2.</span> <span class="nav-text">Hotspot 关键组件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能基本知识"><span class="nav-number">2.3.</span> <span class="nav-text">性能基本知识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#响应性"><span class="nav-number">2.3.1.</span> <span class="nav-text">响应性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#吞吐量"><span class="nav-number">2.3.2.</span> <span class="nav-text">吞吐量</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#G1垃圾收集器"><span class="nav-number">3.</span> <span class="nav-text">G1垃圾收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#G1垃圾收集器-1"><span class="nav-number">3.1.</span> <span class="nav-text">G1垃圾收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#G1操作概述"><span class="nav-number">3.1.1.</span> <span class="nav-text">G1操作概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#G1数据占位"><span class="nav-number">3.1.2.</span> <span class="nav-text">G1数据占位</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#推荐的G1使用场景"><span class="nav-number">3.1.3.</span> <span class="nav-text">推荐的G1使用场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回顾CMS垃圾收集"><span class="nav-number">4.</span> <span class="nav-text">回顾CMS垃圾收集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#回顾传统GC及CMS"><span class="nav-number">4.1.</span> <span class="nav-text">回顾传统GC及CMS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CMS收集阶段"><span class="nav-number">4.1.1.</span> <span class="nav-text">CMS收集阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#回顾垃圾收集步骤"><span class="nav-number">4.1.2.</span> <span class="nav-text">回顾垃圾收集步骤</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#G1垃圾回收过程详解"><span class="nav-number">5.</span> <span class="nav-text">G1垃圾回收过程详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-G1-Garbage-Collector-Step-by-Step"><span class="nav-number">5.1.</span> <span class="nav-text">The G1 Garbage Collector Step by Step</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#G1的老年代收集"><span class="nav-number">5.2.</span> <span class="nav-text">G1的老年代收集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#G1收集阶段-并发标记循环周期"><span class="nav-number">5.2.1.</span> <span class="nav-text">G1收集阶段 - 并发标记循环周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#G1-Old-Generation-Collection-Step-by-Step"><span class="nav-number">5.2.2.</span> <span class="nav-text">G1 Old Generation Collection Step by Step</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Summary-of-Old-Generation-GC"><span class="nav-number">5.2.3.</span> <span class="nav-text">Summary of Old Generation GC</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令行参数及最佳实践"><span class="nav-number">6.</span> <span class="nav-text">命令行参数及最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Command-Line-Options-and-Best-Practices"><span class="nav-number">6.1.</span> <span class="nav-text">Command Line Options and Best Practices</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本命令行"><span class="nav-number">6.1.1.</span> <span class="nav-text">基本命令行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关键命令行开关"><span class="nav-number">6.1.2.</span> <span class="nav-text">关键命令行开关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最佳实践"><span class="nav-number">6.1.3.</span> <span class="nav-text">最佳实践</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#G1-GC开关完整列表"><span class="nav-number">6.1.4.</span> <span class="nav-text">G1 GC开关完整列表</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">F8F-1BearCat</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
