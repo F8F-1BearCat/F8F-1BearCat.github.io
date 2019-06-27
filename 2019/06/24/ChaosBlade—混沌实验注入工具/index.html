@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="开发工具,alibaba,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Magical Cat" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/if_Cat.png?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="简介混沌工程是在分布式系统上进行实验的学科，旨在提升系统容错性，建立系统抵御生产环境中发生不可预知问题的信心。Chaosblade（混沌之刃） 是阿里巴巴内部 MonkeyKing 对外开源的项目，其遵循混沌工程（Chaos Engineering）实验模型，提供丰富故障场景实现，特点是操作简洁、无侵入、扩展性强。 本文根据 GitHub 收录的文档简单整理，方便后面查看使用。 GitHub 地">
+<meta name="keywords" content="开发工具,alibaba">
+<meta property="og:type" content="article">
+<meta property="og:title" content="介绍一款混沌实验注入工具—ChaosBlade">
+<meta property="og:url" content="http://yoursite.com/2019/06/24/ChaosBlade—混沌实验注入工具/index.html">
+<meta property="og:site_name" content="Magical Cat">
+<meta property="og:description" content="简介混沌工程是在分布式系统上进行实验的学科，旨在提升系统容错性，建立系统抵御生产环境中发生不可预知问题的信心。Chaosblade（混沌之刃） 是阿里巴巴内部 MonkeyKing 对外开源的项目，其遵循混沌工程（Chaos Engineering）实验模型，提供丰富故障场景实现，特点是操作简洁、无侵入、扩展性强。 本文根据 GitHub 收录的文档简单整理，方便后面查看使用。 GitHub 地">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://camo.githubusercontent.com/1db3a1edc0b49db279f18eabc97659660d982701/68747470733a2f2f6368616f73626c6164652e6f73732d636e2d68616e677a686f752e616c6979756e63732e636f6d2f646f632f696d6167652f6368616f73626c6164652d6c6f676f2e706e67">
+<meta property="og:image" content="https://user-images.githubusercontent.com/3992234/55319674-fd73b100-54a7-11e9-8a8c-15d0fb8f2758.png">
+<meta property="og:updated_time" content="2019-06-27T07:39:08.306Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="介绍一款混沌实验注入工具—ChaosBlade">
+<meta name="twitter:description" content="简介混沌工程是在分布式系统上进行实验的学科，旨在提升系统容错性，建立系统抵御生产环境中发生不可预知问题的信心。Chaosblade（混沌之刃） 是阿里巴巴内部 MonkeyKing 对外开源的项目，其遵循混沌工程（Chaos Engineering）实验模型，提供丰富故障场景实现，特点是操作简洁、无侵入、扩展性强。 本文根据 GitHub 收录的文档简单整理，方便后面查看使用。 GitHub 地">
+<meta name="twitter:image" content="https://camo.githubusercontent.com/1db3a1edc0b49db279f18eabc97659660d982701/68747470733a2f2f6368616f73626c6164652e6f73732d636e2d68616e677a686f752e616c6979756e63732e636f6d2f646f632f696d6167652f6368616f73626c6164652d6c6f676f2e706e67">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/06/24/ChaosBlade—混沌实验注入工具/">
+
+
+
+
+
+<link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
+
+  <title>介绍一款混沌实验注入工具—ChaosBlade | Magical Cat</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+<div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Magical Cat</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/24/ChaosBlade—混沌实验注入工具/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="F8F-1BearCat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Issac.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Cat">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">介绍一款混沌实验注入工具—ChaosBlade</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-24T10:59:47+08:00">
+                2019-06-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Open-Source/" itemprop="url" rel="index">
+                    <span itemprop="name">Open Source</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://camo.githubusercontent.com/1db3a1edc0b49db279f18eabc97659660d982701/68747470733a2f2f6368616f73626c6164652e6f73732d636e2d68616e677a686f752e616c6979756e63732e636f6d2f646f632f696d6167652f6368616f73626c6164652d6c6f676f2e706e67" alt="chaosblade.png"></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>混沌工程是在分布式系统上进行实验的学科，旨在提升系统容错性，建立系统抵御生产环境中发生不可预知问题的信心。Chaosblade（混沌之刃） 是阿里巴巴内部 MonkeyKing 对外开源的项目，其遵循混沌工程（Chaos Engineering）实验模型，提供丰富故障场景实现，特点是操作简洁、无侵入、扩展性强。</p>
+<p>本文根据 GitHub 收录的文档简单整理，方便后面查看使用。</p>
+<p>GitHub 地址：<a href="https://github.com/chaosblade-io" target="_blank" rel="noopener">https://github.com/chaosblade-io</a></p>
+<a id="more"></a>
+<h2 id="混沌实验模型"><a href="#混沌实验模型" class="headerlink" title="混沌实验模型"></a>混沌实验模型</h2><p>混沌实验举例：一个运行在 10.0.0.1 机器上的应用，调用<a href="mailto:com.example.HelloService@1.0.0" target="_blank" rel="noopener">com.example.HelloService@1.0.0</a> Dubbo 服务延迟 3s。</p>
+<p>根据故障场景，可以统一成如下的混沌实验模型：</p>
+<p><img src="https://user-images.githubusercontent.com/3992234/55319674-fd73b100-54a7-11e9-8a8c-15d0fb8f2758.png" alt="chaos_model"></p>
+<p>使用 chaosblade 完成上例中的混沌实验注入命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blade create dubbo delay --time 3000 --consumer --service com.example.HelloService --version 1.0.0</span><br></pre></td></tr></table></figure>
+<p>结合混沌实验模型对 chaosblade 命令进行分析：</p>
+<ul>
+<li>Target：实验靶点，指实验发生的组件，本例中为 <code>dubbo</code>，即对 Dubbo 实施实验。</li>
+<li>Scope：实验实施的范围，指具体触发实验的机器或者集群等。由于 chaosblade 是在单机执行的工具，所以 scope 默认为本机，不显式声明。</li>
+<li>Matcher：实验规则匹配器，根据所配置的 Target，定义相关的实验匹配规则，可以配置多个。本例中为 <code>--consumer</code>、<code>--service</code>、<code>--version</code>，根据对应的匹配条件进行匹配。</li>
+<li>Action：指实验模拟的具体场景，Target 不同，实施的场景也不一样。本例中为 <code>delay</code>、 <code>--time</code>，即执行延迟演练场景，并设置延迟时间。</li>
+</ul>
+<h2 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h2><p>Chaosblade 的 CLI 工具是 blade，下载最新的 <a href="https://github.com/chaosblade-io/chaosblade/releases" target="_blank" rel="noopener">release</a> 包解压后即可使用，无需编译。截至本文更新，最新的 Chaosblade 版本为 v0.1.0 。</p>
+<p>执行 <code>./blade -h</code> 可以查看支持的命令选项，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[quote@chaosblade-0.1.0]$ ./blade -h</span><br><span class="line">An easy to use and powerful chaos engineering experiment toolkit</span><br><span class="line"></span><br><span class="line">Usage:</span><br><span class="line">  blade [command]</span><br><span class="line"></span><br><span class="line">Available Commands:</span><br><span class="line">  create      Create a chaos engineering experiment</span><br><span class="line">  destroy     Destroy a chaos experiment</span><br><span class="line">  help        Help about any command</span><br><span class="line">  prepare     Prepare to experiment</span><br><span class="line">  query       Query the parameter values required for chaos experiments</span><br><span class="line">  revoke      Undo chaos engineering experiment preparation</span><br><span class="line">  status      Query preparation stage or experiment status</span><br><span class="line">  version     Print version info</span><br><span class="line"></span><br><span class="line">Flags:</span><br><span class="line">  -d, --debug   Set client to DEBUG mode</span><br><span class="line">  -h, --help    help for blade</span><br><span class="line"></span><br><span class="line">Use &quot;blade [command] --help&quot; for more information about a command.</span><br></pre></td></tr></table></figure>
+<h3 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a>介绍：</h3><ul>
+<li>create：创建一个混沌演练实验，执行故障注入。如果注入成功，则返回实验的 uid，用于状态查询和销毁此实验使用。命令  <code>blade create [TARGET] [ACTION] [FLAGS]</code></li>
+<li>destroy：销毁之前的混沌实验。命令  <code>blade destroy UID</code></li>
+<li>prepare：混沌实验前的准备，比如演练 Java 应用，则需要挂载 java agent。如果挂载成功，返回挂载的 uid，用于状态查询或者撤销挂载使用。命令  <code>./blade prepare jvm -h</code> </li>
+<li>query：查询混沌实验所需的参数值。</li>
+<li>revoke：撤销之前混沌实验准备，比如卸载 java agent。命令  <code>blade revoke UID</code></li>
+<li>status：查询混沌实验和混沌实验环境准备记录。命令  <code>blade status UID</code> 或者 <code>blade status --type create</code></li>
+<li>version：打印版本信息。</li>
+</ul>
+<p>以上命令都支持首字母简写，且可通过 <code>--help</code> 查看命令帮助，如 <code>./blade c -h</code> 。查看<a href="https://github.com/chaosblade-io/chaosblade/wiki/%E6%96%B0%E6%89%8B%E6%8C%87%E5%8D%97" target="_blank" rel="noopener">新手指南</a>，快速上手使用。</p>
+<h3 id="使用举例："><a href="#使用举例：" class="headerlink" title="使用举例："></a>使用举例：</h3><ul>
+<li>blade create cpu fullload</li>
+<li>blade destroy 7c1f7afc281482c8</li>
+<li> blade status 7c1f7afc281482c8</li>
+<li>blade prepare jvm –process dubbo.consumer</li>
+<li> blade status –type prepare</li>
+<li>blade create dubbo delay –time 3000 –service com.alibaba.demo.HelloService –methodname hello –consumer –process dubbo.consumer</li>
+<li> blade create jvm throwCustomException –exception java.lang.Exception –classname com.example.controller.DubboController –methodname hello</li>
+<li> blade revoke e669d57f079a00cc</li>
+<li> blade query disk mount-point</li>
+</ul>
+<h3 id="混沌实验注入"><a href="#混沌实验注入" class="headerlink" title="混沌实验注入"></a>混沌实验注入</h3><p>目前支持的演练场景有操作系统类的 CPU、磁盘、进程、网络，Java 应用类的 Dubbo、MySQL、Servlet 和自定义类方法延迟或抛异常等以及杀容器、杀 Pod等，具体可执行 <code>./blade c -h</code> 查看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">[quote@chaosblade-0.1.0]$ ./blade c -h</span><br><span class="line">Create a chaos engineering experiment</span><br><span class="line"></span><br><span class="line">Usage:</span><br><span class="line">  blade create [command]</span><br><span class="line"></span><br><span class="line">Aliases:</span><br><span class="line">  create, c</span><br><span class="line"></span><br><span class="line">Examples:</span><br><span class="line">create dubbo delay --time 3000 --offset 100 --service com.example.Service --consumer</span><br><span class="line"></span><br><span class="line">Available Commands:</span><br><span class="line">  cpu         Cpu experiment</span><br><span class="line">  disk        Disk experiment</span><br><span class="line">  docker      Execute a docker experiment</span><br><span class="line">  druid       Druid experiment</span><br><span class="line">  dubbo       dubbo experiment</span><br><span class="line">  http        http experiment</span><br><span class="line">  jvm         method</span><br><span class="line">  k8s         Kubernetes experiment</span><br><span class="line">  mysql       mysql experiment</span><br><span class="line">  network     Network experiment</span><br><span class="line">  process     Process experiment</span><br><span class="line">  script      Script chaos experiment</span><br><span class="line">  servlet     java servlet experiment</span><br><span class="line"></span><br><span class="line">Flags:</span><br><span class="line">  -h, --help   help for create</span><br><span class="line"></span><br><span class="line">Global Flags:</span><br><span class="line">  -d, --debug   Set client to DEBUG mode</span><br><span class="line"></span><br><span class="line">Use &quot;blade create [command] --help&quot; for more information about a command.</span><br></pre></td></tr></table></figure>
+<p>动态脚本实现 Java 实验场景：</p>
+<p>Chaosblade 从 <a href="https://github.com/chaosblade-io/chaosblade/releases/tag/0.1.0" target="_blank" rel="noopener">0.1.0</a> 版本开始支持编写脚本实现复杂的 Java 实验场景，脚本支持 Java 和 Groovy 实现。动态脚本场景支持指定脚本文件或者脚本内容（base64 编码后的内容）来调用。具体的使用帮助命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[quote@chaosblade-0.1.0]$ ./blade create jvm script -h</span><br><span class="line">Dynamically execute custom scripts</span><br><span class="line"></span><br><span class="line">Usage:</span><br><span class="line">  blade create jvm script</span><br><span class="line"></span><br><span class="line">Flags:</span><br><span class="line">      --classname string        The class name with package (required)</span><br><span class="line">      --effect-count string     The count of chaos experiment in effect</span><br><span class="line">      --effect-percent string   The percent of chaos experiment in effect</span><br><span class="line">  -h, --help                    help for script</span><br><span class="line">      --methodname string       The method name (required)</span><br><span class="line">      --process string          Application process name</span><br><span class="line">      --script-content string   The script contents</span><br><span class="line">      --script-file string      The Script file full path</span><br><span class="line">      --script-name string      The script name for label, unnecessary</span><br><span class="line">      --script-type string      The script file type, java or groovy, default value is java</span><br><span class="line">      --timeout string          set timeout for experiment</span><br><span class="line"></span><br><span class="line">Global Flags:</span><br><span class="line">  -d, --debug   Set client to DEBUG mode</span><br></pre></td></tr></table></figure>
+<p>主要参数介绍：</p>
+<ul>
+<li><p><code>classname</code>：必要参数，指定触发实验场景的类，注意，必须是实现类，不能是接口类。</p>
+</li>
+<li><p><code>methodname</code>：必要参数，指定触发实验场景的方法，静态、私有、公有、父类方法都支持。</p>
+</li>
+<li><p><code>script-type</code>：脚本类型，默认为 java。</p>
+</li>
+<li><p><code>script-file</code>：脚本文件，文件绝对路径。</p>
+</li>
+<li><p><code>script-content</code>：脚本内容，是 Base64 编码后的内容。</p>
+</li>
+</ul>
+<ol>
+<li>使用 <code>script-content</code> 指定演练脚本内容：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./blade c jvm script --classname com.example.controller.DubboController --methodname call --script-content [Base64_content]  --script-name exception</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>使用 <code>script-file</code> 参数指定文件演练：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./blade c jvm script --classname com.example.controller.DubboController --methodname call --script-file [FILE_PATH] --script-name exception</span><br></pre></td></tr></table></figure>
+<p>Java 脚本实现规范：</p>
+<ul>
+<li>必须创建一个类，对类名和包名没有要求，其中所依赖的类，必须是目标应用所具备的类。</li>
+<li>必须添加 <code>public Object run(Map&lt;String, Object&gt; params)</code> 方法，其中 params 对象中包含目标方法参数，key 是参数索引下标，从 0 开始，比如目标方法是 <code>public String call(Object obj1, Object obj2){}</code>，则 <code>params.get(&quot;0&quot;)</code>则返回的是 <code>obj1</code> 对象，可以执行<code>params.put(&quot;0&quot;, &lt;NEW OBJECT&gt;)</code> 来修改目标方法参数（目标方法及 <code>--classname</code> 和 <code>--methodname</code> 所指定的类方法）。</li>
+<li>上述方法返回的对象如果不为空，则会根据脚本中返回的对象来修改目标方法返回值，注意类型必须和目标方法返回值一致。如果上述方法返回 null，则不会修改目标方法返回值。</li>
+</ul>
+<h2 id="分布式实践"><a href="#分布式实践" class="headerlink" title="分布式实践"></a>分布式实践</h2><p>文档下载学习： <a href="https://github.com/chaosblade-io/awesome-chaosblade/tree/master/slides" target="_blank" rel="noopener">分布式服务架构下混沌工程实践</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/开发工具/" rel="tag"><i class="fa fa-tag"></i> 开发工具</a>
+          
+            <a href="/tags/alibaba/" rel="tag"><i class="fa fa-tag"></i> alibaba</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/21/Shenandoah GC官方文档（译）/" rel="next" title="Shenandoah GC官方文档（译）">
+                <i class="fa fa-chevron-left"></i> Shenandoah GC官方文档（译）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/Issac.png" alt="F8F-1BearCat">
+          <p class="site-author-name" itemprop="name">F8F-1BearCat</p>
+           
+              <p class="site-description motion-element" itemprop="description">今天除了皮，又啥也没干</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/F8F-1BearCat" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="fczlm88@outlook.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#混沌实验模型"><span class="nav-number">2.</span> <span class="nav-text">混沌实验模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工具介绍"><span class="nav-number">3.</span> <span class="nav-text">工具介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍："><span class="nav-number">3.1.</span> <span class="nav-text">介绍：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用举例："><span class="nav-number">3.2.</span> <span class="nav-text">使用举例：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#混沌实验注入"><span class="nav-number">3.3.</span> <span class="nav-text">混沌实验注入</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式实践"><span class="nav-number">4.</span> <span class="nav-text">分布式实践</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">F8F-1BearCat</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
