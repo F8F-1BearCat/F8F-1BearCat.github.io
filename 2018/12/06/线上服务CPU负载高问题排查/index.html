@@ -96,13 +96,13 @@
 
 
 
-<meta name="description" content="背景最近在进行接口服务优化，前面对处理大量数据的线程进行了优化，具体见：线上服务CPU负载高问题排查（一） 。当优化后的版本部署到灰度服务器上时，原以为CPU占用率会明显地降低，然而事实却狠狠地打了脸，非但该服务的CPU占用及负载没有降低，反而远远差于上次优化之前版本及线上的服务。是优化方向错了，还是引入了新的问题？">
+<meta name="description" content="背景最近在进行接口服务优化，前面对处理大量数据的线程进行了优化。当优化后的版本部署到灰度服务器上时，原以为CPU占用率会明显地降低，然而事实却狠狠地打了脸，非但该服务的CPU占用及负载没有降低，反而远远差于上次优化之前版本及线上的服务。是优化方向错了，还是引入了新的问题？">
 <meta name="keywords" content="性能调优,JVM,Linux命令">
 <meta property="og:type" content="article">
-<meta property="og:title" content="线上服务CPU负载高问题排查（二）">
-<meta property="og:url" content="http://yoursite.com/2018/12/06/线上服务CPU负载高问题排查（二）/index.html">
+<meta property="og:title" content="线上服务CPU负载高问题排查">
+<meta property="og:url" content="http://yoursite.com/2018/12/06/线上服务CPU负载高问题排查/index.html">
 <meta property="og:site_name" content="Magical Cat">
-<meta property="og:description" content="背景最近在进行接口服务优化，前面对处理大量数据的线程进行了优化，具体见：线上服务CPU负载高问题排查（一） 。当优化后的版本部署到灰度服务器上时，原以为CPU占用率会明显地降低，然而事实却狠狠地打了脸，非但该服务的CPU占用及负载没有降低，反而远远差于上次优化之前版本及线上的服务。是优化方向错了，还是引入了新的问题？">
+<meta property="og:description" content="背景最近在进行接口服务优化，前面对处理大量数据的线程进行了优化。当优化后的版本部署到灰度服务器上时，原以为CPU占用率会明显地降低，然而事实却狠狠地打了脸，非但该服务的CPU占用及负载没有降低，反而远远差于上次优化之前版本及线上的服务。是优化方向错了，还是引入了新的问题？">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2018/12/06/5c08d1299cb5d.png">
 <meta property="og:image" content="https://i.loli.net/2018/12/13/5c11f7ed83ec2.png">
@@ -114,10 +114,10 @@
 <meta property="og:image" content="https://i.loli.net/2018/12/13/5c11f7d2e9c4d.png">
 <meta property="og:image" content="https://i.loli.net/2018/12/13/5c11f7f40440c.png">
 <meta property="og:image" content="https://i.loli.net/2018/12/06/5c08d1312b7aa.png">
-<meta property="og:updated_time" content="2019-03-25T08:29:53.824Z">
+<meta property="og:updated_time" content="2019-07-31T08:17:30.558Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="线上服务CPU负载高问题排查（二）">
-<meta name="twitter:description" content="背景最近在进行接口服务优化，前面对处理大量数据的线程进行了优化，具体见：线上服务CPU负载高问题排查（一） 。当优化后的版本部署到灰度服务器上时，原以为CPU占用率会明显地降低，然而事实却狠狠地打了脸，非但该服务的CPU占用及负载没有降低，反而远远差于上次优化之前版本及线上的服务。是优化方向错了，还是引入了新的问题？">
+<meta name="twitter:title" content="线上服务CPU负载高问题排查">
+<meta name="twitter:description" content="背景最近在进行接口服务优化，前面对处理大量数据的线程进行了优化。当优化后的版本部署到灰度服务器上时，原以为CPU占用率会明显地降低，然而事实却狠狠地打了脸，非但该服务的CPU占用及负载没有降低，反而远远差于上次优化之前版本及线上的服务。是优化方向错了，还是引入了新的问题？">
 <meta name="twitter:image" content="https://i.loli.net/2018/12/06/5c08d1299cb5d.png">
 
 
@@ -147,7 +147,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/06/线上服务CPU负载高问题排查（二）/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/06/线上服务CPU负载高问题排查/">
 
 
 
@@ -155,7 +155,7 @@
 
 <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
 
-  <title>线上服务CPU负载高问题排查（二） | Magical Cat</title>
+  <title>线上服务CPU负载高问题排查 | Magical Cat</title>
   
 
 
@@ -308,7 +308,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/线上服务CPU负载高问题排查（二）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/线上服务CPU负载高问题排查/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="F8F-1BearCat">
@@ -325,7 +325,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">线上服务CPU负载高问题排查（二）</h1>
+          <h1 class="post-title" itemprop="name headline">线上服务CPU负载高问题排查</h1>
         
 
         <div class="post-meta">
@@ -397,7 +397,7 @@
       
 
       
-        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近在进行接口服务优化，前面对处理大量数据的线程进行了优化，具体见：<a href="https://f8f-1bearcat.github.io/2018/12/06/%E7%BA%BF%E4%B8%8A%E6%9C%8D%E5%8A%A1CPU%E8%B4%9F%E8%BD%BD%E9%AB%98%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%EF%BC%88%E4%B8%80%EF%BC%89/" target="_blank" rel="noopener">线上服务CPU负载高问题排查（一）</a> 。当优化后的版本部署到灰度服务器上时，原以为CPU占用率会明显地降低，然而事实却狠狠地打了脸，非但该服务的CPU占用及负载没有降低，反而远远差于上次优化之前版本及线上的服务。是优化方向错了，还是引入了新的问题？<br><a id="more"></a></p>
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近在进行接口服务优化，前面对处理大量数据的线程进行了优化。当优化后的版本部署到灰度服务器上时，原以为CPU占用率会明显地降低，然而事实却狠狠地打了脸，非但该服务的CPU占用及负载没有降低，反而远远差于上次优化之前版本及线上的服务。是优化方向错了，还是引入了新的问题？<br><a id="more"></a></p>
 <h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>通过运维中心<code>zabbix</code>面板查看该机房上所有的报价服务负载情况，新部署接口服务的负载情况如下图红线所示：<br><img src="https://i.loli.net/2018/12/06/5c08d1299cb5d.png" alt="load_before.png"><br>可以发现在上午11:00~14:00时间段内，该接口服务的负载明显高于其他几台服务。CPU利用率的情况与负载类似。</p>
 <h2 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h2><h3 id="一、比较用户数量"><a href="#一、比较用户数量" class="headerlink" title="一、比较用户数量"></a>一、比较用户数量</h3><p>5个服务都部署在SZVPC机房，并且可以确定服务运行环境是相同的，那么首先需要确认是否是该服务用户量过大导致的。</p>
 <p>登录CRT，通过<code>netstat -antp|grep &#39;port&#39;|wc -l</code>命令查看服务器上的实时用户连接数。对比该机房的5个报价服务发现，所有服务的实时用户连接数大体相等，不存在优化版本服务用户连接远大于其他几台服务的情况。到这里可以得出结论是新部署的服务本身有问题。</p>
@@ -479,8 +479,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/06/线上服务CPU负载高问题排查（一）/" rel="prev" title="线上服务CPU负载高问题排查（一）">
-                线上服务CPU负载高问题排查（一） <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/13/JDK命令行工具/" rel="prev" title="JDK命令行工具">
+                JDK命令行工具 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -567,7 +567,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -578,7 +578,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

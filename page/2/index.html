@@ -297,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/线上服务CPU负载高问题排查（一）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/JDK命令行工具/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="F8F-1BearCat">
@@ -316,7 +316,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/06/线上服务CPU负载高问题排查（一）/" itemprop="url">线上服务CPU负载高问题排查（一）</a></h1>
+                <a class="post-title-link" href="/2018/12/13/JDK命令行工具/" itemprop="url">JDK命令行工具</a></h1>
         
 
         <div class="post-meta">
@@ -328,8 +328,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-06T13:49:15+08:00">
-                2018-12-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T10:10:02+08:00">
+                2018-12-13
               </time>
             
 
@@ -389,11 +389,10 @@
 
       
         
-          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>使用Arthas定位CPU占用率过高的问题，</p>
-<p>挖坑待填…</p>
+          <h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>前一阵接口服务性能调优的时候，零零星星地用到一些JDK自带的命令行工具。当服务部署到生产环境时，有一些性能诊断工具因为环境原因可能会受到限制，但是通过使用这些JDK自带的监控工具，我问可以直接在应用程序中实现强大的监控分析功能。这些工具在<strong>《深入理解Java虚拟机》</strong>和<strong>《Java性能权威指南》</strong>中都有系统性的介绍，本文也权当是一篇学习笔记，顺便对之前调优过程中的使用做一下梳理。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/06/线上服务CPU负载高问题排查（一）/#more" rel="contents">
+            <a class="btn" href="/2018/12/13/JDK命令行工具/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -444,7 +443,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/线上服务CPU负载高问题排查（二）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/线上服务CPU负载高问题排查/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="F8F-1BearCat">
@@ -463,7 +462,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/06/线上服务CPU负载高问题排查（二）/" itemprop="url">线上服务CPU负载高问题排查（二）</a></h1>
+                <a class="post-title-link" href="/2018/12/06/线上服务CPU负载高问题排查/" itemprop="url">线上服务CPU负载高问题排查</a></h1>
         
 
         <div class="post-meta">
@@ -536,10 +535,10 @@
 
       
         
-          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近在进行接口服务优化，前面对处理大量数据的线程进行了优化，具体见：<a href="https://f8f-1bearcat.github.io/2018/12/06/%E7%BA%BF%E4%B8%8A%E6%9C%8D%E5%8A%A1CPU%E8%B4%9F%E8%BD%BD%E9%AB%98%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%EF%BC%88%E4%B8%80%EF%BC%89/" target="_blank" rel="noopener">线上服务CPU负载高问题排查（一）</a> 。当优化后的版本部署到灰度服务器上时，原以为CPU占用率会明显地降低，然而事实却狠狠地打了脸，非但该服务的CPU占用及负载没有降低，反而远远差于上次优化之前版本及线上的服务。是优化方向错了，还是引入了新的问题？<br>
+          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近在进行接口服务优化，前面对处理大量数据的线程进行了优化。当优化后的版本部署到灰度服务器上时，原以为CPU占用率会明显地降低，然而事实却狠狠地打了脸，非但该服务的CPU占用及负载没有降低，反而远远差于上次优化之前版本及线上的服务。是优化方向错了，还是引入了新的问题？<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/06/线上服务CPU负载高问题排查（二）/#more" rel="contents">
+            <a class="btn" href="/2018/12/06/线上服务CPU负载高问题排查/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1827,7 +1826,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1838,7 +1837,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -125,7 +125,7 @@
 <meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide15.png">
 <meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide16.png">
 <meta property="og:image" content="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/images/slide17.png">
-<meta property="og:updated_time" content="2019-04-10T01:26:44.432Z">
+<meta property="og:updated_time" content="2019-08-05T09:02:28.273Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="G1GC官方文档（译）">
 <meta name="twitter:description" content="文章摘要本文对G1GC官方文档进行了翻译，原文地址：Getting Started with the G1 Garbage Collector">
@@ -378,6 +378,17 @@
 
                 
                 
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/译文/" itemprop="url" rel="index">
+                    <span itemprop="name">译文</span>
+                  </a>
+                </span>
+
+                
+                
               
             </span>
           
@@ -598,11 +609,14 @@
 </tr>
 <tr>
 <td>(5) 清除<em>(Stop the World Event and Concurrent)</em></td>
-<td>1 对存活对象和完全空闲region执行accounting。 （STW）</td>
+<td>1 对存活对象和完全空闲region执行accounting。 （STW）2 清除Remembered Sets。 （STW）3 重置空region并将其返回到空闲列表。 （并发）</td>
+</tr>
+<tr>
+<td>(<em>) 复制 </em>(Stop the World Event)*</td>
+<td>STW停顿以疏散或复制存活对象到新的未使用region。新生代操作日志记录为<code>[GC pause (young)]</code>。新生代和老年代的混合收集日志记录为<code>[GC Pause (mixed)]</code>。</td>
 </tr>
 </tbody>
 </table>
-<p>2 清除Remembered Sets。 （STW）<br>3 重置空region并将其返回到空闲列表。 （并发） |<br>| (<em>) 复制 </em>(Stop the World Event)*               | STW停顿以疏散或复制存活对象到新的未使用region。新生代操作日志记录为<code>[GC pause (young)]</code>。新生代和老年代的混合收集日志记录为<code>[GC Pause (mixed)]</code>。 |</p>
 <h4 id="G1-Old-Generation-Collection-Step-by-Step"><a href="#G1-Old-Generation-Collection-Step-by-Step" class="headerlink" title="G1 Old Generation Collection Step by Step"></a>G1 Old Generation Collection Step by Step</h4><p>接下来看一下这些阶段是如何与G1收集器中的老年代进行交互的。</p>
 <ol start="6">
 <li><p><strong>初始标记阶段</strong></p>
@@ -640,14 +654,10 @@
 </li>
 </ul>
 </li>
-<li><p>重新标记阶段</p>
-<pre><code>- 使用 Snapshot-at-the-Beginning（SATB）算法，该算法比CMS使用的算法快得多。
-- 完全空的region被回收。
-</code></pre></li>
-<li><p>复制/清除阶段</p>
-<pre><code>- 新生代和老年代同时被收回。
-- 基于活跃度选择老年代区域。
-</code></pre></li>
+<li><p>重新标记阶段<br>​    - 使用 Snapshot-at-the-Beginning（SATB）算法，该算法比CMS使用的算法快得多。<br>​    - 完全空的region被回收。</p>
+</li>
+<li><p>复制/清除阶段<br>​    - 新生代和老年代同时被收回。<br>​    - 基于活跃度选择老年代区域。</p>
+</li>
 </ul>
 <h2 id="命令行参数及最佳实践"><a href="#命令行参数及最佳实践" class="headerlink" title="命令行参数及最佳实践"></a>命令行参数及最佳实践</h2><h3 id="Command-Line-Options-and-Best-Practices"><a href="#Command-Line-Options-and-Best-Practices" class="headerlink" title="Command Line Options and Best Practices"></a>Command Line Options and Best Practices</h3><p>在本节中，我们来看看G1的各种命令行选项。</p>
 <h4 id="基本命令行"><a href="#基本命令行" class="headerlink" title="基本命令行"></a>基本命令行</h4><p>要启用G1收集器，请使用:<code>-XX:+UseG1GC</code></p>
@@ -866,7 +876,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -877,7 +887,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="开发工具,alibaba,JVM,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Magical Cat" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/if_Cat.png?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="简介随着软件部署规模的扩大，系统功能的细化，系统间耦合度和链路复杂度不断加强。要继续保持现有规模系统的稳定性，需要实现并完善监控体系、故障定位分析、流量录制回放、强弱依赖检测、故障演练等支撑工具平台。 出于对服务器规模和业务稳定性的考量，这些配套工具平台要具备无侵入、实时生效、动态可插拔的特点。JVM-SANDBOX就是这样一种基于JVM的非侵入式运行期AOP解决方案，由阿里测试开发专家鸾伽（花">
+<meta name="keywords" content="开发工具,alibaba,JVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="介绍一种非侵入式运行期AOP解决方案—JVM-SANDBOX">
+<meta property="og:url" content="http://yoursite.com/2019/07/30/JVM-SANDBOX—非侵入式运行期AOP解决方案/index.html">
+<meta property="og:site_name" content="Magical Cat">
+<meta property="og:description" content="简介随着软件部署规模的扩大，系统功能的细化，系统间耦合度和链路复杂度不断加强。要继续保持现有规模系统的稳定性，需要实现并完善监控体系、故障定位分析、流量录制回放、强弱依赖检测、故障演练等支撑工具平台。 出于对服务器规模和业务稳定性的考量，这些配套工具平台要具备无侵入、实时生效、动态可插拔的特点。JVM-SANDBOX就是这样一种基于JVM的非侵入式运行期AOP解决方案，由阿里测试开发专家鸾伽（花">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/wiki/alibaba/jvm-sandbox/img/BANNER.png">
+<meta property="og:updated_time" content="2019-08-06T12:05:51.271Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="介绍一种非侵入式运行期AOP解决方案—JVM-SANDBOX">
+<meta name="twitter:description" content="简介随着软件部署规模的扩大，系统功能的细化，系统间耦合度和链路复杂度不断加强。要继续保持现有规模系统的稳定性，需要实现并完善监控体系、故障定位分析、流量录制回放、强弱依赖检测、故障演练等支撑工具平台。 出于对服务器规模和业务稳定性的考量，这些配套工具平台要具备无侵入、实时生效、动态可插拔的特点。JVM-SANDBOX就是这样一种基于JVM的非侵入式运行期AOP解决方案，由阿里测试开发专家鸾伽（花">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wiki/alibaba/jvm-sandbox/img/BANNER.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/30/JVM-SANDBOX—非侵入式运行期AOP解决方案/">
+
+
+
+
+
+<link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
+
+  <title>介绍一种非侵入式运行期AOP解决方案—JVM-SANDBOX | Magical Cat</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+<div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Magical Cat</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/30/JVM-SANDBOX—非侵入式运行期AOP解决方案/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="F8F-1BearCat">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/Issac.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Magical Cat">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">介绍一种非侵入式运行期AOP解决方案—JVM-SANDBOX</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-30T15:09:08+08:00">
+                2019-07-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Open-Source/" itemprop="url" rel="index">
+                    <span itemprop="name">Open Source</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://raw.githubusercontent.com/wiki/alibaba/jvm-sandbox/img/BANNER.png" alt="sandbox"></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>随着软件部署规模的扩大，系统功能的细化，系统间耦合度和链路复杂度不断加强。要继续保持现有规模系统的稳定性，需要实现并完善监控体系、故障定位分析、流量录制回放、强弱依赖检测、故障演练等支撑工具平台。</p>
+<p>出于对服务器规模和业务稳定性的考量，这些配套工具平台要具备无侵入、实时生效、动态可插拔的特点。JVM-SANDBOX就是这样一种基于JVM的非侵入式运行期AOP解决方案，由阿里测试开发专家<strong>鸾伽</strong>（花名）开发，现已在Github上开源。</p>
+<p>本文根据 GitHub 收录的文档简单整理，方便后面查看使用。</p>
+<p>Github地址：<a href="https://github.com/alibaba/jvm-sandbox" target="_blank" rel="noopener">https://github.com/alibaba/jvm-sandbox</a></p>
+<a id="more"></a>
+<h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><h3 id="沙箱的特性"><a href="#沙箱的特性" class="headerlink" title="沙箱的特性"></a>沙箱的特性</h3><ul>
+<li><p><strong>无侵入</strong>：目标应用无需重启也无需感知沙箱的存在</p>
+</li>
+<li><p><strong>类隔离</strong>：沙箱以及沙箱的模块不会和目标应用的类相互干扰</p>
+</li>
+<li><p><strong>可插拔</strong>：沙箱以及沙箱的模块可以随时加载和卸载，不会在目标应用留下痕迹</p>
+</li>
+<li><p><strong>多租户</strong>：目标应用可以同时挂载不同租户下的沙箱并独立控制</p>
+</li>
+<li><p><strong>高兼容</strong>：支持JDK[6,11]</p>
+</li>
+</ul>
+<h3 id="沙箱常见应用场景"><a href="#沙箱常见应用场景" class="headerlink" title="沙箱常见应用场景"></a>沙箱常见应用场景</h3><p>要保持系统的稳定性，需要的能力有系统限流、故障模拟、信息监控、链路跟踪、问题定位、业务回归、风险评估等等模块</p>
+<ul>
+<li><strong>线上故障定位</strong>：无需重启，attach到目标机器上，获取系统和方法信息</li>
+<li><strong>线上系统流控</strong>：为应用设定最大服务能力阈值，超过阈值自动，系统不提供服务，保证本系统的稳定，防止流量过大压垮系统</li>
+<li><strong>线上故障模拟</strong>：向系统内注入故障，验证系统的稳定性</li>
+<li><strong>流量录制回放</strong>：线上录制流量，线下回放，完成回归</li>
+<li><strong>性能压测</strong>：使用录制流量，脱敏后，为压测提供流量</li>
+<li><strong>链路跟踪</strong>：系统间和系统内链路跟踪</li>
+<li><strong>动态日志打印</strong></li>
+<li><strong>安全信息监测和脱敏</strong></li>
+</ul>
+<h3 id="实时无侵入AOP框架"><a href="#实时无侵入AOP框架" class="headerlink" title="实时无侵入AOP框架"></a>实时无侵入AOP框架</h3><p><strong>proxy方案</strong>：基于对目标方法采用代理模式，常见的AOP框架实现方案中，有静态代理和动态代理两种。但是无论是静态织入还是动态织入的代理模式都必须新增一个方法来完成，而JDK的规范中运行期禁止对类进行新增方法操作，从而限制了现有AOP方案只能在JVM启动时、或代码编译时生效。</p>
+<p><strong>埋点方案</strong>：不修改原代码的情况下，动态将字节码注入到运行的类中，实现问题跟踪定位、数据获取等功能。</p>
+<p>proxy的解决方案实现了标准API，减少重复投入，但是不能实时生效，灵活度不够；埋点方案与之相反。</p>
+<p>JVM-Sandbox为AOP提供了一个新的实现方案：以插桩代替代理。基于JVMTI技术规范，为观察和改变代码运行结果提供了即插即用模块接口的容器。使用字节码增强技术使JVM-Sandbox的模块能在不违反JDK约束情况下实现对目标应用方法的无侵入运行时AOP拦截。</p>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="安装沙箱"><a href="#安装沙箱" class="headerlink" title="安装沙箱"></a>安装沙箱</h3><p>环境要求：</p>
+<ol>
+<li><p>JDK[6,11]；</p>
+</li>
+<li><p>Linux／UNIX／MacOS；</p>
+</li>
+</ol>
+<p>下载安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载最新版本的JVM-SANDBOX</span></span><br><span class="line">wget http://ompc.oss-cn-hangzhou.aliyuncs.com/jvm-sandbox/release/sandbox-stable-bin.zip</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解压</span></span><br><span class="line">unzip sandbox-stable-bin.zip</span><br></pre></td></tr></table></figure>
+<p>当前我使用的是<a href="https://github.com/alibaba/jvm-sandbox/releases/tag/1.2.1" target="_blank" rel="noopener">jvm-sandbox@1.2.1</a>版本，文件目录结构如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">./sandbox/</span><br><span class="line">    +--bin/</span><br><span class="line">    |   `--sandbox.sh</span><br><span class="line">    |</span><br><span class="line">    +--cfg/</span><br><span class="line">    |   +--sandbox-logback.xml</span><br><span class="line">    |   +--sandbox.properties</span><br><span class="line">    |   `--version</span><br><span class="line">    |</span><br><span class="line">    +--example/</span><br><span class="line">    |   `--sandbox-debug-<span class="keyword">module</span>.jar</span><br><span class="line">    |</span><br><span class="line">    +--install-local.sh</span><br><span class="line">    |</span><br><span class="line">    +--lib/</span><br><span class="line">    |   +--sandbox-agent.jar</span><br><span class="line">    |   +--sandbox-core.jar</span><br><span class="line">    |   `--sandbox-spy.jar</span><br><span class="line">    |</span><br><span class="line">    +--<span class="keyword">module</span>/</span><br><span class="line">    |   `--sandbox-mgr-<span class="keyword">module</span>.jar</span><br><span class="line">    |</span><br><span class="line">    +--provider/</span><br><span class="line">    |   `--sandbox-mgr-provider.jar</span><br><span class="line">    |</span><br><span class="line">    `--sandbox-<span class="keyword">module</span>/</span><br></pre></td></tr></table></figure>
+<h3 id="启动沙箱"><a href="#启动沙箱" class="headerlink" title="启动沙箱"></a>启动沙箱</h3><p>沙箱有两种启动方式：<code>ATTACH</code>和<code>AGENT</code></p>
+<ul>
+<li><p><strong>ATTACH方式启动</strong></p>
+<p>即插即用的启动模式，可以在不重启目标JVM的情况下完成沙箱的植入。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看进程号</span></span><br><span class="line">ps -aux |grep java</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入沙箱执行脚本</span></span><br><span class="line"><span class="built_in">cd</span> sandbox/bin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 假设目标JVM进程 18233</span></span><br><span class="line">./sandbox.sh -p 18233</span><br></pre></td></tr></table></figure>
+<p>注：<code>sandbox.sh</code>是整个沙箱的主要操作客户端，可以通过 <code>./sandbox.sh -h</code> 命令输出帮助信息。详见：<a href="https://github.com/alibaba/jvm-sandbox/wiki/CONFIG" target="_blank" rel="noopener">sandbox.sh命令详解</a></p>
+</li>
+</ul>
+<ul>
+<li><p>挂载成功后会提示</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">./sandbox.sh -p 18233</span><br><span class="line">                    NAMESPACE : default</span><br><span class="line">                      VERSION : 1.2.1</span><br><span class="line">                         MODE : ATTACH</span><br><span class="line">                  SERVER_ADDR : 0.0.0.0</span><br><span class="line">                  SERVER_PORT : 29071</span><br><span class="line">               UNSAFE_SUPPORT : ENABLE</span><br><span class="line">                 SANDBOX_HOME : /opt/quote/sandbox/bin/..</span><br><span class="line">            SYSTEM_MODULE_LIB : /opt/quote/sandbox/bin/../module</span><br><span class="line">              USER_MODULE_LIB : /opt/quote/sandbox/sandbox-module;</span><br><span class="line">          SYSTEM_PROVIDER_LIB : /opt/quote/sandbox/bin/../provider</span><br><span class="line">           EVENT_POOL_SUPPORT : DISABLE</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看挂载模块</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">./sandbox.sh -p 18233 -l</span><br><span class="line">sandbox-info        ACTIVE  LOADED  0  0  0.0.4  luanjia@taobao.com</span><br><span class="line">sandbox-module-mgr  ACTIVE  LOADED  0  0  0.0.2  luanjia@taobao.com</span><br><span class="line">sandbox-control     ACTIVE  LOADED  0  0  0.0.3  luanjia@taobao.com</span><br><span class="line">total=3</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看沙箱日志</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cat ~/logs/sandbox/sandbox.log |more</span><br><span class="line">2019-08-06 17:43:19 default INFO  </span><br><span class="line">     ___     ____  __      ____    _    _   _ ____  ____   _____  __</span><br><span class="line">    | \ \   / /  \/  |    / ___|  / \  | \ | |  _ \| __ ) / _ \ \/ /</span><br><span class="line"> _  | |\ \ / /| |\/| |____\___ \ / _ \ |  \| | | | |  _ \| | | \  /</span><br><span class="line">| |_| | \ V / | |  | |_____|__) / ___ \| |\  | |_| | |_) | |_| /  \</span><br><span class="line"> \___/   \_/  |_|  |_|    |____/_/   \_\_| \_|____/|____/ \___/_/\_\</span><br><span class="line">2019-08-06 17:43:19 default INFO  initializing logback success. file=/opt/quote/sandbox/bin/../cfg/sandbox-logback.xml;</span><br><span class="line">...</span><br><span class="line">2019-08-06 17:43:20 default INFO  initialized server. actual <span class="built_in">bind</span> to 0.0.0.0:36406</span><br><span class="line">2019-08-06 17:43:20 default INFO  server[0.0.0.0:0] <span class="built_in">bind</span> success.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p><strong>AGENT方式启动</strong></p>
+<p>有些时候我们需要沙箱工作在应用代码加载之前，或者一次性渲染大量的类、加载大量的模块，此时如果用ATTACH方式加载，可能会引起目标JVM的卡顿或停顿（GC），这就需要启用到AGENT的启动方式。</p>
+<p>假设SANDBOX被安装在了<code>/opt/quote/sandbox</code>，需要在JVM启动参数中增加上</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-javaagent:/opt/quote/sandbox/lib/sandbox-agent.jar</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="卸载沙箱"><a href="#卸载沙箱" class="headerlink" title="卸载沙箱"></a>卸载沙箱</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./sandbox.sh -p 18233 -S</span><br><span class="line">jvm-sandbox[default] shutdown finished.</span><br></pre></td></tr></table></figure>
+<h2 id="配置与使用"><a href="#配置与使用" class="headerlink" title="配置与使用"></a>配置与使用</h2><h3 id="沙箱配置"><a href="#沙箱配置" class="headerlink" title="沙箱配置"></a>沙箱配置</h3><p><strong>配置文件说明</strong>：</p>
+<p>./sandbox/cfg/<br> 沙箱配置文件存放目录，里面存放了沙箱的所有配置文件</p>
+<ul>
+<li>./sandbox/cfg/version<br> 沙箱容器版本号</li>
+<li>./sandbox/cfg/sandbox.properties<br> 存放沙箱容器的配置信息，配置文件只会在沙箱容器启动的时候加载一次。详见：<a href="#jump1">详细配置解释</a></li>
+<li>./sandbox/cfg/sandbox-logback.xml<br> Logback日志配置</li>
+</ul>
+<p><span id="1"><strong>详细配置解释</strong></span>：</p>
+<p>配置文件：./cfg/sandbox.properties</p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>说明</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>system_module</td>
+<td>系统模块本地路径</td>
+<td>./module</td>
+</tr>
+<tr>
+<td>provider</td>
+<td>强化服务提供包本地路径</td>
+<td>./provider</td>
+</tr>
+<tr>
+<td>user_module</td>
+<td>用户模块本地路径</td>
+<td>~/.sandbox-module</td>
+</tr>
+<tr>
+<td>server.ip</td>
+<td>沙箱HTTP服务IP</td>
+<td>0.0.0.0</td>
+</tr>
+<tr>
+<td>server.port</td>
+<td>沙箱HTTP服务端口</td>
+<td>0（随机端口）</td>
+</tr>
+<tr>
+<td>unsafe.enable</td>
+<td>是否允许增强JDK自带类</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>user_module</p>
+<p>用户模块本地路径是一个多值通配符表达式，如果用户模块散落在本地多个不同的路径下，可以通过配置多个路径（<code>;</code>分割），亦或者可以配置通配符表达式。</p>
+<p>这里，我将用户文件路径配置为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user_module=/opt/quote/sandbox/sandbox-module</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>unsafe.enable</p>
+<p>控制容器是否能让模块增强JDK自带的类，默认值为<code>FALSE</code>，即不允许增强JDK自带的类。</p>
+</li>
+</ul>
+<h3 id="沙箱使用"><a href="#沙箱使用" class="headerlink" title="沙箱使用"></a>沙箱使用</h3><p><strong>快速入门</strong></p>
+<p>快速开始写一个入门模块：<a href="https://github.com/alibaba/jvm-sandbox/wiki/FIRST-MODULE" target="_blank" rel="noopener">修复一个损坏了的钟</a></p>
+<p><strong>进阶使用</strong></p>
+<p>沙箱分发包中自带了实用工具的例子<code>./example/sandbox-debug-module.jar</code>，代码在沙箱的<code>sandbox-debug-module</code>模块。</p>
+<table>
+<thead>
+<tr>
+<th>例子</th>
+<th>例子说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/alibaba/jvm-sandbox/blob/master/sandbox-debug-module/src/main/java/com/alibaba/jvm/sandbox/module/debug/DebugWatchModule.java" target="_blank" rel="noopener">DebugWatchModule.java</a></td>
+<td>模仿GREYS的<code>watch</code>命令</td>
+</tr>
+<tr>
+<td><a href="https://github.com/alibaba/jvm-sandbox/blob/master/sandbox-debug-module/src/main/java/com/alibaba/jvm/sandbox/module/debug/DebugTraceModule.java" target="_blank" rel="noopener">DebugTraceModule.java</a></td>
+<td>模仿GREYES的<code>trace</code>命令</td>
+</tr>
+<tr>
+<td><a href="https://github.com/alibaba/jvm-sandbox/blob/master/sandbox-debug-module/src/main/java/com/alibaba/jvm/sandbox/module/debug/DebugRalphModule.java" target="_blank" rel="noopener">DebugRalphModule.java</a></td>
+<td>无敌破坏王，故障注入（延时、熔断、并发限流、TPS限流）</td>
+</tr>
+<tr>
+<td><a href="https://github.com/alibaba/jvm-sandbox/blob/master/sandbox-debug-module/src/main/java/com/alibaba/jvm/sandbox/module/debug/LogExceptionModule.java" target="_blank" rel="noopener">LogExceptionModule.java</a></td>
+<td>记录下你的应用都发生了哪些异常 $HOME/logs/sandbox/debug/exception-monitor.log</td>
+</tr>
+<tr>
+<td><a href="https://github.com/alibaba/jvm-sandbox/blob/master/sandbox-debug-module/src/main/java/com/alibaba/jvm/sandbox/module/debug/LogServletAccessModule.java" target="_blank" rel="noopener">LogServletAccessModule.java</a></td>
+<td>记录下你的应用的HTTP服务请求 $HOME/logs/sandbox/debug/servlet-access.log</td>
+</tr>
+</tbody>
+</table>
+<p>这里可以将<code>sandbox-debug-module.jar</code>包复制到上面配置的<code>/opt/quote/sandbox/sandbox-module</code>用户模块文件路径下，重新挂载后查看挂载模块如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">./sandbox.sh -p 18233 -l</span><br><span class="line">debug-ralph             ACTIVE          LOADED          0       0       0.0.2           luanjia@taobao.com</span><br><span class="line">debug-exception-logger  ACTIVE          LOADED          1       5       0.0.2           luanjia@taobao.com</span><br><span class="line">sandbox-info            ACTIVE          LOADED          0       0       0.0.4           luanjia@taobao.com</span><br><span class="line">sandbox-module-mgr      ACTIVE          LOADED          0       0       0.0.2           luanjia@taobao.com</span><br><span class="line">debug-trace             ACTIVE          LOADED          0       0       0.0.2           luanjia@taobao.com</span><br><span class="line">debug-lifecycle         ACTIVE          LOADED          0       0       0.0.1           luanjia@taobao.com</span><br><span class="line">sandbox-control         ACTIVE          LOADED          0       0       0.0.3           luanjia@taobao.com</span><br><span class="line">debug-watch             ACTIVE          LOADED          0       0       0.0.2           luanjia@taobao.com</span><br><span class="line">debug-servlet-access    ACTIVE          LOADED          2       2       0.0.2           luanjia@taobao.com</span><br><span class="line">total=9</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>不增强任何类，只为体验沙箱模块生命周期</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./sandbox.sh -p 18233 -d <span class="string">'debug-lifecycle/control'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>验证限流 并发请求数</p>
+<p>class 执行类、method 指定方法、c 制定速度</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./sandbox.sh -p 18233 -d <span class="string">'debug-ralph/c-limit?class=&lt;CLASS&gt;&amp;method=&lt;METHOD&gt;&amp;c=&lt;CONCURRENT&gt;'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>验证限流 TPS</p>
+<p>class 执行类、method 指定方法、r 制定速度</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./sandbox.sh -p 18233 -d <span class="string">'debug-ralph/r-limit?class=&lt;CLASS&gt;&amp;method=&lt;METHOD&gt;&amp;r=&lt;RATE&gt;'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注入方法异常</p>
+<p>访问直接抛出异常</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./sandbox.sh -p 18233 -d <span class="string">'debug-ralph/wreck?class=&lt;CLASS&gt;&amp;method=&lt;METHOD&gt;&amp;type=&lt;EXCEPTION-TYPE&gt;'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注入方法延时</p>
+<p>class 执行类、 method 指定方法、 delay 指定速度</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./sandbox.sh -p 18233 -d <span class="string">'debug-ralph/delay?class=&lt;CLASS&gt;&amp;method=&lt;METHOD&gt;&amp;delay=&lt;DELAY(ms)&gt;'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>trace</p>
+<p>模仿Greys的trace命令，控制台输出方法调用链</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./sandbox.sh -p 18233 -d <span class="string">'debug-trace/trace?class=&lt;CLASS&gt;&amp;method=&lt;METHOD&gt;'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>watch</p>
+<p>模仿Greys的watch命令，匹配方法执行 <code>at</code> 方法执行 <code>watch</code> 观察点，OGNL表达式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./sandbox.sh -p 18233 -d <span class="string">'debug-watch/watch?class=&lt;CLASS&gt;&amp;method=&lt;METHOD&gt;&amp;watch=&#123;return&#125;&amp;at=RETURN'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>流量录制回放</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 录制</span></span><br><span class="line"><span class="comment">## 1. 修改录制的HTTP的URL ~/.sandbox-module/cfg/repeater-config.json</span></span><br><span class="line"><span class="comment">### 配置URL</span></span><br><span class="line"><span class="string">"httpEntrancePatterns"</span>: [</span><br><span class="line"><span class="string">"^/regress/.*$"</span>,</span><br><span class="line"><span class="string">"^/.*$"</span></span><br><span class="line">]</span><br><span class="line"><span class="comment">### 配置 MOCK ⽅法点 【可以确定回放是否成功】</span></span><br><span class="line"><span class="string">"javaSubInvokeBehaviors"</span>: [</span><br><span class="line">&#123;</span><br><span class="line"><span class="string">"classPattern"</span>: <span class="string">"xx.IndexService"</span>,</span><br><span class="line"><span class="string">"includeSubClasses"</span>: <span class="literal">false</span>,</span><br><span class="line"><span class="string">"methodPatterns"</span>: [</span><br><span class="line"><span class="string">"get"</span></span><br><span class="line">]</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">## 2. 浏览器访问 (命令⼿动制定traceId和浏览量器访问)</span></span><br><span class="line">http://localhost:8080/index?a=2&amp;b=x</span><br><span class="line"><span class="comment">## 3. 查看⽇志 ~/logs/sandbox/repeater/repeater.log</span></span><br><span class="line">broadcast success,traceId=127000001001156272798561510001ed,resp=success</span><br><span class="line"><span class="comment">## 3.1 查看录制⽂件信息 ~/.sandbox-module/repeater-data</span></span><br><span class="line"><span class="comment"># 》回放</span></span><br><span class="line"><span class="comment">## ⽅式1 http _data 是hessian编码</span></span><br><span class="line">curl http://127.0.0.1:3658/sandbox/default/module/http/repeater/repeat?_data=</span><br><span class="line">bash sandbox.sh -p 18233 -d <span class="string">'repeater/repeat?_data='</span></span><br><span class="line"><span class="comment">## ⽅式2</span></span><br><span class="line">curl -s <span class="string">'http://localhost:8080/index?a=2&amp;b=x'</span> -H <span class="string">'Repeat-TraceId-X:127000001001156274301881610001ed'</span></span><br><span class="line">curl -s <span class="string">'http://localhost:8080/index?a=2&amp;b=x&amp;Repeat-TraceId-X=127000001001156274301881610001ed'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>基于JVM-Sandbox的录制/回放通用解决方案</p>
+<p><a href="https://github.com/alibaba/jvm-sandbox-repeater" target="_blank" rel="noopener">jvm-sandbox-repeater</a>是JVM-Sandbox生态体系下的重要模块，它具备了JVM-Sandbox的所有特点，插件式设计便于快速适配各种中间件，封装请求录制/回放基础协议，也提供了通用可扩展的各种丰富API。</p>
+</li>
+</ul>
+</li>
+<li><p>记录异常日志</p>
+</li>
+<li><p>监听TCP数据包</p>
+</li>
+</ul>
+<p><strong>编写你自己的模块</strong></p>
+<p>我们可以根据需要编写自己的模块，参考资料如下：</p>
+<p>沙箱实践介绍：<a href="https://github.com/alibaba/jvm-sandbox/wiki/EVENT-INTRODUCE" target="_blank" rel="noopener">https://github.com/alibaba/jvm-sandbox/wiki/EVENT-INTRODUCE</a></p>
+<p>模块工程介绍：<a href="https://github.com/alibaba/jvm-sandbox/wiki/MODULE-LIFECYCLE" target="_blank" rel="noopener">https://github.com/alibaba/jvm-sandbox/wiki/MODULE-LIFECYCLE</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/开发工具/" rel="tag"><i class="fa fa-tag"></i> 开发工具</a>
+          
+            <a href="/tags/alibaba/" rel="tag"><i class="fa fa-tag"></i> alibaba</a>
+          
+            <a href="/tags/JVM/" rel="tag"><i class="fa fa-tag"></i> JVM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/24/ChaosBlade—混沌实验注入工具/" rel="next" title="介绍一款混沌实验注入工具—ChaosBlade">
+                <i class="fa fa-chevron-left"></i> 介绍一款混沌实验注入工具—ChaosBlade
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/Issac.png" alt="F8F-1BearCat">
+          <p class="site-author-name" itemprop="name">F8F-1BearCat</p>
+           
+              <p class="site-description motion-element" itemprop="description">今天除了皮，又啥也没干</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/F8F-1BearCat" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="fczlm88@outlook.com" target="_blank" title="E-Mail">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                    
+                      E-Mail
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目介绍"><span class="nav-number">2.</span> <span class="nav-text">项目介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#沙箱的特性"><span class="nav-number">2.1.</span> <span class="nav-text">沙箱的特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#沙箱常见应用场景"><span class="nav-number">2.2.</span> <span class="nav-text">沙箱常见应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实时无侵入AOP框架"><span class="nav-number">2.3.</span> <span class="nav-text">实时无侵入AOP框架</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速开始"><span class="nav-number">3.</span> <span class="nav-text">快速开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装沙箱"><span class="nav-number">3.1.</span> <span class="nav-text">安装沙箱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动沙箱"><span class="nav-number">3.2.</span> <span class="nav-text">启动沙箱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卸载沙箱"><span class="nav-number">3.3.</span> <span class="nav-text">卸载沙箱</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置与使用"><span class="nav-number">4.</span> <span class="nav-text">配置与使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#沙箱配置"><span class="nav-number">4.1.</span> <span class="nav-text">沙箱配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#沙箱使用"><span class="nav-number">4.2.</span> <span class="nav-text">沙箱使用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">F8F-1BearCat</span>
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Gemini
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
