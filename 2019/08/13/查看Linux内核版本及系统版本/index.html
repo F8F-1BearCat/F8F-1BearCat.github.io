@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Netty,源码,">
+  <meta name="keywords" content="Linux命令,">
 
 
 
@@ -96,20 +96,20 @@
 
 
 
-<meta name="description" content="文章摘要挖坑待填… 本文旨在对Netty中writeAndFlush()方法的线程安全及并发问题简单谈下自己的理解，同时对channel.writeAndFlush()和ctx.writeAndFlush()两个方法通过阅读源码进行比较。">
-<meta name="keywords" content="Netty,源码">
+<meta name="description" content="简介记录一下查看Linux内核版本及系统版本的几种命令。">
+<meta name="keywords" content="Linux命令">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Netty源码之writeAndFlush()流程与异步">
-<meta property="og:url" content="http://yoursite.com/2018/12/06/Netty源码之writeAndFlush()流程与异步/index.html">
+<meta property="og:title" content="查看Linux内核版本及系统版本">
+<meta property="og:url" content="http://yoursite.com/2019/08/13/查看Linux内核版本及系统版本/index.html">
 <meta property="og:site_name" content="Magical Cat">
-<meta property="og:description" content="文章摘要挖坑待填… 本文旨在对Netty中writeAndFlush()方法的线程安全及并发问题简单谈下自己的理解，同时对channel.writeAndFlush()和ctx.writeAndFlush()两个方法通过阅读源码进行比较。">
+<meta property="og:description" content="简介记录一下查看Linux内核版本及系统版本的几种命令。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://i.loli.net/2018/11/19/5bf21c6726a92.png">
-<meta property="og:updated_time" content="2019-03-25T06:36:30.985Z">
+<meta property="og:image" content="https://i.loli.net/2019/02/01/5c53e438b7367.png">
+<meta property="og:updated_time" content="2019-08-13T07:26:48.751Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Netty源码之writeAndFlush()流程与异步">
-<meta name="twitter:description" content="文章摘要挖坑待填… 本文旨在对Netty中writeAndFlush()方法的线程安全及并发问题简单谈下自己的理解，同时对channel.writeAndFlush()和ctx.writeAndFlush()两个方法通过阅读源码进行比较。">
-<meta name="twitter:image" content="https://i.loli.net/2018/11/19/5bf21c6726a92.png">
+<meta name="twitter:title" content="查看Linux内核版本及系统版本">
+<meta name="twitter:description" content="简介记录一下查看Linux内核版本及系统版本的几种命令。">
+<meta name="twitter:image" content="https://i.loli.net/2019/02/01/5c53e438b7367.png">
 
 
 
@@ -138,7 +138,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/06/Netty源码之writeAndFlush()流程与异步/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/13/查看Linux内核版本及系统版本/">
 
 
 
@@ -146,7 +146,7 @@
 
 <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
 
-  <title>Netty源码之writeAndFlush()流程与异步 | Magical Cat</title>
+  <title>查看Linux内核版本及系统版本 | Magical Cat</title>
   
 
 
@@ -299,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/Netty源码之writeAndFlush()流程与异步/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/13/查看Linux内核版本及系统版本/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="F8F-1BearCat">
@@ -316,7 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Netty源码之writeAndFlush()流程与异步</h1>
+          <h1 class="post-title" itemprop="name headline">查看Linux内核版本及系统版本</h1>
         
 
         <div class="post-meta">
@@ -328,8 +328,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-06T09:14:11+08:00">
-                2018-12-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-13T14:55:35+08:00">
+                2019-08-13
               </time>
             
 
@@ -351,8 +351,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
                   </a>
                 </span>
 
@@ -388,10 +388,38 @@
       
 
       
-        <p><img src="https://i.loli.net/2018/11/19/5bf21c6726a92.png" alt="netty.png"></p>
-<h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>挖坑待填…</p>
-<p>本文旨在对Netty中writeAndFlush()方法的线程安全及并发问题简单谈下自己的理解，同时对channel.writeAndFlush()和ctx.writeAndFlush()两个方法通过阅读源码进行比较。</p>
+        <p><img src="https://i.loli.net/2019/02/01/5c53e438b7367.png" alt="Linux.png"></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>记录一下查看Linux内核版本及系统版本的几种命令。</p>
 <a id="more"></a>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><h3 id="查看Linux内核版本命令："><a href="#查看Linux内核版本命令：" class="headerlink" title="查看Linux内核版本命令："></a>查看Linux内核版本命令：</h3><ul>
+<li><p><code>cat /proc/version</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@ZPVMLIST-YS ~]<span class="comment"># cat /proc/version</span></span><br><span class="line">Linux version 2.6.32-573.el6.x86_64 (mockbuild@c6b9.bsys.dev.centos.org) (gcc version 4.4.7 20120313 (Red Hat 4.4.7-16) (GCC) ) <span class="comment">#1 SMP Thu Jul 23 15:44:03 UTC 2015</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>uname -a</code></p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@ZPVMLIST-YS ~]<span class="comment"># uname -a</span></span><br><span class="line">Linux ZPVMLIST-YS 2.6.32-573.el6.x86_64 <span class="comment">#1 SMP Thu Jul 23 15:44:03 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>uname -sr</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@ZPVMLIST-YS ~]<span class="comment"># uname -sr</span></span><br><span class="line">Linux 2.6.32-573.el6.x86_64</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="查看Linux系统版本的命令："><a href="#查看Linux系统版本的命令：" class="headerlink" title="查看Linux系统版本的命令："></a>查看Linux系统版本的命令：</h3><ul>
+<li><p><code>lsb_release -a</code>，列出所有系统版本信息该命令适用于所有的Linux，包括Redhat、SuSE、Debian等发行版。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@ZPVMLIST-YS ~]<span class="comment"># lsb_release -a</span></span><br><span class="line">LSB Version:    :base-4.0-amd64:base-4.0-noarch:core-4.0-amd64:core-4.0-noarch:graphics-4.0-amd64:graphics-4.0-noarch:printing-4.0-amd64:printing-4.0-noarch</span><br><span class="line">Distributor ID: CentOS</span><br><span class="line">Description:    CentOS release 6.7 (Final)</span><br><span class="line">Release:        6.7</span><br><span class="line">Codename:       Final</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>cat /etc/issue</code>，此命令也适用于所有的Linux发行版。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@ZPVMLIST-YS ~]<span class="comment"># cat /etc/issue</span></span><br><span class="line">CentOS release 6.7 (Final)</span><br><span class="line">Kernel \r on an \m</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>cat /etc/redhat-release</code>，该命令只适合Redhat系的Linux。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@ZPVMLIST-YS ~]<span class="comment"># cat /etc/redhat-release</span></span><br><span class="line">CentOS release 6.7 (Final)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>file /bin/bash</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@ZPVMLIST-YS ~]<span class="comment"># file /bin/bash</span></span><br><span class="line">/bin/bash: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), <span class="keyword">for</span> GNU/Linux 2.6.18, stripped</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>file /bin/cat</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@ZPVMLIST-YS ~]<span class="comment"># file /bin/cat</span></span><br><span class="line">/bin/cat: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), <span class="keyword">for</span> GNU/Linux 2.6.18, stripped</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
       
     </div>
     
@@ -408,9 +436,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Netty/" rel="tag"><i class="fa fa-tag"></i> Netty</a>
-          
-            <a href="/tags/源码/" rel="tag"><i class="fa fa-tag"></i> 源码</a>
+            <a href="/tags/Linux命令/" rel="tag"><i class="fa fa-tag"></i> Linux命令</a>
           
         </div>
       
@@ -423,8 +449,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/05/Linux之sed用法/" rel="next" title="Linux之sed用法">
-                <i class="fa fa-chevron-left"></i> Linux之sed用法
+              <a href="/2019/07/30/JVM-SANDBOX—非侵入式运行期AOP解决方案/" rel="next" title="介绍一种非侵入式运行期AOP解决方案—JVM-SANDBOX">
+                <i class="fa fa-chevron-left"></i> 介绍一种非侵入式运行期AOP解决方案—JVM-SANDBOX
               </a>
             
           </div>
@@ -432,10 +458,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/06/线上服务CPU负载高问题排查/" rel="prev" title="线上服务CPU负载高问题排查">
-                线上服务CPU负载高问题排查 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -598,7 +620,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文章摘要"><span class="nav-number">1.</span> <span class="nav-text">文章摘要</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令"><span class="nav-number">2.</span> <span class="nav-text">命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看Linux内核版本命令："><span class="nav-number">2.1.</span> <span class="nav-text">查看Linux内核版本命令：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看Linux系统版本的命令："><span class="nav-number">2.2.</span> <span class="nav-text">查看Linux系统版本的命令：</span></a></li></ol></li></ol></div>
             
 
           </div>
