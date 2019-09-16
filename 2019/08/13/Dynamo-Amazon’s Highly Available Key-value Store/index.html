@@ -112,7 +112,7 @@
 <meta property="og:image" content="https://docs.riak.com/images/dynamo/figure6.png">
 <meta property="og:image" content="https://docs.riak.com/images/dynamo/figure7-small.png">
 <meta property="og:image" content="https://docs.riak.com/images/dynamo/figure8.png">
-<meta property="og:updated_time" content="2019-09-05T06:45:32.058Z">
+<meta property="og:updated_time" content="2019-09-06T01:48:29.356Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dynamo -Amazon’s Highly Available Key-value Store（译）">
 <meta name="twitter:description" content="简介中文译名：Dynamo：Amazon的高可用性的键-值存储系统 论文于 2007 年首次发表，并在 Werner Vogels 的博客上得到推广，至今有着 4k+ 的引用量，是分布式存储系统中的一篇经典论文。 本文尝试对其进行简单翻译，受翻译水平所限，难免有翻译或理解错误，如有疑问烦请查阅原文：原文地址。">
@@ -400,6 +400,7 @@
 <p>本文尝试对其进行简单翻译，受翻译水平所限，难免有翻译或理解错误，如有疑问烦请查阅原文：<a href="https://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf" target="_blank" rel="noopener">原文地址</a>。</p>
 <a id="more"></a>
 <p>以下是译文。</p>
+<p>[TOC]</p>
 <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>超大规模下的可靠性问题是我们在 Amazon.com——世界上最大的电商之一——所要面对的最大挑战之一；即使是最轻微的故障也会造成严重的经济后果，并影响客户对我们的信任。Amazon.com 作为一个为全球提供 web 服务的平台，其底层的基础设施是由遍布全球的数据中心中成千上万的服务器和网络设备所组成的。在这种规模下，各种大大小小的部件故障持续发生，而我们面对这些故障时所采取的管理持久化状态的方式，驱动着软件系统的可靠性和可扩展的发展。</p>
 <p>本文介绍了 Dynamo——一个高可用的 KV 存储系统——的设计和实现，Amazon 的一些核心服务就是借助 Dynamo 来提供“永远在线”的用户体验（“always-on” experience）的。为了达到这种级别的可用性，Dynamo 牺牲了在某些故障的场景下的一致性。它广泛地使用了对象版本控制（object versioning）和应用辅助的冲突解决（application-assisted conflict resolution）机制，为开发人员提供了一个可以使用的新接口。</p>
 <h2 id="1-引言"><a href="#1-引言" class="headerlink" title="1. 引言"></a>1. 引言</h2><p>Amazon 是一个全球性的电商平台， 高峰期用户可达数千万，背后是靠分布在全球的若干数据中心中的成千上万的服务器来支撑。平台对性能、可靠性和效率方面有着严格的要求，并且为了支持持续增长，高度的可扩展性也是不可或缺的。其中可靠性是最重要的要求之一，因为即使是最轻微的故障也会造成严重的经济后果，并影响客户对我们的信任。</p>
@@ -682,6 +683,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/09/05/Netty ChannelOption参数详解/" rel="prev" title="Netty ChannelOption参数详解">
+                Netty ChannelOption参数详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -755,7 +760,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

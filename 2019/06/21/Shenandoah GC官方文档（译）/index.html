@@ -108,7 +108,7 @@
 <meta property="og:image" content="https://cr.openjdk.java.net/~shade/shenandoah/shenandoah-gc-cycle.png">
 <meta property="og:image" content="https://cr.openjdk.java.net/~shade/shenandoah/specjbb-preset4K-10min.png">
 <meta property="og:image" content="http://cr.openjdk.java.net/~shade/shenandoah/shenandoah-changes-flow.png">
-<meta property="og:updated_time" content="2019-08-05T09:05:58.199Z">
+<meta property="og:updated_time" content="2019-09-06T01:50:38.231Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shenandoah GC官方文档（译）">
 <meta name="twitter:description" content="文章摘要Shenandoah是低停顿时间的垃圾收集器，通过与正在运行的Java程序并发地执行更多垃圾收集工作来缩短GC停顿时间。Shenandoah并发地完成大部分GC工作，包括并发整理，这意味着它的停顿时间不再与堆的大小成正比。收集200GB堆或2GB堆的垃圾应具有类似的低停顿行为。 本文对Shenandoah GC官方文档进行简单翻译，方便对该垃圾收集器的使用，原文参见： Shenandoa">
@@ -406,6 +406,7 @@
 <h2 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h2><p>Shenandoah是低停顿时间的垃圾收集器，通过与正在运行的Java程序并发地执行更多垃圾收集工作来缩短GC停顿时间。Shenandoah并发地完成大部分GC工作，包括并发整理，这意味着它的停顿时间不再与堆的大小成正比。收集200GB堆或2GB堆的垃圾应具有类似的低停顿行为。</p>
 <p>本文对Shenandoah GC官方文档进行简单翻译，方便对该垃圾收集器的使用，原文参见： <a href="https://wiki.openjdk.java.net/display/shenandoah/Main" target="_blank" rel="noopener">Shenandoah wiki page</a>。</p>
 <a id="more"></a>
+<p>[TOC]</p>
 <h2 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h2><p>Shenandoah是区域化的收集器，它将堆保持为region集合。</p>
 <p>常规的Shenandoah GC周期如下所示：</p>
 <p><img src="https://cr.openjdk.java.net/~shade/shenandoah/shenandoah-gc-cycle.png" alt=""></p>
@@ -649,7 +650,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
